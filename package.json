@@ -1,0 +1,34 @@
+{
+  "name":         "sloc",
+  "version":      "0.0.1",
+  "main":         "./lib/main",
+  "description":  "sloc is a simple tool to count SLOC (source lines of code)",
+  "author":       "Markus Kohlhase",
+  "bugs":         "http://github.com/flosse/sloc/issues",
+  "contributors": ["Markus Kohlhase"],
+  "licenses":     [{"type": "GPLv3"}],
+  "engine":       "node",
+  "devDependencies":
+  {
+    "buster":         ">=0.6",
+    "buster-coffee":  ">=0.1.3",
+    "sinon":          ">=1.3.4",
+    "coffee-script":  ">=1.3.3"
+  },
+  "repositories":
+  [
+    {
+      "type": "git",
+      "path": "git://github.com/flosse/sloc.git"
+    }
+  ],
+  "maintainers":
+  [
+    {
+      "name":   "Markus Kohlhase",
+      "email":  "mail@markus-kohlhase.de",
+      "web":    "http://github.com/flosse/"
+    }
+  ],
+  "scripts": { "test": "buster test --node" }
+}

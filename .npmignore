@@ -1,0 +1,7 @@
+src/*.coffee
+spec/
+Cakefile
+.gitignore
+.npmignore
+.travis.yml
+*.swp
