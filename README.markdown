@@ -8,7 +8,15 @@
 
 ## Usage
 
-    npm install sloc
+```
+sudo npm install -g sloc
+```
+
+```
+sloc <file>
+```
+
+Or use it in your own node module
 
 ```javascript
 var fs    = require('fs');

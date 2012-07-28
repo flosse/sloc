@@ -19,11 +19,11 @@ checkDir = (d) -> fs.mkdirSync d if not fs.existsSync d
 checkTargetDir = -> checkDir targetDir
 
 task 'build', 'compile sources', ->
-  exec "coffee -c -o lib/ src/", (err, stdout, stderr) ->
+  exec "coffee -c -o lib src", (err, stdout, stderr) ->
     console.error err if err
     console.error stderr if stderr
 
 task 'watch', 'Watch source files and build changes', ->
 
   invoke "build"
-  watchDir "src/"
+  watchDir "src"
