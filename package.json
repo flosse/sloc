@@ -1,7 +1,10 @@
 {
   "name":         "sloc",
   "version":      "0.0.1",
-  "main":         "./lib/main",
+  "main":         "./lib/sloc",
+  "bin": {
+    "sloc":       "./bin/sloc"
+  },
   "description":  "sloc is a simple tool to count SLOC (source lines of code)",
   "author":       "Markus Kohlhase",
   "bugs":         "http://github.com/flosse/sloc/issues",
