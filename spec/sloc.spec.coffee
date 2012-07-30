@@ -10,7 +10,7 @@ describe "sloc", ->
     (expect typeof sloc).toEqual "function"
 
   it "should count all lines", ->
-    (expect sloc("a\nb\nc").loc).toEqual 3
+    (expect sloc("a\nb\nc", "js").loc).toEqual 3
 
   it "should count all single line comments", ->
     coffeeCode =
@@ -111,4 +111,4 @@ describe "sloc", ->
 
         # comment
       """
-    (expect sloc(coffeeCode).nloc).toEqual 2
+    (expect sloc(coffeeCode, "coffee").nloc).toEqual 2
