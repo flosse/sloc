@@ -83,7 +83,7 @@ module.exports = (code, lang) ->
 
     when "coffeescript", "coffee", "python", "py"
       comment = sharpComment
-    when "javascript", "js", "c"
+    when "javascript", "js", "c", "cc"
       comment = combine doubleSlashComment, singleLineSlashStarComment
     else
       comment = doubleSlashComment
@@ -95,7 +95,7 @@ module.exports = (code, lang) ->
       startMultiLineComment = trippleSharpComment
       stopMultiLineComment  = trippleSharpComment
 
-    when "javascript", "js", "c"
+    when "javascript", "js", "c", "cc"
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
 
@@ -104,8 +104,7 @@ module.exports = (code, lang) ->
       stopMultiLineComment  = trippleQuoteComment
 
     else
-      startMultiLineComment = slashStarComment
-      stopMultiLineComment  = starSlashComment
+      throw new TypeError "File extension '#{lang}' is not supported"
 
   commentLineNumbers  = []
   nullLineNumbers     = []
@@ -122,26 +121,27 @@ module.exports = (code, lang) ->
 
   for l,i in lines
 
-    if startMultiLineComment.test(l) and start is false
+    if start is false and startMultiLineComment.test l
       start = true
       startLine = i
 
-    else if stopMultiLineComment.test(l) and start is true
+    else if start is true and stopMultiLineComment.test l
       start = false
       x = i - startLine + 1
       commentLineNumbers.push nr for nr in [startLine..i]
       bCounter += x
 
-    else if comment.test l
+    else if start is false and comment.test l
       cCounter++
       commentLineNumbers.push i
 
-  cCounter += bCounter
-  sloc      = loc - cCounter - nloc
+  sloc      = loc - cCounter - bCounter - nloc
+  totalC    = cCounter + bCounter
 
   # result
   loc:    loc        # physical lines of code
   sloc:   sloc       # source loc
-  cloc:   cCounter   # comment loc
-  bcloc:  bCounter   # block comment loc
+  cloc:   totalC     # total comment loc
+  scloc:  cCounter   # single line comments
+  mcloc:  bCounter   # multiline comment loc
   nloc:   nloc       # null loc

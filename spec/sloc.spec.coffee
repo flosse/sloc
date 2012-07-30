@@ -75,26 +75,33 @@ describe "sloc", ->
         /* comment */ some.source.code()
         source.code() /* comment */
         // comment
+        /* comment */
+        /*
+          comment
+        */
         /**
-         * another block comment
+          //
+          another block comment
          */
       """
 
     (expect sloc(coffeeCode, "coffee").cloc).toEqual  4
     (expect sloc(coffeeCode, "coffee").sloc).toEqual  1
-    (expect sloc(coffeeCode, "coffee").bcloc).toEqual 3
+    (expect sloc(coffeeCode, "coffee").mcloc).toEqual 3
 
     (expect sloc(jsCode,"js").cloc).toEqual  7
     (expect sloc(jsCode,"js").sloc).toEqual  1
-    (expect sloc(jsCode,"js").bcloc).toEqual 6
+    (expect sloc(jsCode,"js").mcloc).toEqual 6
+    (expect sloc(jsCode,"js").scloc).toEqual 1
 
     (expect sloc(pyCode,"py").cloc).toEqual  6
     (expect sloc(pyCode,"py").sloc).toEqual  1
-    (expect sloc(pyCode,"py").bcloc).toEqual 6
+    (expect sloc(pyCode,"py").mcloc).toEqual 6
 
-    (expect sloc(cCode,"c").cloc).toEqual  4
+    (expect sloc(cCode,"c").cloc).toEqual  9
     (expect sloc(cCode,"c").sloc).toEqual  2
-    (expect sloc(cCode,"c").bcloc).toEqual 3
+    (expect sloc(cCode,"c").mcloc).toEqual 7
+    (expect sloc(cCode,"c").scloc).toEqual 2
 
   it "should count empty lines", ->
     coffeeCode =

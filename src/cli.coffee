@@ -10,7 +10,7 @@ programm  = require 'commander'
 
 getExtension = (f) ->
   i = f.lastIndexOf '.'
-  if i < 0 then '' else f.substr i
+  if i < 0 then '' else f.substr(i)[1...]
 
 parseFile = (f, cb) ->
   fs.readFile f, "utf8", (err, code) ->
@@ -48,16 +48,17 @@ print = (err, r) ->
   else
     console.log """
       ---------- result ------------
-           physical lines:  #{r.loc}
-             source lines:  #{r.sloc}
-      total comment lines:  #{r.cloc}
-      block comment lines:  #{r.bcloc}
-              empty lines:  #{r.nloc}
+           physical :  #{r.loc}
+             source :  #{r.sloc}
+      total comment :  #{r.cloc}
+         singleline :  #{r.scloc}
+          multiline :  #{r.mcloc}
+              empty :  #{r.nloc}
       ------------------------------
       """
 
 programm
-  .version('0.0.1')
+  .version('0.0.2')
   .usage('[option] <file>|<directory>')
   .option('-j, --json', 'return JSON object')
   .option('-s, --sloc', 'print only number of source lines')
