@@ -1,5 +1,16 @@
 # sloc
 
+Count source lines by
+
+- source lines
+- comment lines
+- multiline comment lines
+- single comment lines
+- empty lines
+- physical lines
+
+[![Build Status](https://secure.travis-ci.org/flosse/sloc.png)](http://travis-ci.org/flosse/sloc)
+
 ## supported languages
 
 - CoffeeScript
@@ -16,6 +27,16 @@ sudo npm install -g sloc
 ```
 sloc <file>
 ```
+
+    $ sloc src/
+    ---------- result ------------
+         physical :  220
+           source :  167
+    total comment :  11
+       singleline :  3
+        multiline :  8
+            empty :  42
+    ------------------------------
 
 Or use it in your own node module
 

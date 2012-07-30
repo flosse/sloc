@@ -1,5 +1,6 @@
 src/*.coffee
 spec/
+examples/
 Cakefile
 .gitignore
 .npmignore
