@@ -3,22 +3,22 @@ This program is distributed under the terms of the GPLv3 license.
 Copyright 2012 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
-whiteSpaceLine = new RegExp ///
+whiteSpaceLine = ///
     ^       # beginning of the line
     \s*     # zero or more spaces
     $       # end of the line
   ///
 
-sharpComment = new RegExp ///
+sharpComment = ///
     ^       # beginning of the line
     \s*     # zero or more spaces
     \#      # sharp character
   ///
 
-slashComment = new RegExp ///
+doubleSlashComment = new RegExp ///
     ^       # beginning of the line
     \s*     # zero or more spaces
-    /       # slash character
+    /{2}    # exactly two slash
   ///
 
 trippleSharpComment = new RegExp ///
@@ -31,14 +31,35 @@ slashStarComment = new RegExp ///
     ^       # beginning of the line
     \s*     # zero or more spaces
     /       # slash character
-    \*+     # followed by one or more stars
+    \*+     # one or more stars
+    (?!     # start negative lookahead
+      .*    # zero or more of any kind
+      \*    # start character
+      /     # slash character
+    )       # end lookahead
+    .*      # zero or more of any kind
+    $       # end of line
+  ///
+
+singleLineSlashStarComment = new RegExp ///
+    ^       # beginning of the line
+    \s*     # zero or more spaces
+    /       # slash character
+    \*+     # one or more stars
+    .*      # any or no characters
+    \*+     # one or more stars
+    /{1}    # exactly one slash character
+    \s*     # zero or more spaces
+    $       # end of line
   ///
 
 starSlashComment = new RegExp ///
     ^       # beginning of the line
+    .*      # any or no characters
+    \*      # one star characters
+    /{1}    # slash character
     \s*     # zero or more spaces
-    \*+     # one or ore star characters
-    /{1}    # followed by one slash character
+    $       # end of line
   ///
 
 trippleQuoteComment = new RegExp ///
@@ -51,33 +72,40 @@ trippleQuoteComment = new RegExp ///
     )
   ///
 
+combine = (r1, r2) -> new RegExp r1.toString()[1...-1] + '|' + r2.toString()[1...-1]
+
 module.exports = (code, lang) ->
 
   throw new TypeError "'code' has to be a string" unless typeof code is "string"
 
+  # single line comments
+  switch lang
+
+    when "coffeescript", "coffee", "python", "py"
+      comment = sharpComment
+    when "javascript", "js", "c"
+      comment = combine doubleSlashComment, singleLineSlashStarComment
+    else
+      comment = doubleSlashComment
+
+  ## block comments
   switch lang
 
     when "coffeescript", "coffee"
-
       startMultiLineComment = trippleSharpComment
       stopMultiLineComment  = trippleSharpComment
-      comment               = sharpComment
 
-    when "javascript", "js"
-
+    when "javascript", "js", "c"
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
-      comment               = slashComment
 
     when "python", "py"
-      comment               = sharpComment
       startMultiLineComment = trippleQuoteComment
       stopMultiLineComment  = trippleQuoteComment
 
     else
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
-      comment               = slashComment
 
   commentLineNumbers  = []
   nullLineNumbers     = []
@@ -94,7 +122,7 @@ module.exports = (code, lang) ->
 
   for l,i in lines
 
-    if startMultiLineComment.test(l)    and start is false
+    if startMultiLineComment.test(l) and start is false
       start = true
       startLine = i
 

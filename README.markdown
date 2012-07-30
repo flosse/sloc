@@ -3,6 +3,7 @@
 ## supported languages
 
 - CoffeeScript
+- C / C++
 - JavaScript
 - Python
 

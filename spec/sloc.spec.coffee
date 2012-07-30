@@ -21,7 +21,7 @@ describe "sloc", ->
       """
     jsCode =
       """
-        // a
+        /* a */
         source.code(); //comment
         // comment
       """
@@ -31,37 +31,54 @@ describe "sloc", ->
         source.code(); #comment
         # comment
       """
+    cCode =
+      """
+        /* a */
+        source.code(); /* comment */
+        // comment
+      """
 
-    (expect sloc(coffeeCode, "coffee").cloc).toEqual 2
-    (expect sloc(coffeeCode, "coffee").sloc).toEqual 1
-    (expect sloc(jsCode, "js").cloc).toEqual 2
-    (expect sloc(jsCode, "js").sloc).toEqual 1
-    (expect sloc(pyCode, "py").cloc).toEqual 2
-    (expect sloc(pyCode, "py").sloc).toEqual 1
+    (expect sloc(coffeeCode,  "coffee"      ).cloc).toEqual 2
+    (expect sloc(coffeeCode,  "coffeescript").sloc).toEqual 1
+    (expect sloc(jsCode,      "js"          ).cloc).toEqual 2
+    (expect sloc(jsCode,      "javascript"  ).sloc).toEqual 1
+    (expect sloc(pyCode,      "py"          ).cloc).toEqual 2
+    (expect sloc(pyCode,      "python"      ).sloc).toEqual 1
+    (expect sloc(cCode,       "c"           ).cloc).toEqual 2
+    (expect sloc(cCode,       "c"           ).sloc).toEqual 1
 
   it "should include block comments", ->
     coffeeCode =
       """
-        ###
-        block comment
+        ### block
+        comment
         ###
         source.code() # comment
         # comment
       """
     jsCode =
       """
-        /**
+        /** foo
         block comment
         */
         source.code() /* comment */
         // comment
         /*
         another block comment
-        */
+        // */
       """
     pyCode = '"""\n block comment\n """\n' +
       'source.code() # comment\n' +
       " '''\n another block comment\n '''"
+    cCode =
+      """
+        /* comment */ some.source.code()
+        source.code() /* comment */
+        // comment
+        /**
+         * another block comment
+         */
+      """
 
     (expect sloc(coffeeCode, "coffee").cloc).toEqual  4
     (expect sloc(coffeeCode, "coffee").sloc).toEqual  1
@@ -74,6 +91,10 @@ describe "sloc", ->
     (expect sloc(pyCode,"py").cloc).toEqual  6
     (expect sloc(pyCode,"py").sloc).toEqual  1
     (expect sloc(pyCode,"py").bcloc).toEqual 6
+
+    (expect sloc(cCode,"c").cloc).toEqual  4
+    (expect sloc(cCode,"c").sloc).toEqual  2
+    (expect sloc(cCode,"c").bcloc).toEqual 3
 
   it "should count empty lines", ->
     coffeeCode =
