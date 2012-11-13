@@ -6,3 +6,4 @@ Cakefile
 .npmignore
 .travis.yml
 *.swp
+buster.js
