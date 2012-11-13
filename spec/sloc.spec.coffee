@@ -147,3 +147,7 @@ describe "sloc", ->
         # comment
       """
     (expect sloc(coffeeCode, "coffee").nloc).toEqual 2
+
+  it "should throw an error", ->
+    (expect -> sloc "foo", "foobar").toThrow "TypeError"
+    (expect -> sloc null, "coffee").toThrow "TypeError"

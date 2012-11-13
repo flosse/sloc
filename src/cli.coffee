@@ -8,35 +8,53 @@ async     = require 'async'
 sloc      = require './sloc'
 programm  = require 'commander'
 
+BAD_FILE_ERR    = new Error "bad file"
+BAD_FORMAT_ERR  = new Error "bad format"
+
 getExtension = (f) ->
   i = f.lastIndexOf '.'
   if i < 0 then '' else f.substr(i)[1...]
 
 parseFile = (f, cb) ->
   fs.readFile f, "utf8", (err, code) ->
-    if err
-      console.error err
-      cb? err
+    if err?
+      cb? BAD_FILE_ERR
     else
-      cb? null, sloc code, getExtension f
+      try
+        cb? null, sloc code, getExtension f
+      catch e
+        cb? BAD_FORMAT_ERR
 
 parseDir = (dir, cb) ->
+
+  badFileCounter   = 0
+  badFormatCounter = 0
 
   files = ("#{dir}/#{f}" for f in fs.readdirSync dir)
 
   parseFunctions = []
 
   for f in files then do (f) ->
-    parseFunctions.push (next) -> parseFile f, next
+    parseFunctions.push (next) ->
+      parseFile f, (err, res) ->
+        if err?
+          switch err
+            when BAD_FORMAT_ERR then badFormatCounter++
+            when BAD_FILE_ERR   then badFileCounter++
+        next null, res
 
   async.parallel parseFunctions, (err, res) ->
     if err?
       cb err
     else
-      cb null, res.reduce (a,b) ->
+      res = (r for r in res when r?)
+      res = res.reduce (a,b) ->
         o = {}
         o[k] = a[k] + b[k] for k,v of a
         o
+      res.badFiles   = badFileCounter
+      res.badFormats = badFormatCounter
+      cb null, res
 
 print = (err, r) ->
   if err?
@@ -48,14 +66,20 @@ print = (err, r) ->
   else
     console.log """
       ---------- result ------------
-           physical :  #{r.loc}
-             source :  #{r.sloc}
-      total comment :  #{r.cloc}
-         singleline :  #{r.scloc}
-          multiline :  #{r.mcloc}
-              empty :  #{r.nloc}
+            physical lines :  #{r.loc}
+      lines of source code :  #{r.sloc}
+             total comment :  #{r.cloc}
+                singleline :  #{r.scloc}
+                 multiline :  #{r.mcloc}
+                     empty :  #{r.nloc}
       ------------------------------
       """
+    if r.badFiles? or r.badFormats?
+      console.log """
+        unknown source files :  #{r.badFormats}
+                broken files :  #{r.badFiles}
+        ------------------------------
+        """
 
 programm
   .version('0.0.2')
