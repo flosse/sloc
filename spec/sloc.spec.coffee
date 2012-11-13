@@ -37,6 +37,23 @@ describe "sloc", ->
         source.code(); /* comment */
         // comment
       """
+    javaCode =
+      """
+        /* a */
+        public void source(){ /* comment */
+          code();
+        }
+        // comment
+      """
+    phpCode =
+      """
+      /**
+       * block
+       **/
+
+       $test = 0;  // bla
+       // comment
+      """
 
     (expect sloc(coffeeCode,  "coffee"      ).cloc).toEqual 2
     (expect sloc(coffeeCode,  "coffeescript").sloc).toEqual 1
@@ -46,6 +63,10 @@ describe "sloc", ->
     (expect sloc(pyCode,      "python"      ).sloc).toEqual 1
     (expect sloc(cCode,       "c"           ).cloc).toEqual 2
     (expect sloc(cCode,       "c"           ).sloc).toEqual 1
+    (expect sloc(javaCode,    "java"        ).cloc).toEqual 2
+    (expect sloc(javaCode,    "java"        ).sloc).toEqual 3
+    (expect sloc(phpCode,     "php"         ).cloc).toEqual 4
+    (expect sloc(phpCode,     "php"         ).sloc).toEqual 1
 
   it "should include block comments", ->
     coffeeCode =
@@ -84,6 +105,17 @@ describe "sloc", ->
           another block comment
          */
       """
+    javaCode =
+      """
+        /** foo
+        block comment
+        */
+        source.code() /* comment */
+        // comment
+        /*
+        another block comment
+        // */
+      """
 
     (expect sloc(coffeeCode, "coffee").cloc).toEqual  4
     (expect sloc(coffeeCode, "coffee").sloc).toEqual  1
@@ -102,6 +134,9 @@ describe "sloc", ->
     (expect sloc(cCode,"c").sloc).toEqual  2
     (expect sloc(cCode,"c").mcloc).toEqual 7
     (expect sloc(cCode,"c").scloc).toEqual 2
+
+    (expect sloc(javaCode,"java").cloc).toEqual 7
+    (expect sloc(javaCode,"java").loc).toEqual 8
 
   it "should count empty lines", ->
     coffeeCode =

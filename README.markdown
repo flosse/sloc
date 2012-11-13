@@ -17,6 +17,8 @@ Count source lines by
 - C / C++
 - JavaScript
 - Python
+- Java
+- PHP
 
 ## Usage
 

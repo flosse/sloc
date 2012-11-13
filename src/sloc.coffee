@@ -83,7 +83,7 @@ module.exports = (code, lang) ->
 
     when "coffeescript", "coffee", "python", "py"
       comment = sharpComment
-    when "javascript", "js", "c", "cc"
+    when "javascript", "js", "c", "cc", "java", "php"
       comment = combine doubleSlashComment, singleLineSlashStarComment
     else
       comment = doubleSlashComment
@@ -95,7 +95,7 @@ module.exports = (code, lang) ->
       startMultiLineComment = trippleSharpComment
       stopMultiLineComment  = trippleSharpComment
 
-    when "javascript", "js", "c", "cc"
+    when "javascript", "js", "c", "cc", "java", "php"
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
 
