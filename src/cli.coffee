@@ -63,9 +63,13 @@ programm
   .option('-j, --json', 'return JSON object')
   .option('-s, --sloc', 'print only number of source lines')
 
-programm.parse(process.argv)
+programm.parse process.argv
 
-stats = fs.lstatSync programm.args[0]
+if programm.args.length < 1
+  programm.help()
 
-if stats.isDirectory() then parseDir  programm.args[0], print
-else if stats.isFile() then parseFile programm.args[0], print
+else
+  stats = fs.lstatSync programm.args[0]
+
+  if stats.isDirectory() then parseDir  programm.args[0], print
+  else if stats.isFile() then parseFile programm.args[0], print
