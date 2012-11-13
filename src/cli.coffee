@@ -48,12 +48,14 @@ parseDir = (dir, cb) ->
       cb err
     else
       res = (r for r in res when r?)
+      numberOfFiles = res.length
       res = res.reduce (a,b) ->
         o = {}
         o[k] = a[k] + b[k] for k,v of a
         o
       res.badFiles   = badFileCounter
       res.badFormats = badFormatCounter
+      res.filesRead  = numberOfFiles
       cb null, res
 
 print = (err, r) ->
@@ -74,6 +76,11 @@ print = (err, r) ->
                      empty :  #{r.nloc}
       ------------------------------
       """
+
+    if r.filesRead?
+      console.log """
+        number of files read :  #{r.filesRead}
+        """
     if r.badFiles? or r.badFormats?
       console.log """
         unknown source files :  #{r.badFormats}
