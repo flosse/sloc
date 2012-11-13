@@ -1,6 +1,6 @@
 {
   "name":         "sloc",
-  "version":      "0.0.2",
+  "version":      "0.0.3",
   "main":         "./lib/sloc",
   "bin": {
     "sloc":       "./bin/sloc"
@@ -12,7 +12,7 @@
   "licenses":     [{"type": "GPLv3"}],
   "engine":       "node",
   "dependencies": {
-    "commander":      ">=1.0.0",
+    "commander":      ">=1.0.5",
     "async":          ">=0.1.22"
   },
   "devDependencies":
@@ -20,7 +20,7 @@
     "buster":         ">=0.6",
     "sinon":          ">=1.4.1",
     "buster-coffee":  ">=0.1.3",
-    "coffee-script":  ">=1.3.3"
+    "coffee-script":  ">=1.4.0"
   },
   "repositories":
   [
