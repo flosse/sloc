@@ -7,3 +7,4 @@ Cakefile
 .travis.yml
 *.swp
 buster.js
+node_modules

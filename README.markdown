@@ -11,7 +11,7 @@ Count source lines by
 
 [![Build Status](https://secure.travis-ci.org/flosse/sloc.png)](http://travis-ci.org/flosse/sloc)
 
-## supported languages
+## Supported languages
 
 - CoffeeScript
 - C / C++
@@ -20,25 +20,48 @@ Count source lines by
 - Java
 - PHP
 
-## Usage
+## Install
 
 ```
 sudo npm install -g sloc
 ```
 
+## Usage
+
 ```
-sloc <file>
+sloc [option] <file>|<directory>
 ```
 
-    $ sloc src/
-    ---------- result ------------
-         physical :  220
-           source :  167
-    total comment :  11
-       singleline :  3
-        multiline :  8
-            empty :  42
-    ------------------------------
+Options:
+
+```
+-h, --help             output usage information
+-V, --version          output the version number
+-j, --json             return JSON object
+-s, --sloc             print only number of source lines
+-v, --verbose          print or add analzed files
+-e, --exclude <regex>  regular expression to exclude files and folders
+```
+
+e.g.:
+
+```
+$ sloc src/
+
+---------- result ------------
+
+      physical lines :  301
+lines of source code :  236
+       total comment :  17
+          singleline :  9
+           multiline :  8
+               empty :  48
+
+
+number of files read :  2
+
+------------------------------
+```
 
 Or use it in your own node module
 
