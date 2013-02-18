@@ -8,8 +8,9 @@ async     = require 'async'
 sloc      = require './sloc'
 programm  = require 'commander'
 
-BAD_FILE_ERR    = new Error "bad file"
-BAD_FORMAT_ERR  = new Error "bad format"
+BAD_FILE    = "badFile"
+BAD_FORMAT  = "badFormat"
+BAD_DIR     = "badDirectory"
 
 getExtension = (f) ->
   i = f.lastIndexOf '.'
@@ -18,81 +19,126 @@ getExtension = (f) ->
 parseFile = (f, cb) ->
   fs.readFile f, "utf8", (err, code) ->
     if err?
-      cb? BAD_FILE_ERR
+      cb? BAD_FILE
     else
       try
         cb? null, sloc code, getExtension f
       catch e
-        cb? BAD_FORMAT_ERR
+        cb? BAD_FORMAT
 
 parseDir = (dir, cb) ->
 
-  badFileCounter   = 0
-  badFormatCounter = 0
+  files = []
+  res = []
+  exclude = null
+  if programm.exclude
+    exclude = new RegExp programm.exclude
+  
+  # get a list of all files (env in sub directories) 
+  inspect = (dir, done) ->
+    # exit if directory is excluded
+    return done() if exclude?.test dir
+    fs.readdir dir, (err, items) ->
+      if err?
+        res.push err: BAD_DIR, path: path
+        return done()
+      async.forEach items, (item, next) ->
+        path = "#{dir}/#{item}"
+        # exit if folder is excluded
+        return next() if exclude?.test path
+        fs.lstat path, (err, stat) ->
+          if err?
+            res.push err: BAD_FILE, path: path
+            return next()
+          # recursively inspect directory
+          return inspect path, next if stat.isDirectory()
+          files.push path
+          next()
+      , done
 
-  files = ("#{dir}/#{f}" for f in fs.readdirSync dir)
-
-  parseFunctions = []
-
-  for f in files then do (f) ->
-    parseFunctions.push (next) ->
-      parseFile f, (err, res) ->
+  inspect dir, ->
+    async.forEach files, (f, next) ->
+      parseFile f, (err, r) ->
         if err?
-          switch err
-            when BAD_FORMAT_ERR then badFormatCounter++
-            when BAD_FILE_ERR   then badFileCounter++
-        next null, res
+          r = 
+            err: err
+            path: f
+        else
+          r.path = f
+        res.push r
+        next()
+    , (err) ->
+      if err?
+        cb err
+      else
+        # Initialize counter to handle case of first analyzed file filed in error
+        init = 
+          loc: 0
+          sloc: 0
+          cloc: 0
+          scloc: 0
+          mcloc: 0
+          nloc: 0
+        init[BAD_FILE] = 0
+        init[BAD_FORMAT] = 0
+        init[BAD_DIR] = 0
+        res.splice 0, 0, init
+        sums = res.reduce (a,b) ->
+          o = {}
+          o[k] = a[k] + (b[k] or 0) for k,v of a
+          o[b.err]++ if b.err?
+          o
+        sums.filesRead  = res.length-1
+        if programm.verbose
+          # remove counter initialization
+          res.splice 0, 1
+          sums.details = res
+        cb null, sums
 
-  async.parallel parseFunctions, (err, res) ->
-    if err?
-      cb err
-    else
-      res = (r for r in res when r?)
-      numberOfFiles = res.length
-      res = res.reduce (a,b) ->
-        o = {}
-        o[k] = a[k] + b[k] for k,v of a
-        o
-      res.badFiles   = badFileCounter
-      res.badFormats = badFormatCounter
-      res.filesRead  = numberOfFiles
-      cb null, res
+print = (err, r, file=null) ->
+  if programm.json
+    return console.log JSON.stringify if err? then err: err else r
 
-print = (err, r) ->
+  unless file?
+    console.log "\n---------- result ------------\n"
+  else
+    console.log "\n--- #{file}"
+
   if err?
-    console.error err
-  else if programm.json
-    console.log JSON.stringify r
+    console.log "               error :  #{err}"
   else if programm.sloc
     console.log r.sloc
   else
-    console.log """
-      ---------- result ------------
-            physical lines :  #{r.loc}
+    console.log """      physical lines :  #{r.loc}
       lines of source code :  #{r.sloc}
              total comment :  #{r.cloc}
                 singleline :  #{r.scloc}
                  multiline :  #{r.mcloc}
-                     empty :  #{r.nloc}
-      ------------------------------
-      """
-
+                     empty :  #{r.nloc}"""
+  unless file?
     if r.filesRead?
-      console.log """
-        number of files read :  #{r.filesRead}
-        """
-    if r.badFiles? or r.badFormats?
-      console.log """
-        unknown source files :  #{r.badFormats}
-                broken files :  #{r.badFiles}
-        ------------------------------
-        """
+      console.log "\n\nnumber of files read :  #{r.filesRead}"
 
+    if r[BAD_FORMAT]
+      console.log "unknown source files :  #{r[BAD_FORMAT]}"
+    if r[BAD_FILE]
+      console.log "        broken files :  #{r[BAD_FILE]}"
+    if r[BAD_DIR]
+      console.log "  broken directories :  #{r[BAD_DIR]}"
+
+    if r.details?
+      console.log '\n---------- details -----------'
+      print details.err, details, details.path for details in r.details
+
+    console.log "\n------------------------------\n"
+    
 programm
   .version('0.0.2')
   .usage('[option] <file>|<directory>')
   .option('-j, --json', 'return JSON object')
   .option('-s, --sloc', 'print only number of source lines')
+  .option('-v, --verbose', 'print or add analzed files')
+  .option('-e, --exclude <regex>', 'regular expression to exclude files and folders')
 
 programm.parse process.argv
 
