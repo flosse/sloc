@@ -10,6 +10,8 @@ Count source lines by
 - physical lines
 
 [![Build Status](https://secure.travis-ci.org/flosse/sloc.png)](http://travis-ci.org/flosse/sloc)
+[![Dependency Status](https://gemnasium.com/flosse/sloc.png)](https://gemnasium.com/flosse/sloc)
+[![NPM version](https://badge.fury.io/js/sloc.png)](http://badge.fury.io/js/sloc)
 
 ## Supported languages
 
