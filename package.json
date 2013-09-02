@@ -22,11 +22,11 @@
     "buster-coffee":  "~0.1.4",
     "coffee-script":  "~1.6.3"
   },
-  "repositories":
+  "repository":
   [
     {
       "type": "git",
-      "path": "git://github.com/flosse/sloc.git"
+      "url":  "git://github.com/flosse/sloc.git"
     }
   ],
   "maintainers":
