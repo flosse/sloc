@@ -97,10 +97,19 @@ parseDir = (dir, cb) ->
 
 # convert data to CSV format for easy import into Spreadsheets
 csvify = (data) ->
-  lines = "Path,Physical lines,Lines of source code,Total comment,Singleline,Multiline,Empty\n"
+
+  headers =
+    loc   : "Physical lines"
+    sloc  : "Lines of source code"
+    cloc  : "Total comment"
+    scloc : "Singleline"
+    mcloc : "Multiline"
+    nloc  : "Empty"
+
+  lines = "Path,#{(v for k,v of headers).join ','}\n"
 
   lineize = (t) ->
-    (if t.path then t.path else "Total") + "," + ([t.loc, t.sloc, t.cloc, t.scloc, t.mcloc, t.nloc].join ",") + "\n"
+    "#{t.path or "Total"},#{(t[k] for k,v of headers).join ','}\n"
 
   if data.details
     for sf in data.details
@@ -127,7 +136,8 @@ print = (err, r, file=null) ->
   else if programm.sloc
     console.log r.sloc
   else
-    console.log """      physical lines :  #{r.loc}
+    console.log """
+            physical lines :  #{r.loc}
       lines of source code :  #{r.sloc}
              total comment :  #{r.cloc}
                 singleline :  #{r.scloc}
