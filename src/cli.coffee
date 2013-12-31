@@ -4,6 +4,7 @@ Copyright 2012 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 fs        = require 'fs'
+path      = require 'path'
 async     = require 'async'
 sloc      = require './sloc'
 programm  = require 'commander'
@@ -13,19 +14,13 @@ BAD_FILE    = "badFile"
 BAD_FORMAT  = "badFormat"
 BAD_DIR     = "badDirectory"
 
-getExtension = (f) ->
-  i = f.lastIndexOf '.'
-  if i < 0 then '' else f.substr(i)[1...]
-
-parseFile = (f, cb) ->
+parseFile = (f, cb=->) ->
   fs.readFile f, "utf8", (err, code) ->
-    if err?
-      cb? BAD_FILE
-    else
-      try
-        cb? null, sloc code, getExtension f
-      catch e
-        cb? BAD_FORMAT
+    return cb BAD_FILE if err
+    try
+      cb null, sloc code, path.extname(f)[1...]
+    catch e
+      cb BAD_FORMAT
 
 parseDir = (dir, cb) ->
 
@@ -41,19 +36,19 @@ parseDir = (dir, cb) ->
     return done() if exclude?.test dir
     fs.readdir dir, (err, items) ->
       if err?
-        res.push err: BAD_DIR, path: path
+        res.push err: BAD_DIR, path: dir
         return done()
       async.forEach items, (item, next) ->
-        path = "#{dir}/#{item}"
+        p = "#{dir}/#{item}"
         # exit if folder is excluded
-        return next() if exclude?.test path
-        fs.lstat path, (err, stat) ->
+        return next() if exclude?.test p
+        fs.lstat p, (err, stat) ->
           if err?
-            res.push err: BAD_FILE, path: path
+            res.push err: BAD_FILE, path: p
             return next()
           # recursively inspect directory
-          return inspect path, next if stat.isDirectory()
-          files.push path
+          return inspect p, next if stat.isDirectory()
+          files.push p
           next()
       , done
 
