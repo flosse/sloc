@@ -7,6 +7,7 @@ fs        = require 'fs'
 async     = require 'async'
 sloc      = require './sloc'
 programm  = require 'commander'
+pkg       = require '../package.json'
 
 BAD_FILE    = "badFile"
 BAD_FORMAT  = "badFormat"
@@ -161,7 +162,7 @@ print = (err, r, file=null) ->
     console.log "\n------------------------------\n"
 
 programm
-  .version('0.0.2')
+  .version(pkg.version)
   .usage('[option] <file>|<directory>')
   .option('-j, --json', 'return JSON object')
   .option('-c, --csv', 'return CSV')
