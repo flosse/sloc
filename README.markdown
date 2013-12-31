@@ -40,6 +40,7 @@ Options:
 -h, --help             output usage information
 -V, --version          output the version number
 -j, --json             return JSON object
+-c, --csv              return CSV output
 -s, --sloc             print only number of source lines
 -v, --verbose          print or add analzed files
 -e, --exclude <regex>  regular expression to exclude files and folders
