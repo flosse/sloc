@@ -156,7 +156,7 @@ programm
   .option('-j, --json', 'return JSON object')
   .option('-c, --csv', 'return CSV')
   .option('-s, --sloc', 'print only number of source lines')
-  .option('-v, --verbose', 'print or add analzed files')
+  .option('-v, --verbose', 'print or add analized files')
   .option('-e, --exclude <regex>', 'regular expression to exclude files and folders')
 
 programm.parse process.argv
