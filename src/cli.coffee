@@ -33,8 +33,8 @@ parseDir = (dir, cb) ->
   exclude = null
   if programm.exclude
     exclude = new RegExp programm.exclude
-  
-  # get a list of all files (env in sub directories) 
+
+  # get a list of all files (env in sub directories)
   inspect = (dir, done) ->
     # exit if directory is excluded
     return done() if exclude?.test dir
@@ -60,7 +60,7 @@ parseDir = (dir, cb) ->
     async.forEach files, (f, next) ->
       parseFile f, (err, r) ->
         if err?
-          r = 
+          r =
             err: err
             path: f
         else
@@ -72,7 +72,7 @@ parseDir = (dir, cb) ->
         cb err
       else
         # Initialize counter to handle case of first analyzed file filed in error
-        init = 
+        init =
           loc: 0
           sloc: 0
           cloc: 0
@@ -97,25 +97,25 @@ parseDir = (dir, cb) ->
 
 # convert data to CSV format for easy import into Spreadsheets
 csvify = (data) ->
-	lines = "Path,Physical lines,Lines of source code,Total comment,Singleline,Multiline,Empty\n"
+  lines = "Path,Physical lines,Lines of source code,Total comment,Singleline,Multiline,Empty\n"
 
-	lineize = (t) ->
-		(if t.path then t.path else "Total") + "," + ([t.loc, t.sloc, t.cloc, t.scloc, t.mcloc, t.nloc].join ",") + "\n"
+  lineize = (t) ->
+    (if t.path then t.path else "Total") + "," + ([t.loc, t.sloc, t.cloc, t.scloc, t.mcloc, t.nloc].join ",") + "\n"
 
-	if data.details
-		for sf in data.details
-			lines += lineize sf
-	else
-		lines += lineize data
+  if data.details
+    for sf in data.details
+      lines += lineize sf
+  else
+    lines += lineize data
 
-	lines
+  lines
 
 print = (err, r, file=null) ->
   if programm.json
     return console.log JSON.stringify if err? then err: err else r
 
   if programm.csv
-  	return console.log if err? then err: err else csvify r
+    return console.log if err? then err: err else csvify r
 
   unless file?
     console.log "\n---------- result ------------\n"
@@ -149,7 +149,7 @@ print = (err, r, file=null) ->
       print details.err, details, details.path for details in r.details
 
     console.log "\n------------------------------\n"
-    
+
 programm
   .version('0.0.2')
   .usage('[option] <file>|<directory>')
