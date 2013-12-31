@@ -95,9 +95,27 @@ parseDir = (dir, cb) ->
           sums.details = res
         cb null, sums
 
+# convert data to CSV format for easy import into Spreadsheets
+csvify = (data) ->
+	lines = "Path,Physical lines,Lines of source code,Total comment,Singleline,Multiline,Empty\n"
+
+	lineize = (t) ->
+		(if t.path then t.path else "Total") + "," + ([t.loc, t.sloc, t.cloc, t.scloc, t.mcloc, t.nloc].join ",") + "\n"
+
+	if data.details
+		for sf in data.details
+			lines += lineize sf
+	else
+		lines += lineize data
+
+	lines
+
 print = (err, r, file=null) ->
   if programm.json
     return console.log JSON.stringify if err? then err: err else r
+
+  if programm.csv
+  	return console.log if err? then err: err else csvify r
 
   unless file?
     console.log "\n---------- result ------------\n"
@@ -136,6 +154,7 @@ programm
   .version('0.0.2')
   .usage('[option] <file>|<directory>')
   .option('-j, --json', 'return JSON object')
+  .option('-c, --csv', 'return CSV')
   .option('-s, --sloc', 'print only number of source lines')
   .option('-v, --verbose', 'print or add analzed files')
   .option('-e, --exclude <regex>', 'regular expression to exclude files and folders')
