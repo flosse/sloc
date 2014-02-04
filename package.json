@@ -1,41 +1,47 @@
 {
-  "name":         "sloc",
-  "version":      "0.0.4",
-  "main":         "./lib/sloc",
+  "name": "sloc",
+  "version": "0.0.5",
+  "main": "./lib/sloc",
   "bin": {
-    "sloc":       "./bin/sloc"
+    "sloc": "./bin/sloc"
   },
-  "description":  "sloc is a simple tool to count SLOC (source lines of code)",
-  "author":       "Markus Kohlhase",
-  "bugs":         "http://github.com/flosse/sloc/issues",
-  "contributors": ["Markus Kohlhase", "feugy"],
-  "licenses":     [{"type": "GPLv3"}],
-  "engine":       "node",
+  "description": "sloc is a simple tool to count SLOC (source lines of code)",
+  "author": "Markus Kohlhase",
+  "bugs": "http://github.com/flosse/sloc/issues",
+  "contributors": [
+    "Markus Kohlhase",
+    "feugy"
+  ],
+  "licenses": [
+    {
+      "type": "GPLv3"
+    }
+  ],
+  "engine": "node",
   "dependencies": {
-    "commander":      "~2.0.0",
-    "async":          "~0.2.9"
+    "commander": "~2.1.0",
+    "async": "~0.2.10"
   },
-  "devDependencies":
-  {
-    "buster":         "~0.6.12",
-    "sinon":          "~1.4.1",
-    "buster-coffee":  "~0.1.4",
-    "coffee-script":  "~1.6.3"
+  "devDependencies": {
+    "coffee-script": "~1.7.1",
+    "mocha": "~1.17.1",
+    "chai": "~1.9.0"
   },
-  "repository":
-  [
+  "repository": [
     {
       "type": "git",
-      "url":  "git://github.com/flosse/sloc.git"
+      "url": "git://github.com/flosse/sloc.git"
     }
   ],
-  "maintainers":
-  [
+  "maintainers": [
     {
-      "name":   "Markus Kohlhase",
-      "email":  "mail@markus-kohlhase.de",
-      "web":    "http://github.com/flosse/"
+      "name": "Markus Kohlhase",
+      "email": "mail@markus-kohlhase.de",
+      "web": "http://github.com/flosse/"
     }
   ],
-  "scripts": { "test": "buster test --node" }
+  "scripts": {
+    "prepublish": "coffee -bc -o lib/ src/*.coffee",
+    "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register spec/*.spec.coffee"
+  }
 }

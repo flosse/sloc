@@ -17,9 +17,11 @@ Count source lines by
 
 - CoffeeScript
 - C / C++
+- CSS
+- Go
+- Java
 - JavaScript
 - Python
-- Java
 - PHP
 
 ## Install

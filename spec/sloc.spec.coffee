@@ -1,16 +1,15 @@
-global.buster = require "buster"
-global.sinon  = require "sinon"
-buster.spec.expose()
+chai   = require 'chai'
+should = chai.should()
 
 sloc = require "../src/sloc"
 
 describe "sloc", ->
 
   it "sloc should be a function", ->
-    (expect typeof sloc).toEqual "function"
+    sloc.should.be.a.function
 
   it "should count all lines", ->
-    (expect sloc("a\nb\nc", "js").loc).toEqual 3
+    sloc("a\nb\nc", "js").loc.should.equal 3
 
   it "should count all single line comments", ->
     coffeeCode =
@@ -54,19 +53,40 @@ describe "sloc", ->
        $test = 0;  // bla
        // comment
       """
+    goCode =
+      """
+      // line comment
+      func main() { /* comment */
+	      fmt.Println("Hello World")
+      }
+      /* general
+         comment */
+      """
+    cssCode =
+      """
+      /* line comment */
+      selector { property: value; /* comment */ }
+      * { color: blue; }
+      /* block
+         comment */
+      """
 
-    (expect sloc(coffeeCode,  "coffee"      ).cloc).toEqual 2
-    (expect sloc(coffeeCode,  "coffeescript").sloc).toEqual 1
-    (expect sloc(jsCode,      "js"          ).cloc).toEqual 2
-    (expect sloc(jsCode,      "javascript"  ).sloc).toEqual 1
-    (expect sloc(pyCode,      "py"          ).cloc).toEqual 2
-    (expect sloc(pyCode,      "python"      ).sloc).toEqual 1
-    (expect sloc(cCode,       "c"           ).cloc).toEqual 2
-    (expect sloc(cCode,       "c"           ).sloc).toEqual 1
-    (expect sloc(javaCode,    "java"        ).cloc).toEqual 2
-    (expect sloc(javaCode,    "java"        ).sloc).toEqual 3
-    (expect sloc(phpCode,     "php"         ).cloc).toEqual 4
-    (expect sloc(phpCode,     "php"         ).sloc).toEqual 1
+    sloc(coffeeCode,  "coffee"      ).cloc.should.equal 2
+    sloc(coffeeCode,  "coffeescript").sloc.should.equal 1
+    sloc(jsCode,      "js"          ).cloc.should.equal 2
+    sloc(jsCode,      "javascript"  ).sloc.should.equal 1
+    sloc(pyCode,      "py"          ).cloc.should.equal 2
+    sloc(pyCode,      "python"      ).sloc.should.equal 1
+    sloc(cCode,       "c"           ).cloc.should.equal 2
+    sloc(cCode,       "c"           ).sloc.should.equal 1
+    sloc(javaCode,    "java"        ).cloc.should.equal 2
+    sloc(javaCode,    "java"        ).sloc.should.equal 3
+    sloc(phpCode,     "php"         ).cloc.should.equal 4
+    sloc(phpCode,     "php"         ).sloc.should.equal 1
+    sloc(goCode,      "go"          ).cloc.should.equal 3
+    sloc(goCode,      "go"          ).sloc.should.equal 3
+    sloc(cssCode,     "css"         ).cloc.should.equal 3
+    sloc(cssCode,     "css"         ).sloc.should.equal 2
 
   it "should include block comments", ->
     coffeeCode =
@@ -117,26 +137,41 @@ describe "sloc", ->
         // */
       """
 
-    (expect sloc(coffeeCode, "coffee").cloc).toEqual  4
-    (expect sloc(coffeeCode, "coffee").sloc).toEqual  1
-    (expect sloc(coffeeCode, "coffee").mcloc).toEqual 3
+    goCode =
+      """
+        /* foo
+        block comment
+        */
+        source.code() /* comment */
+        // comment
+        /*
+        another block comment
+        // */
+      """
 
-    (expect sloc(jsCode,"js").cloc).toEqual  7
-    (expect sloc(jsCode,"js").sloc).toEqual  1
-    (expect sloc(jsCode,"js").mcloc).toEqual 6
-    (expect sloc(jsCode,"js").scloc).toEqual 1
+    sloc(coffeeCode, "coffee").cloc  .should.equal 4
+    sloc(coffeeCode, "coffee").sloc  .should.equal 1
+    sloc(coffeeCode, "coffee").mcloc .should.equal 3
 
-    (expect sloc(pyCode,"py").cloc).toEqual  6
-    (expect sloc(pyCode,"py").sloc).toEqual  1
-    (expect sloc(pyCode,"py").mcloc).toEqual 6
+    sloc(jsCode,"js").cloc  .should.equal 7
+    sloc(jsCode,"js").sloc  .should.equal 1
+    sloc(jsCode,"js").mcloc .should.equal 6
+    sloc(jsCode,"js").scloc .should.equal 1
 
-    (expect sloc(cCode,"c").cloc).toEqual  9
-    (expect sloc(cCode,"c").sloc).toEqual  2
-    (expect sloc(cCode,"c").mcloc).toEqual 7
-    (expect sloc(cCode,"c").scloc).toEqual 2
+    sloc(pyCode,"py").cloc  .should.equal 6
+    sloc(pyCode,"py").sloc  .should.equal 1
+    sloc(pyCode,"py").mcloc .should.equal 6
 
-    (expect sloc(javaCode,"java").cloc).toEqual 7
-    (expect sloc(javaCode,"java").loc).toEqual 8
+    sloc(cCode,"c").cloc    .should.equal 9
+    sloc(cCode,"c").sloc    .should.equal 2
+    sloc(cCode,"c").mcloc   .should.equal 7
+    sloc(cCode,"c").scloc   .should.equal 2
+
+    sloc(javaCode,"java").cloc .should.equal 7
+    sloc(javaCode,"java").loc  .should.equal 8
+
+    sloc(goCode,"go").cloc .should.equal 7
+    sloc(goCode,"go").loc  .should.equal 8
 
   it "should count empty lines", ->
     coffeeCode =
@@ -146,8 +181,8 @@ describe "sloc", ->
 
         # comment
       """
-    (expect sloc(coffeeCode, "coffee").nloc).toEqual 2
+    sloc(coffeeCode, "coffee").nloc.should.equal 2
 
   it "should throw an error", ->
-    (expect -> sloc "foo", "foobar").toThrow "TypeError"
-    (expect -> sloc null, "coffee").toThrow "TypeError"
+    (-> sloc "foo", "foobar").should.throw()
+    (-> sloc null, "coffee") .should.throw()

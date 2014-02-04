@@ -24,9 +24,10 @@ parseFile = (f, cb=->) ->
 
 parseDir = (dir, cb) ->
 
-  files = []
-  res = []
+  files   = []
+  res     = []
   exclude = null
+
   if programm.exclude
     exclude = new RegExp programm.exclude
 
@@ -53,43 +54,47 @@ parseDir = (dir, cb) ->
       , done
 
   inspect dir, ->
+
+    processResults = (err) ->
+
+      return cb err if err
+
+      # Initialize counter to handle case of first analyzed file filed in error
+      init =
+        loc   : 0
+        sloc  : 0
+        cloc  : 0
+        scloc : 0
+        mcloc : 0
+        nloc  : 0
+
+      init[BAD_FILE]   = 0
+      init[BAD_FORMAT] = 0
+      init[BAD_DIR]    = 0
+
+      res.splice 0, 0, init
+      sums = res.reduce (a,b) ->
+        o = {}
+        o[k] = a[k] + (b[k] or 0) for k,v of a
+        o[b.err]++ if b.err?
+        o
+      sums.filesRead = res.length-1
+
+      if programm.verbose
+        # remove counter initialization
+        res.splice 0, 1
+        sums.details = res
+      cb null, sums
+
     async.forEach files, (f, next) ->
       parseFile f, (err, r) ->
-        if err?
-          r =
-            err: err
-            path: f
+        if err
+          r = err: err, path: f
         else
           r.path = f
         res.push r
         next()
-    , (err) ->
-      if err?
-        cb err
-      else
-        # Initialize counter to handle case of first analyzed file filed in error
-        init =
-          loc: 0
-          sloc: 0
-          cloc: 0
-          scloc: 0
-          mcloc: 0
-          nloc: 0
-        init[BAD_FILE] = 0
-        init[BAD_FORMAT] = 0
-        init[BAD_DIR] = 0
-        res.splice 0, 0, init
-        sums = res.reduce (a,b) ->
-          o = {}
-          o[k] = a[k] + (b[k] or 0) for k,v of a
-          o[b.err]++ if b.err?
-          o
-        sums.filesRead  = res.length-1
-        if programm.verbose
-          # remove counter initialization
-          res.splice 0, 1
-          sums.details = res
-        cb null, sums
+    , processResults
 
 # convert data to CSV format for easy import into Spreadsheets
 csvify = (data) ->

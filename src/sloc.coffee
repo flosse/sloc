@@ -1,6 +1,6 @@
 ###
 This program is distributed under the terms of the GPLv3 license.
-Copyright 2012 (c) Markus Kohlhase <mail@markus-kohlhase.de>
+Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 whiteSpaceLine = ///
@@ -83,8 +83,10 @@ module.exports = (code, lang) ->
 
     when "coffeescript", "coffee", "python", "py"
       comment = sharpComment
-    when "javascript", "js", "c", "cc", "java", "php"
+    when "javascript", "js", "c", "cc", "java", "php", "go"
       comment = combine doubleSlashComment, singleLineSlashStarComment
+    when "css"
+      comment = singleLineSlashStarComment
     else
       comment = doubleSlashComment
 
@@ -95,7 +97,7 @@ module.exports = (code, lang) ->
       startMultiLineComment = trippleSharpComment
       stopMultiLineComment  = trippleSharpComment
 
-    when "javascript", "js", "c", "cc", "java", "php"
+    when "javascript", "js", "c", "cc", "java", "php", "go", "css"
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
 
