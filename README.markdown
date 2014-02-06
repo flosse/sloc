@@ -127,6 +127,40 @@ console.log("source  lines: " + stats.sloc);
 console.log("comment lines: " + stats.cloc);
 ```
 
+### Grunt
+
+If you'd like to use sloc within your grunt process you can use
+[grunt-sloc](https://github.com/rhiokim/grunt-sloc).
+
+Install it:
+
+    npm install grunt-sloc --save-dev
+
+and use it:
+
+    grunt.loadNpmTasks('grunt-sloc');
+
+For more details navigate to the
+[project site](https://github.com/rhiokim/grunt-sloc).
+
+### Gulp
+
+sloc is also available for gulp.
+
+Install [gulp-sloc](https://github.com/oddjobsman/gulp-sloc):
+
+    npm install --save-dev gulp-sloc
+
+and use it:
+
+```javascript
+var sloc = require('gulp-sloc');
+
+gulp.task('sloc', function(){
+  gulp.src(['scripts/*.js']).pipe(sloc());
+});
+```
+
 ## Run tests
 
     npm test
