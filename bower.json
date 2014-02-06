@@ -1,0 +1,17 @@
+{
+  "name": "sloc",
+  "version": "0.0.5",
+  "homepage": "https://github.com/flosse/sloc",
+  "authors": [
+    "Markus Kohlhase <mail@markus-kohlhase.de>"
+  ],
+  "main": "lib/sloc.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "src"
+  ]
+}

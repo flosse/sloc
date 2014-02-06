@@ -41,7 +41,7 @@
     }
   ],
   "scripts": {
-    "prepublish": "coffee -bc -o lib/ src/*.coffee",
+    "prepublish": "coffee -c -o lib/ src/*.coffee",
     "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register spec/*.spec.coffee"
   }
 }

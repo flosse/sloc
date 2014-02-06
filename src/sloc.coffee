@@ -74,7 +74,7 @@ trippleQuoteComment = new RegExp ///
 
 combine = (r1, r2) -> new RegExp r1.toString()[1...-1] + '|' + r2.toString()[1...-1]
 
-module.exports = (code, lang) ->
+slocModule = (code, lang) ->
 
   throw new TypeError "'code' has to be a string" unless typeof code is "string"
 
@@ -147,3 +147,15 @@ module.exports = (code, lang) ->
   scloc:  cCounter   # single line comments
   mcloc:  bCounter   # multiline comment loc
   nloc:   nloc       # null loc
+
+# AMD support
+if define?.amd?
+  define -> slocModule
+
+# Browser support
+else if window?
+  window.sloc = slocModule
+
+# Node.js support
+else if module?.exports?
+  module.exports = slocModule

@@ -26,11 +26,37 @@ Count source lines by
 
 ## Install
 
+To use sloc as an application install it globally:
+
 ```
 sudo npm install -g sloc
 ```
 
+If you're going to use it as a Node.js module within your project:
+
+```
+npm install --save sloc
+```
+
+### Browser
+
+You can also use sloc within your browser application.
+
+Link `sloc.js` in your HTML file:
+
+```html
+<script src="lib/sloc.js"></script>
+```
+
+sloc is also available via [bower](http://twitter.github.com/bower/):
+
+```
+bower install sloc
+```
+
 ## Usage
+
+### CLI
 
 ```
 sloc [option] <file>|<directory>
@@ -68,6 +94,8 @@ number of files read :  2
 ------------------------------
 ```
 
+### Node.js
+
 Or use it in your own node module
 
 ```javascript
@@ -78,13 +106,25 @@ fs.readFile("mySourceFile.coffee", "utf8", function(err, code){
 
   if(err){ console.error(err); }
   else{
-    stats = sloc(code,"coffeescript");
+    var stats = sloc(code,"coffeescript");
     console.log("total   lines: " + stats.loc);
     console.log("source  lines: " + stats.sloc);
     console.log("comment lines: " + stats.cloc);
   }
 
 });
+```
+
+### Browser
+
+```javascript
+var sourceCode = "foo();\n /* bar */\n baz();";
+
+var stats = window.sloc(sourceCode,"javascript");
+
+console.log("total   lines: " + stats.loc);
+console.log("source  lines: " + stats.sloc);
+console.log("comment lines: " + stats.cloc);
 ```
 
 ## Run tests
