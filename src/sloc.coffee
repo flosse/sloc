@@ -72,18 +72,20 @@ trippleQuoteComment = new RegExp ///
     )
   ///
 
-combine = (r1, r2) -> new RegExp r1.toString()[1...-1] + '|' + r2.toString()[1...-1]
+combine = (r1, r2) ->
+  new RegExp r1.toString()[1...-1] + '|' + r2.toString()[1...-1]
 
 slocModule = (code, lang) ->
 
-  throw new TypeError "'code' has to be a string" unless typeof code is "string"
+  unless typeof code is "string"
+    throw new TypeError "'code' has to be a string"
 
   # single line comments
   switch lang
 
     when "coffeescript", "coffee", "python", "py"
       comment = sharpComment
-    when "javascript", "js", "c", "cc", "java", "php", "go"
+    when "javascript", "js", "c", "cc", "java", "php", "php5", "go"
       comment = combine doubleSlashComment, singleLineSlashStarComment
     when "css"
       comment = singleLineSlashStarComment
@@ -97,7 +99,7 @@ slocModule = (code, lang) ->
       startMultiLineComment = trippleSharpComment
       stopMultiLineComment  = trippleSharpComment
 
-    when "javascript", "js", "c", "cc", "java", "php", "go", "css"
+    when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "css"
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
 
