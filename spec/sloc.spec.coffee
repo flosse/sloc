@@ -70,6 +70,28 @@ describe "sloc", ->
       /* block
          comment */
       """
+    scssCode =
+      """
+      /* line comment */
+      selector { property: value; /* comment */ }
+      * { color: blue; }
+      /* block
+         comment */
+      body { margin: 0 }
+      // double slash line comment
+      """
+    htmlCode =
+      """
+      <html>
+        <!-- one line comment -->
+        <head><!-- one line comment --></head>
+        <body>
+        <!-- multiple
+             line comment
+         -->
+        </body>
+      </html>
+      """
 
     sloc(coffeeCode,  "coffee"      ).cloc.should.equal 2
     sloc(coffeeCode,  "coffeescript").sloc.should.equal 1
@@ -87,6 +109,10 @@ describe "sloc", ->
     sloc(goCode,      "go"          ).sloc.should.equal 3
     sloc(cssCode,     "css"         ).cloc.should.equal 3
     sloc(cssCode,     "css"         ).sloc.should.equal 2
+    sloc(scssCode,    "scss"        ).cloc.should.equal 4
+    sloc(scssCode,    "scss"        ).sloc.should.equal 3
+    sloc(htmlCode,    "html"        ).cloc.should.equal 4
+    sloc(htmlCode,    "html"        ).sloc.should.equal 5
 
   it "should include block comments", ->
     coffeeCode =
@@ -149,6 +175,30 @@ describe "sloc", ->
         // */
       """
 
+    scssCode =
+      """
+      /* line comment */
+      selector { property: value; /* comment */ }
+      * { color: blue; }
+      /* block
+         comment */
+      body { margin: 0 }
+      // double slash line comment
+      """
+
+    htmlCode =
+      """
+      <html>
+        <!-- one line comment -->
+        <head><!-- one line comment --></head>
+        <body>
+        <!-- multiple
+             line comment
+         -->
+        </body>
+      </html>
+      """
+
     sloc(coffeeCode, "coffee").cloc  .should.equal 4
     sloc(coffeeCode, "coffee").sloc  .should.equal 1
     sloc(coffeeCode, "coffee").mcloc .should.equal 3
@@ -172,6 +222,16 @@ describe "sloc", ->
 
     sloc(goCode,"go").cloc .should.equal 7
     sloc(goCode,"go").loc  .should.equal 8
+
+    sloc(scssCode,"scss").cloc   .should.equal 4
+    sloc(scssCode,"scss").sloc   .should.equal 3
+    sloc(scssCode,"scss").mcloc  .should.equal 2
+    sloc(scssCode,"scss").scloc  .should.equal 2
+
+    sloc(htmlCode,"html").cloc   .should.equal 4
+    sloc(htmlCode,"html").sloc   .should.equal 5
+    sloc(htmlCode,"html").mcloc  .should.equal 3
+    sloc(htmlCode,"html").scloc  .should.equal 1
 
   it "should count empty lines", ->
     coffeeCode =
