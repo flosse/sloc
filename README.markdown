@@ -19,6 +19,7 @@ Count source lines by
 - C / C++
 - CSS / SCSS
 - Go
+- HTML
 - Java
 - JavaScript
 - Python

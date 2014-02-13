@@ -72,6 +72,34 @@ trippleQuoteComment = new RegExp ///
     )
   ///
 
+singleLineHtmlComment = new RegExp ///
+    ^       # beginning of the line
+    \s*     # zero or more spaces
+    <!--    # html start comment
+    .*      # any or no characters
+    -->     # html stop comment
+    \s*     # zero or more spaces
+    $       # end of line
+  ///
+
+startHtmlComment = new RegExp ///
+    ^       # beginning of the line
+    \s*     # zero or more spaces
+    <!--    # html start comment
+    (?!     # start negative lookahead
+      .*    # zero or more of any kind
+      -->   # html stop comment
+    )       # end lookahead
+    .*      # zero or more of any kind
+    $       # end of line
+  ///
+
+stopHtmlComment = new RegExp ///
+    -->     # html stop comment
+    \s*     # zero or more spaces
+    $       # end of line
+  ///
+
 combine = (r1, r2) -> new RegExp r1.toString()[1...-1] + '|' + r2.toString()[1...-1]
 
 slocModule = (code, lang) ->
@@ -87,6 +115,8 @@ slocModule = (code, lang) ->
       comment = combine doubleSlashComment, singleLineSlashStarComment
     when "css"
       comment = singleLineSlashStarComment
+    when "html"
+      comment = singleLineHtmlComment
     else
       comment = doubleSlashComment
 
@@ -104,6 +134,10 @@ slocModule = (code, lang) ->
     when "python", "py"
       startMultiLineComment = trippleQuoteComment
       stopMultiLineComment  = trippleQuoteComment
+
+    when "html"
+      startMultiLineComment = startHtmlComment
+      stopMultiLineComment = stopHtmlComment
 
     else
       throw new TypeError "File extension '#{lang}' is not supported"
