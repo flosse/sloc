@@ -1,6 +1,6 @@
 {
   "name": "sloc",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "./lib/sloc",
   "bin": {
     "sloc": "./bin/sloc"
