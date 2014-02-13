@@ -164,4 +164,44 @@ module.exports =
       nloc: 0
       scloc: 1
     }
+    {
+      names: ["scss"]
+      code:
+        """
+        /* line comment */
+        selector { property: value; /* comment */ }
+        * { color: blue; }
+        /* block
+           comment */
+        body { margin: 0 }
+        // double slash line comment
+        """
+      cloc: 4
+      sloc: 3
+      mcloc: 2
+      loc: 7
+      nloc: 0
+      scloc: 2
+    }
+    {
+      names: ["html"]
+      code:
+        """
+        <html>
+          <!-- one line comment -->
+          <head><!-- one line comment --></head>
+          <body>
+          <!-- multiple
+               line comment
+           -->
+          </body>
+        </html>
+        """
+      cloc: 4
+      sloc: 5
+      mcloc: 3
+      loc: 9
+      nloc: 0
+      scloc: 1
+    }
   ]

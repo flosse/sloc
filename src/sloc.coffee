@@ -75,6 +75,34 @@ trippleQuoteComment = new RegExp ///
 combine = (r1, r2) ->
   new RegExp r1.toString()[1...-1] + '|' + r2.toString()[1...-1]
 
+singleLineHtmlComment = new RegExp ///
+    ^       # beginning of the line
+    \s*     # zero or more spaces
+    <!--    # html start comment
+    .*      # any or no characters
+    -->     # html stop comment
+    \s*     # zero or more spaces
+    $       # end of line
+  ///
+
+startHtmlComment = new RegExp ///
+    ^       # beginning of the line
+    \s*     # zero or more spaces
+    <!--    # html start comment
+    (?!     # start negative lookahead
+      .*    # zero or more of any kind
+      -->   # html stop comment
+    )       # end lookahead
+    .*      # zero or more of any kind
+    $       # end of line
+  ///
+
+stopHtmlComment = new RegExp ///
+    -->     # html stop comment
+    \s*     # zero or more spaces
+    $       # end of line
+  ///
+
 slocModule = (code, lang) ->
 
   unless typeof code is "string"
@@ -85,10 +113,12 @@ slocModule = (code, lang) ->
 
     when "coffeescript", "coffee", "python", "py"
       comment = sharpComment
-    when "javascript", "js", "c", "cc", "java", "php", "php5", "go"
+    when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "scss"
       comment = combine doubleSlashComment, singleLineSlashStarComment
     when "css"
       comment = singleLineSlashStarComment
+    when "html"
+      comment = singleLineHtmlComment
     else
       comment = doubleSlashComment
 
@@ -99,13 +129,17 @@ slocModule = (code, lang) ->
       startMultiLineComment = trippleSharpComment
       stopMultiLineComment  = trippleSharpComment
 
-    when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "css"
+    when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "css", "scss"
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
 
     when "python", "py"
       startMultiLineComment = trippleQuoteComment
       stopMultiLineComment  = trippleQuoteComment
+
+    when "html"
+      startMultiLineComment = startHtmlComment
+      stopMultiLineComment = stopHtmlComment
 
     else
       throw new TypeError "File extension '#{lang}' is not supported"
