@@ -83,7 +83,7 @@ slocModule = (code, lang) ->
 
     when "coffeescript", "coffee", "python", "py"
       comment = sharpComment
-    when "javascript", "js", "c", "cc", "java", "php", "go"
+    when "javascript", "js", "c", "cc", "java", "php", "go", "scss"
       comment = combine doubleSlashComment, singleLineSlashStarComment
     when "css"
       comment = singleLineSlashStarComment
@@ -97,7 +97,7 @@ slocModule = (code, lang) ->
       startMultiLineComment = trippleSharpComment
       stopMultiLineComment  = trippleSharpComment
 
-    when "javascript", "js", "c", "cc", "java", "php", "go", "css"
+    when "javascript", "js", "c", "cc", "java", "php", "go", "css", "scss"
       startMultiLineComment = slashStarComment
       stopMultiLineComment  = starSlashComment
 
