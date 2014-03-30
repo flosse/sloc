@@ -1,6 +1,6 @@
 {
   "name": "sloc",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "./lib/sloc",
   "bin": {
     "sloc": "./bin/sloc"
@@ -10,7 +10,8 @@
   "bugs": "http://github.com/flosse/sloc/issues",
   "contributors": [
     "Markus Kohlhase",
-    "feugy"
+    "feugy",
+    "Sören Gade"
   ],
   "licenses": [
     {
@@ -24,8 +25,8 @@
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",
-    "mocha": "~1.17.1",
-    "chai": "~1.9.0"
+    "mocha": "~1.18.2",
+    "chai": "~1.9.1"
   },
   "repository": {
     "type": "git",
