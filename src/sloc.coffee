@@ -188,10 +188,10 @@ slocModule = (code, lang) ->
 if define?.amd?
   define -> slocModule
 
-# Browser support
-else if window?
-  window.sloc = slocModule
-
 # Node.js support
 else if module?.exports?
   module.exports = slocModule
+
+# Browser support
+else if window?
+  window.sloc = slocModule
