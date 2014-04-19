@@ -184,6 +184,25 @@ module.exports =
       scloc: 2
     }
     {
+      names: ["less"]
+      code:
+        """
+        /* line comment */
+        selector { property: value; /* comment */ }
+        * { color: blue; }
+        /* block
+           comment */
+        body { margin: 0 }
+        // double slash line comment
+        """
+      cloc: 4
+      sloc: 3
+      mcloc: 2
+      loc: 7
+      nloc: 0
+      scloc: 2
+    }
+    {
       names: ["html"]
       code:
         """
