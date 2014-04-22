@@ -31,3 +31,15 @@ describe "The sloc module", ->
     for l in langs
       for n in l.names
         (n in sloc.extensions).should.be.true
+
+  it "keeps an array with all supported keys", ->
+    keys = [
+      'loc'
+      'sloc'
+      'cloc'
+      'scloc'
+      'mcloc'
+      'nloc'  ]
+    sloc.keys.should.be.an 'array'
+    for k in sloc.keys
+      (k in keys).should.be.true

@@ -3,6 +3,15 @@ This program is distributed under the terms of the GPLv3 license.
 Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
+keys = [
+  'loc'    # physical lines of code
+  'sloc'   # source loc
+  'cloc'   # total comment loc
+  'scloc'  # single line comments
+  'mcloc'  # multiline comment loc
+  'nloc'   # null loc
+  ]
+
 whiteSpaceLine = ///
     ^       # beginning of the line
     \s*     # zero or more spaces
@@ -177,12 +186,12 @@ slocModule = (code, lang) ->
   totalC    = cCounter + bCounter
 
   # result
-  loc:    loc        # physical lines of code
-  sloc:   sloc       # source loc
-  cloc:   totalC     # total comment loc
-  scloc:  cCounter   # single line comments
-  mcloc:  bCounter   # multiline comment loc
-  nloc:   nloc       # null loc
+  loc:    loc
+  sloc:   sloc
+  cloc:   totalC
+  scloc:  cCounter
+  mcloc:  bCounter
+  nloc:   nloc
 
 slocModule.extensions = [
   "coffeescript", "coffee"
@@ -197,6 +206,8 @@ slocModule.extensions = [
   "less"
   "css"
   "html" ]
+
+slocModule.keys = keys
 
 # AMD support
 if define?.amd?
