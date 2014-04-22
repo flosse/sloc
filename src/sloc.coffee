@@ -184,6 +184,20 @@ slocModule = (code, lang) ->
   mcloc:  bCounter   # multiline comment loc
   nloc:   nloc       # null loc
 
+slocModule.extensions = [
+  "coffeescript", "coffee"
+  "python", "py"
+  "javascript", "js"
+  "c"
+  "cc"
+  "java"
+  "php", "php5"
+  "go"
+  "scss"
+  "less"
+  "css"
+  "html" ]
+
 # AMD support
 if define?.amd?
   define -> slocModule

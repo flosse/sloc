@@ -3,9 +3,9 @@ should    = chai.should()
 langs     = require "./languages"
 sloc      = require "../src/sloc"
 
-describe "sloc", ->
+describe "The sloc module", ->
 
-  it "sloc should be a function", ->
+  it "should be a function", ->
     sloc.should.be.a 'function'
 
   it "should count all lines", ->
@@ -25,3 +25,9 @@ describe "sloc", ->
   it "should throw an error", ->
     (-> sloc "foo", "foobar").should.throw()
     (-> sloc null, "coffee") .should.throw()
+
+  it "keeps an array with all supported extensions", ->
+    sloc.extensions.should.be.an 'array'
+    for l in langs
+      for n in l.names
+        (n in sloc.extensions).should.be.true
