@@ -84,7 +84,7 @@ parseDir = (dir, cb) ->
         o
       sums.filesRead = res.length-1
 
-      if programm.verbose
+      if programm.details
         # remove counter initialization
         res.splice 0, 1
         sums.details = res
@@ -128,9 +128,9 @@ programm
 
   .option '-e, --exclude <regex>',  'regular expression to exclude files and folders'
   .option '-f, --format <format>',  'format output: json, csv, cli-table'
-  .option '-s, --sloc',             'print only number of source lines'
-  .option '-v, --verbose',          'append stats of each analized file'
-
+  .option '-s, --sloc',             'report only number of source lines'
+  .option '-d, --details',          'report stats of each analized file'
+                            d
 programm.parse process.argv
 
 if programm.args.length < 1
