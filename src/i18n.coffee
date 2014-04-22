@@ -8,7 +8,8 @@ module.exports =
     nloc  : "Empty"
 
     Result    : "Result"
-    Toatal    : "Total"
+    Path      : "Path"
+    Total     : "Total"
     Details   : "Details"
     Error     : "Error"
     BadDir    : "Bad directory"

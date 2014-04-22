@@ -11,6 +11,7 @@ sloc      = require './sloc'
 i18n      = require './i18n'
 helpers   = require './helpers'
 pkg       = require '../package.json'
+csvify    = require './formatters/csv'
 
 BAD_FILE    = i18n.en.BadFile
 BAD_FORMAT  = i18n.en.BadFormat
@@ -98,34 +99,19 @@ parseDir = (dir, cb) ->
         next()
     , processResults
 
-# convert data to CSV format for easy import into Spreadsheets
-csvify = (data) ->
-
-  headers = ['loc', 'sloc', 'cloc', 'scloc', 'mcloc', 'nloc']
-
-  lines = "Path,#{(i18n.en[k] for k in headers).join ','}\n"
-
-  lineize = (t) ->
-    "#{t.path or i18n.en.Total},#{(t[k] for k in headers).join ','}\n"
-
-  if data.details
-    for sf in data.details
-      lines += lineize sf
-  else
-    lines += lineize data
-
-  lines
-
 print = (err, r, file=null) ->
 
   align = helpers.alignRight
   col   = 20
 
-  if programm.json
-    return console.log JSON.stringify if err? then err: err else r
-
-  if programm.csv
-    return console.log if err? then err: err else csvify r
+  if f = programm.format
+    switch f
+      when 'json'
+        return console.log JSON.stringify if err? then err: err else r
+      when 'csv'
+        return console.log if err? then err: err else csvify r
+      else
+        return console.error "Error: format #{f} is not supported"
 
   unless file?
     console.log "\n---------- #{i18n.en.Result} ------------\n"
@@ -163,13 +149,15 @@ print = (err, r, file=null) ->
     console.log "\n------------------------------\n"
 
 programm
-  .version(pkg.version)
-  .usage('[option] <file>|<directory>')
-  .option('-j, --json', 'return JSON object')
-  .option('-c, --csv', 'return CSV')
-  .option('-s, --sloc', 'print only number of source lines')
-  .option('-v, --verbose', 'print or add analized files')
-  .option('-e, --exclude <regex>', 'regular expression to exclude files and folders')
+
+  .version pkg.version
+
+  .usage '[option] <file>|<directory>'
+
+  .option '-e, --exclude <regex>',  'regular expression to exclude files and folders'
+  .option '-f, --format <format>',  'format output: json, csv'
+  .option '-s, --sloc',             'print only number of source lines'
+  .option '-v, --verbose',          'append stats of each analized file'
 
 programm.parse process.argv
 

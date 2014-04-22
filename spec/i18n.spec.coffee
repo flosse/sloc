@@ -20,6 +20,7 @@ describe "The i18n module", ->
     i18n.en.Total   .should.equal "Total"
     i18n.en.Error   .should.equal "Error"
     i18n.en.Details .should.equal "Details"
+    i18n.en.Path    .should.equal "Path"
 
     i18n.en.BadDir    .should.equal "Bad directory"
     i18n.en.BadFile   .should.equal "Bad file"
