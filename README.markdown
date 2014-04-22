@@ -25,6 +25,14 @@ Count source lines by
 - Python
 - PHP
 
+## Supported outputs
+
+sloc provides a set of output formatters:
+
+- CSV
+- JSON
+- Commandline table
+
 ## Install
 
 To use sloc as an application install it globally:
@@ -68,11 +76,10 @@ Options:
 ```
 -h, --help             output usage information
 -V, --version          output the version number
--j, --json             return JSON object
--c, --csv              return CSV output
+-e, --exclude <regex>  regular expression to exclude files and folders
+-f, --format <format>  format output: json, csv, cli-table
 -s, --sloc             print only number of source lines
 -v, --verbose          print or add analzed files
--e, --exclude <regex>  regular expression to exclude files and folders
 ```
 
 e.g.:
