@@ -1,6 +1,6 @@
 ###
 This program is distributed under the terms of the GPLv3 license.
-Copyright 2012 (c) Markus Kohlhase <mail@markus-kohlhase.de>
+Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 fs        = require 'fs'
@@ -9,10 +9,10 @@ async     = require 'async'
 programm  = require 'commander'
 sloc      = require './sloc'
 i18n      = require './i18n'
-helpers   = require './helpers'
 pkg       = require '../package.json'
 csvify    = require './formatters/csv'
 cliTable  = require './formatters/cli-table'
+simpleOut = require './formatters/simple'
 
 BAD_FILE    = i18n.en.BadFile
 BAD_FORMAT  = i18n.en.BadFormat
@@ -100,56 +100,25 @@ parseDir = (dir, cb) ->
         next()
     , processResults
 
-print = (err, r, file=null) ->
+print = (err, r) ->
 
-  align = helpers.alignRight
-  col   = 20
+  opt = {}
+  opt.sloc = true if programm.sloc
+
+  return console.error "Error: #{err}" if err
 
   if f = programm.format
     switch f
       when 'json'
-        return console.log JSON.stringify if err? then err: err else r
+        return console.log JSON.stringify r
       when 'csv'
-        return console.log if err? then err: err else csvify r
+        return console.log csvify r, opt
       when 'cli-table'
-        return console.log if err? then err: err else cliTable r
+        return console.log cliTable r, opt
       else
-        return console.error "Error: format #{f} is not supported"
+        return console.error "#{i18n.en.Error}: format #{f} is not supported"
 
-  unless file?
-    console.log "\n---------- #{i18n.en.Result} ------------\n"
-  else
-    console.log "\n--- #{file}"
-
-  if err?
-    console.log "#{align i18n.en.Error, col} :  #{err}"
-  else if programm.sloc
-    console.log r.sloc
-  else
-    console.log """
-      #{align i18n.en.loc,   col} :  #{r.loc}
-      #{align i18n.en.sloc,  col} :  #{r.sloc}
-      #{align i18n.en.cloc,  col} :  #{r.cloc}
-      #{align i18n.en.scloc, col} :  #{r.scloc}
-      #{align i18n.en.mcloc, col} :  #{r.mcloc}
-      #{align i18n.en.nloc,  col} :  #{r.nloc}
-      """
-  unless file?
-    if r.filesRead?
-      console.log "\n\n#{i18n.en.NumberOfFilesRead} :  #{r.filesRead}"
-
-    if r[BAD_FORMAT]
-      console.log "#{align i18n.en.UnknownSourceFiles, col} :  #{r[BAD_FORMAT]}"
-    if r[BAD_FILE]
-      console.log "#{align i18n.en.Brokenfiles, col} :  #{r[BAD_FILE]}"
-    if r[BAD_DIR]
-      console.log "#{align i18n.en.BrokenDirectories, col} :  #{r[BAD_DIR]}"
-
-    if r.details?
-      console.log "\n---------- #{i18n.en.Details} -----------"
-      print details.err, details, details.path for details in r.details
-
-    console.log "\n------------------------------\n"
+  return console.log simpleOut r, opt
 
 programm
 
