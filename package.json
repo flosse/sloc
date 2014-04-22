@@ -20,8 +20,8 @@
   ],
   "engine": "node",
   "dependencies": {
-    "commander": "~2.1.0",
-    "async": "~0.2.10"
+    "commander": "~2.2.0",
+    "async": "~0.7.0"
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",
