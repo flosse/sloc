@@ -9,11 +9,12 @@ async     = require 'async'
 programm  = require 'commander'
 sloc      = require './sloc'
 i18n      = require './i18n'
+helpers   = require './helpers'
 pkg       = require '../package.json'
 
-BAD_FILE    = "badFile"
-BAD_FORMAT  = "badFormat"
-BAD_DIR     = "badDirectory"
+BAD_FILE    = i18n.en.BadFile
+BAD_FORMAT  = i18n.en.BadFormat
+BAD_DIR     = i18n.en.BadDir
 
 parseFile = (f, cb=->) ->
   fs.readFile f, "utf8", (err, code) ->
@@ -105,7 +106,7 @@ csvify = (data) ->
   lines = "Path,#{(i18n.en[k] for k in headers).join ','}\n"
 
   lineize = (t) ->
-    "#{t.path or "Total"},#{(t[k] for k,v of headers).join ','}\n"
+    "#{t.path or i18n.en.Total},#{(t[k] for k in headers).join ','}\n"
 
   if data.details
     for sf in data.details
@@ -116,6 +117,10 @@ csvify = (data) ->
   lines
 
 print = (err, r, file=null) ->
+
+  align = helpers.alignRight
+  col   = 20
+
   if programm.json
     return console.log JSON.stringify if err? then err: err else r
 
@@ -128,30 +133,31 @@ print = (err, r, file=null) ->
     console.log "\n--- #{file}"
 
   if err?
-    console.log "               error :  #{err}"
+    console.log "#{align i18n.en.Error, col} :  #{err}"
   else if programm.sloc
     console.log r.sloc
   else
     console.log """
-            physical lines :  #{r.loc}
-      lines of source code :  #{r.sloc}
-             total comment :  #{r.cloc}
-                singleline :  #{r.scloc}
-                 multiline :  #{r.mcloc}
-                     empty :  #{r.nloc}"""
+      #{align i18n.en.loc,   col} :  #{r.loc}
+      #{align i18n.en.sloc,  col} :  #{r.sloc}
+      #{align i18n.en.cloc,  col} :  #{r.cloc}
+      #{align i18n.en.scloc, col} :  #{r.scloc}
+      #{align i18n.en.mcloc, col} :  #{r.mcloc}
+      #{align i18n.en.nloc,  col} :  #{r.nloc}
+      """
   unless file?
     if r.filesRead?
-      console.log "\n\nnumber of files read :  #{r.filesRead}"
+      console.log "\n\n#{i18n.en.NumberOfFilesRead} :  #{r.filesRead}"
 
     if r[BAD_FORMAT]
-      console.log "unknown source files :  #{r[BAD_FORMAT]}"
+      console.log "#{align i18n.en.UnknownSourceFiles, col} :  #{r[BAD_FORMAT]}"
     if r[BAD_FILE]
-      console.log "        broken files :  #{r[BAD_FILE]}"
+      console.log "#{align i18n.en.Brokenfiles, col} :  #{r[BAD_FILE]}"
     if r[BAD_DIR]
-      console.log "  broken directories :  #{r[BAD_DIR]}"
+      console.log "#{align i18n.en.BrokenDirectories, col} :  #{r[BAD_DIR]}"
 
     if r.details?
-      console.log '\n---------- details -----------'
+      console.log "\n---------- #{i18n.en.Details} -----------"
       print details.err, details, details.path for details in r.details
 
     console.log "\n------------------------------\n"

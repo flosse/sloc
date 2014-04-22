@@ -7,5 +7,15 @@ module.exports =
     mcloc : "Multi-line comment"
     nloc  : "Empty"
 
-    Result: "Result"
-    NumberOfFilesRead: "Number of files read"
+    Result    : "Result"
+    Toatal    : "Total"
+    Details   : "Details"
+    Error     : "Error"
+    BadDir    : "Bad directory"
+    BadFile   : "Bad file"
+    BadFormat : "Bad format"
+
+    BrokenFiles        : "Broken files"
+    UnknownSourceFiles : "Unknown source files"
+    NumberOfFilesRead  : "Number of files read"
+    BrokenDirectories  : "Broken directories"
