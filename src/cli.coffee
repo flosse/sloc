@@ -6,8 +6,9 @@ Copyright 2012 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 fs        = require 'fs'
 path      = require 'path'
 async     = require 'async'
-sloc      = require './sloc'
 programm  = require 'commander'
+sloc      = require './sloc'
+i18n      = require './i18n'
 pkg       = require '../package.json'
 
 BAD_FILE    = "badFile"
@@ -99,15 +100,9 @@ parseDir = (dir, cb) ->
 # convert data to CSV format for easy import into Spreadsheets
 csvify = (data) ->
 
-  headers =
-    loc   : "Physical lines"
-    sloc  : "Lines of source code"
-    cloc  : "Total comment"
-    scloc : "Singleline"
-    mcloc : "Multiline"
-    nloc  : "Empty"
+  headers = ['loc', 'sloc', 'cloc', 'scloc', 'mcloc', 'nloc']
 
-  lines = "Path,#{(v for k,v of headers).join ','}\n"
+  lines = "Path,#{(i18n.en[k] for k in headers).join ','}\n"
 
   lineize = (t) ->
     "#{t.path or "Total"},#{(t[k] for k,v of headers).join ','}\n"
@@ -128,7 +123,7 @@ print = (err, r, file=null) ->
     return console.log if err? then err: err else csvify r
 
   unless file?
-    console.log "\n---------- result ------------\n"
+    console.log "\n---------- #{i18n.en.Result} ------------\n"
   else
     console.log "\n--- #{file}"
 

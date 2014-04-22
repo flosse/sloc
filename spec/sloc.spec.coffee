@@ -6,7 +6,7 @@ sloc      = require "../src/sloc"
 describe "sloc", ->
 
   it "sloc should be a function", ->
-    sloc.should.be.a.function
+    sloc.should.be.a 'function'
 
   it "should count all lines", ->
     sloc("a\nb\nc", "js").loc.should.equal 3
