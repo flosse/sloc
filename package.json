@@ -21,7 +21,8 @@
   "engine": "node",
   "dependencies": {
     "commander": "~2.2.0",
-    "async": "~0.7.0"
+    "async": "~0.7.0",
+    "cli-table": "^0.3.0"
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",

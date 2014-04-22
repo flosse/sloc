@@ -12,6 +12,7 @@ i18n      = require './i18n'
 helpers   = require './helpers'
 pkg       = require '../package.json'
 csvify    = require './formatters/csv'
+cliTable  = require './formatters/cli-table'
 
 BAD_FILE    = i18n.en.BadFile
 BAD_FORMAT  = i18n.en.BadFormat
@@ -110,6 +111,8 @@ print = (err, r, file=null) ->
         return console.log JSON.stringify if err? then err: err else r
       when 'csv'
         return console.log if err? then err: err else csvify r
+      when 'cli-table'
+        return console.log if err? then err: err else cliTable r
       else
         return console.error "Error: format #{f} is not supported"
 
@@ -155,7 +158,7 @@ programm
   .usage '[option] <file>|<directory>'
 
   .option '-e, --exclude <regex>',  'regular expression to exclude files and folders'
-  .option '-f, --format <format>',  'format output: json, csv'
+  .option '-f, --format <format>',  'format output: json, csv, cli-table'
   .option '-s, --sloc',             'print only number of source lines'
   .option '-v, --verbose',          'append stats of each analized file'
 
