@@ -44,7 +44,7 @@ parseDir = (dir, cb) ->
         res.push err: BAD_DIR, path: dir
         return done()
       async.forEach items, (item, next) ->
-        p = "#{dir}/#{item}"
+        p = path.normalize "#{dir}/#{item}"
         # exit if folder is excluded
         return next() if exclude?.test p
         fs.lstat p, (err, stat) ->
