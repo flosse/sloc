@@ -7,137 +7,91 @@ fs        = require 'fs'
 path      = require 'path'
 async     = require 'async'
 programm  = require 'commander'
+readdirp  = require 'readdirp'
 sloc      = require './sloc'
-i18n      = require './i18n'
+helpers   = require './helpers'
 pkg       = require '../package.json'
 csvify    = require './formatters/csv'
 cliTable  = require './formatters/cli-table'
 simpleOut = require './formatters/simple'
 
-BAD_FILE    = i18n.en.BadFile
-BAD_FORMAT  = i18n.en.BadFormat
-BAD_DIR     = i18n.en.BadDir
+list      = (val) -> val.split ','
+exts      = ("*.#{k}" for k in sloc.extensions)
 
 parseFile = (f, cb=->) ->
+  res = { path: f, stats: {}, badFile: no }
   fs.readFile f, "utf8", (err, code) ->
-    return cb BAD_FILE if err
-    try
-      cb null, sloc code, path.extname(f)[1...]
-    catch e
-      cb BAD_FORMAT
+    if err
+      res.badFile = yes
+      return cb err, res
+    res.stats = sloc code, path.extname(f)[1...]
+    cb null, res
 
-parseDir = (dir, cb) ->
-
-  files   = []
-  res     = []
-  exclude = null
-
-  if programm.exclude
-    exclude = new RegExp programm.exclude
-
-  # get a list of all files (env in sub directories)
-  inspect = (dir, done) ->
-    # exit if directory is excluded
-    return done() if exclude?.test dir
-    fs.readdir dir, (err, items) ->
-      if err?
-        res.push err: BAD_DIR, path: dir
-        return done()
-      async.forEach items, (item, next) ->
-        p = path.normalize "#{dir}/#{item}"
-        # exit if folder is excluded
-        return next() if exclude?.test p
-        fs.lstat p, (err, stat) ->
-          if err?
-            res.push err: BAD_FILE, path: p
-            return next()
-          # recursively inspect directory
-          return inspect p, next if stat.isDirectory()
-          files.push p
-          next()
-      , done
-
-  inspect dir, ->
-
-    processResults = (err) ->
-
-      return cb err if err
-
-      # Initialize counter to handle case of first analyzed file filed in error
-      init =
-        loc   : 0
-        sloc  : 0
-        cloc  : 0
-        scloc : 0
-        mcloc : 0
-        nloc  : 0
-
-      init[BAD_FILE]   = 0
-      init[BAD_FORMAT] = 0
-      init[BAD_DIR]    = 0
-
-      res.splice 0, 0, init
-      sums = res.reduce (a,b) ->
-        o = {}
-        o[k] = a[k] + (b[k] or 0) for k,v of a
-        o[b.err]++ if b.err?
-        o
-      sums.filesRead = res.length-1
-
-      if programm.details
-        # remove counter initialization
-        res.splice 0, 1
-        sums.details = res
-      cb null, sums
-
-    async.forEach files, (f, next) ->
-      parseFile f, (err, r) ->
-        if err
-          r = err: err, path: f
-        else
-          r.path = f
-        res.push r
-        next()
-    , processResults
-
-print = (err, r) ->
-
-  opt = {}
-  opt.sloc = true if programm.sloc
-
+print = (err, result) ->
   return console.error "Error: #{err}" if err
+  unless f = programm.format
+    console.log simpleOut result, options
+  else
+    out = switch f
+      when 'json'      then JSON.stringify result, null, 2
+      when 'csv'       then csvify result, options
+      when 'cli-table' then cliTable result, options
 
-  if f = programm.format
-    switch f
-      when 'json'
-        return console.log JSON.stringify r
-      when 'csv'
-        return console.log csvify r, opt
-      when 'cli-table'
-        return console.log cliTable r, opt
-      else
-        return console.error "#{i18n.en.Error}: format #{f} is not supported"
+    if typeof out is 'string' then console.log out
+    else console.error "Error: format #{f} is not supported"
 
-  return console.log simpleOut r, opt
+addResult = (res, global) ->
+  if res.badFile then global.brokenFiles++
+  global.files.push res
+
+filterFiles = (files) ->
+  res =
+    if programm.exclude
+      exclude = new RegExp programm.exclude
+      files.filter (x) -> not exclude.test x.path
+    else
+      files
+
+  (path.normalize(p + r.path) for r in res)
 
 programm
-
   .version pkg.version
-
-  .usage '[option] <file>|<directory>'
-
+  .usage '[option] <file> | <directory>'
   .option '-e, --exclude <regex>',  'regular expression to exclude files and folders'
   .option '-f, --format <format>',  'format output: json, csv, cli-table'
-  .option '-s, --sloc',             'report only number of source lines'
+  .option '-k, --keys <keys>',      'report only numbers of the given keys', list
   .option '-d, --details',          'report stats of each analized file'
-                            d
+
 programm.parse process.argv
+options         = {}
+options.keys    = programm.keys
+options.details = programm.details
 
-if programm.args.length < 1
-  programm.help()
+return programm.help() if programm.args.length < 1
 
-else
-  stats = fs.lstatSync programm.args[0]
+result = files: []
 
-  if stats.isDirectory() then parseDir  programm.args[0], print
-  else if stats.isFile() then parseFile programm.args[0], print
+readSingleFile = (f) -> parseFile p, (err, res) ->
+  addResult res, result
+  result.summary = res.stats
+  print err, result
+
+readDir = (dir) ->
+
+  finish = (err, x) ->
+    result.summary = helpers.summarize result.files.map (x) -> x.stats
+    print err, result
+
+  processFile = (f, next) -> parseFile f, (err, r) ->
+    addResult r, result
+    next()
+
+  readdirp { root: dir, fileFilter: exts }, (err, res) ->
+    async.forEach (filterFiles res.files), processFile, finish
+
+p = programm.args[0]
+
+fs.lstat p, (err, stats) ->
+  return console.error "Error: invalid path argument" if err
+  if stats.isDirectory() then readDir p
+  else if stats.isFile() then readSingleFile p

@@ -22,7 +22,8 @@
   "dependencies": {
     "commander": "~2.2.0",
     "async": "~0.7.0",
-    "cli-table": "^0.3.0"
+    "cli-table": "^0.3.0",
+    "readdirp": "^1.0.1"
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",

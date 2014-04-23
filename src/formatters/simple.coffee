@@ -1,51 +1,42 @@
+sloc    = require '../sloc'
 i18n    = require '../i18n'
 helpers = require '../helpers'
 align   = helpers.alignRight
 col     = 20
 
-BAD_FILE    = i18n.en.BadFile
-BAD_FORMAT  = i18n.en.BadFormat
-BAD_DIR     = i18n.en.BadDir
+stat = (data, options) ->
 
-stat = (data, options={}) ->
+  if data.badFile
+    return "#{align i18n.en.Error, col} :  #{i18n.en.BadFile}"
 
-  if data.err
-    return "#{align i18n.en.Error, col} :  #{data.err}"
+  str = for k in options.keys when (x = data.stats[k])?
+    "#{align i18n.en[k], col} :  #{x}"
 
-  if options.sloc
-   return data.sloc
+  str.join '\n'
 
-  """
-  #{align i18n.en.loc,   col} :  #{data.loc}
-  #{align i18n.en.sloc,  col} :  #{data.sloc}
-  #{align i18n.en.cloc,  col} :  #{data.cloc}
-  #{align i18n.en.scloc, col} :  #{data.scloc}
-  #{align i18n.en.mcloc, col} :  #{data.mcloc}
-  #{align i18n.en.nloc,  col} :  #{data.nloc}
-  """
+module.exports = (data, options={}) ->
 
-module.exports = (data, options) ->
+  if options.keys?.length is 1 and not options.reportDetails
+    return data.summary[options.keys[0]]
+
+  if not options.keys?
+    options.keys = sloc.keys
 
   result = "\n---------- #{i18n.en.Result} ------------\n\n"
 
-  result += stat data, options
+  result += stat {stats: data.summary}, options
 
-  if data.filesRead?
-    result += "\n\n#{i18n.en.NumberOfFilesRead} :  #{data.filesRead}"
+  badFiles = data.files.filter (x) -> x.badFile
 
-  if data[BAD_FORMAT]
-    result += "\n#{align i18n.en.UnknownSourceFiles, col} :  #{data[BAD_FORMAT]}"
+  result += "\n\n#{i18n.en.NumberOfFilesRead} :  #{data.files.length - badFiles.length}"
 
-  if data[BAD_FILE]
-    result += "\n#{align i18n.en.Brokenfiles, col} :  #{data[BAD_FILE]}"
+  if bl = badFiles.length > 0
+    result += "\n#{align i18n.en.Brokenfiles, col} :  #{badFiles.length}"
 
-  if data[BAD_DIR]
-    result += "\n#{align i18n.en.BrokenDirectories, col} :  #{data[BAD_DIR]}"
-
-  if data.details?
+  if options.details and data.files.length > 1
     result += "\n\n---------- #{i18n.en.Details} -----------\n"
-    d = for detail in data.details
-      "\n--- #{detail.path}\n\n#{stat detail, options}\n"
+    d = for f in data.files
+      "\n\n--- #{f.path}\n\n#{stat f, options}"
 
     result += d.join ''
 

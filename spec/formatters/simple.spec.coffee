@@ -8,4 +8,4 @@ describe "The simple formatter", ->
     simple.should.be.a 'function'
 
   it "should return a string", ->
-    simple({}).should.be.a 'string'
+    simple(summary: {}, files: []).should.be.a 'string'

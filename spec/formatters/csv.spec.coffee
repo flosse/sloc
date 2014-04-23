@@ -18,7 +18,7 @@ describe "The CSV formatter", ->
       scloc : 4
       mcloc : 5
       nloc  : 6
-    csv(stats).should.equal """
+    csv(summary: stats).should.equal """
       Path,Physical,Source,Total comment,Single-line comment,Multi-line comment,Empty
       Total,1,2,3,4,5,6
       """

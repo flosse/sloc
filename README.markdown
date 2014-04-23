@@ -78,7 +78,7 @@ Options:
 -V, --version          output the version number
 -e, --exclude <regex>  regular expression to exclude files and folders
 -f, --format <format>  format output: json, csv, cli-table
--s, --sloc             report only number of source lines
+-k, --keys <keys>      report only numbers of the given keys
 -d, --details          report stats of each analzed file
 ```
 
