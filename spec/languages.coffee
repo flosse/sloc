@@ -247,4 +247,25 @@ module.exports =
       nloc: 1
       scloc: 1
     }
+    {
+      names: ["lua"]
+      code:
+        """
+        local x = 3
+        -- on line comment
+        y = 42 -- of course
+        --[[
+          multiline [comment]
+        --]]
+        s = [[ multi
+               line
+               string]]
+        """
+      loc: 9
+      cloc: 4
+      sloc: 5
+      mcloc: 3
+      scloc: 1
+      nloc: 0
+    }
   ]

@@ -22,6 +22,7 @@ Count source lines by
 - HTML
 - Java
 - JavaScript
+- Lua
 - Python
 - PHP
 

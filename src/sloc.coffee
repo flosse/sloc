@@ -21,6 +21,20 @@ doubleSlashComment = new RegExp ///
     /{2}    # exactly two slash
   ///
 
+doubleHyphenComment = new RegExp ///
+    ^       # beginning of the line
+    \s*     # zero or more spaces
+    -{2}    # exactly two hypens
+  ///
+
+doubleSquareBracketOpen = new RegExp ///
+    \[{2}    # exactly two open square brackets
+  ///
+
+doubleSquareBracketClose = new RegExp ///
+    \]{2}    # exactly two open square brackets
+  ///
+
 trippleSharpComment = new RegExp ///
     ^       # beginning of the line
     \s*     # zero or more spaces
@@ -72,8 +86,8 @@ trippleQuoteComment = new RegExp ///
     )
   ///
 
-combine = (r1, r2) ->
-  new RegExp r1.toString()[1...-1] + '|' + r2.toString()[1...-1]
+combine = (r1, r2, type='|') ->
+  new RegExp r1.toString()[1...-1] + type + r2.toString()[1...-1]
 
 singleLineHtmlComment = new RegExp ///
     ^       # beginning of the line
@@ -119,6 +133,8 @@ slocModule = (code, lang) ->
       comment = singleLineSlashStarComment
     when "html"
       comment = singleLineHtmlComment
+    when "lua"
+      comment = doubleHyphenComment
     else
       comment = doubleSlashComment
 
@@ -139,7 +155,11 @@ slocModule = (code, lang) ->
 
     when "html"
       startMultiLineComment = startHtmlComment
-      stopMultiLineComment = stopHtmlComment
+      stopMultiLineComment  = stopHtmlComment
+
+    when "lua"
+      startMultiLineComment = combine doubleHyphenComment, doubleSquareBracketOpen , ''
+      stopMultiLineComment  = combine doubleHyphenComment, doubleSquareBracketClose, ''
 
     else
       throw new TypeError "File extension '#{lang}' is not supported"
