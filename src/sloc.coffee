@@ -173,7 +173,6 @@ slocModule = (code, lang) ->
     else
       throw new TypeError "File extension '#{lang}' is not supported"
 
-  commentLineNumbers  = []
   nullLineNumbers     = []
 
   lines = code.split '\n'
@@ -195,12 +194,10 @@ slocModule = (code, lang) ->
     else if start is true and stopMultiLineComment.test l
       start = false
       x = i - startLine + 1
-      commentLineNumbers.push nr for nr in [startLine..i]
       bCounter += x
 
     else if start is false and comment.test l
       cCounter++
-      commentLineNumbers.push i
 
   sloc      = loc - cCounter - bCounter - nloc
   totalC    = cCounter + bCounter
