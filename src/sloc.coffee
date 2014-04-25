@@ -222,9 +222,12 @@ slocModule.extensions = [
   "java"
   "php", "php5"
   "go"
+  "lua"
   "scss"
   "less"
   "css"
+  "styl"
+  "stylus"
   "html" ]
 
 slocModule.keys = keys
