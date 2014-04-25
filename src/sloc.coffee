@@ -126,6 +126,9 @@ stopHtmlComment = new RegExp ///
     $       # end of line
   ///
 
+getEmptyLinesCount = (lines) ->
+  (i for l,i in lines when whiteSpaceLine.test l).length
+
 slocModule = (code, lang) ->
 
   unless typeof code is "string"
@@ -177,9 +180,7 @@ slocModule = (code, lang) ->
 
   lines = code.split '\n'
   loc   = lines.length
-  nloc  = (for l,i in lines when whiteSpaceLine.test l
-            nullLineNumbers.push i; l
-          ).length
+  nloc  = getEmptyLinesCount lines
 
   start               = false
   cCounter            = 0
