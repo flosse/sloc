@@ -223,4 +223,28 @@ module.exports =
       nloc: 0
       scloc: 1
     }
+    {
+      names: ["styl", "stylus"]
+      code:
+        """
+        $foo = "bar"
+        html
+          font-size 2em
+          // one line comment
+          h2 // foo
+          /* multi
+             line comment
+           */
+
+          /*! multi-line
+             buffered
+           */
+        """
+      loc: 12
+      cloc: 7
+      sloc: 4
+      mcloc: 6
+      nloc: 1
+      scloc: 1
+    }
   ]
