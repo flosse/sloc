@@ -129,87 +129,88 @@ stopHtmlComment = new RegExp ///
 getEmptyLinesCount = (lines) ->
   (i for l,i in lines when whiteSpaceLine.test l).length
 
-slocModule = (code, lang) ->
+countComments = (lines, cExpr, l, idx=0, startLine, counter={scloc:0, mcloc:0}) ->
 
-  unless typeof code is "string"
-    throw new TypeError "'code' has to be a string"
+  l ?= lines[idx]
+
+  return counter if idx >= lines.length
+
+  if not startLine? and (m = l.match cExpr.startBlock)?
+    startLine = idx
+    countComments lines, cExpr, l.substring(m.index+m[0].length), idx, startLine, counter
+
+  else if startLine? is true and (m = l.match cExpr.stopBlock)?
+    x = idx - startLine + 1
+    counter.mcloc += x
+    countComments lines, cExpr, l.substring(m.index+m[0].length), idx, null, counter
+
+  else
+    counter.scloc++ if not startLine? and cExpr.single.test l
+    countComments lines, cExpr, lines[idx+1], idx+1, startLine, counter
+
+getCommentExpressions = (lang) ->
 
   # single line comments
-  switch lang
+  single =
+    switch lang
 
-    when "coffeescript", "coffee", "python", "py"
-      comment = sharpComment
-    when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "scss", "less", "styl", "stylus"
-      comment = combine doubleSlashComment, singleLineSlashStarComment
-    when "css"
-      comment = singleLineSlashStarComment
-    when "html"
-      comment = singleLineHtmlComment
-    when "lua"
-      comment = doubleHyphenComment
-    else
-      comment = doubleSlashComment
+      when "coffeescript", "coffee", "python", "py"
+        sharpComment
+      when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "scss", "less", "styl", "stylus"
+        combine doubleSlashComment, singleLineSlashStarComment
+      when "css"
+        singleLineSlashStarComment
+      when "html"
+        singleLineHtmlComment
+      when "lua"
+        doubleHyphenComment
+      else
+        doubleSlashComment
 
   ## block comments
   switch lang
 
     when "coffeescript", "coffee"
-      startMultiLineComment = trippleSharpComment
-      stopMultiLineComment  = trippleSharpComment
+      startBlock = trippleSharpComment
+      stopBlock  = trippleSharpComment
 
     when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "css", "scss", "less", "styl", "stylus"
-      startMultiLineComment = slashStarComment
-      stopMultiLineComment  = starSlashComment
+      startBlock = slashStarComment
+      stopBlock  = starSlashComment
 
     when "python", "py"
-      startMultiLineComment = trippleQuoteComment
-      stopMultiLineComment  = trippleQuoteComment
+      startBlock = trippleQuoteComment
+      stopBlock  = trippleQuoteComment
 
     when "html"
-      startMultiLineComment = startHtmlComment
-      stopMultiLineComment  = stopHtmlComment
+      startBlock = startHtmlComment
+      stopBlock  = stopHtmlComment
 
     when "lua"
-      startMultiLineComment = combine doubleHyphenComment, doubleSquareBracketOpen , ''
-      stopMultiLineComment  = combine doubleHyphenComment, doubleSquareBracketClose, ''
+      startBlock = combine doubleHyphenComment, doubleSquareBracketOpen , ''
+      stopBlock  = combine doubleHyphenComment, doubleSquareBracketClose, ''
 
     else
       throw new TypeError "File extension '#{lang}' is not supported"
 
-  nullLineNumbers     = []
+  { startBlock, stopBlock, single }
+
+slocModule = (code, lang) ->
+
+  unless typeof code is "string"
+    throw new TypeError "'code' has to be a string"
 
   lines = code.split '\n'
   loc   = lines.length
   nloc  = getEmptyLinesCount lines
 
-  start               = false
-  cCounter            = 0
-  bCounter            = 0
+  { scloc, mcloc } = countComments lines, getCommentExpressions lang
 
-  for l,i in lines
-
-    if start is false and startMultiLineComment.test l
-      start = true
-      startLine = i
-
-    else if start is true and stopMultiLineComment.test l
-      start = false
-      x = i - startLine + 1
-      bCounter += x
-
-    else if start is false and comment.test l
-      cCounter++
-
-  sloc      = loc - cCounter - bCounter - nloc
-  totalC    = cCounter + bCounter
+  sloc = loc - scloc - mcloc - nloc
+  cloc = scloc + mcloc
 
   # result
-  loc:    loc
-  sloc:   sloc
-  cloc:   totalC
-  scloc:  cCounter
-  mcloc:  bCounter
-  nloc:   nloc
+  { loc, sloc, cloc, scloc, mcloc, nloc }
 
 slocModule.extensions = [
   "coffeescript", "coffee"
@@ -224,8 +225,7 @@ slocModule.extensions = [
   "scss"
   "less"
   "css"
-  "styl"
-  "stylus"
+  "styl", "stylus"
   "html" ]
 
 slocModule.keys = keys
