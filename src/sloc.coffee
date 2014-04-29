@@ -4,12 +4,12 @@ Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 keys = [
-  'loc'    # physical lines of code
-  'sloc'   # source loc
-  'cloc'   # total comment loc
-  'scloc'  # single line comments
-  'mcloc'  # multiline comment loc
-  'nloc'   # null loc
+  'loc'     # physical lines of code
+  'sloc'    # source loc
+  'cloc'    # total comment loc
+  'scloc'   # single line comments
+  'mcloc'   # multiline comment loc
+  'nloc'    # null loc
   ]
 
 whiteSpaceLine = ///
@@ -19,134 +19,153 @@ whiteSpaceLine = ///
   ///
 
 sharpComment = ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    \#      # sharp character
+    \#{1}   # exactly one sharp character
+    [^      # not followed by
+    \#]{2}  # two sharp characters
   ///
 
 doubleSlashComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
     /{2}    # exactly two slash
   ///
 
 doubleHyphenComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
     -{2}    # exactly two hypens
   ///
 
 doubleSquareBracketOpen = new RegExp ///
-    \[{2}    # exactly two open square brackets
+    \[{2}   # exactly two open square brackets
   ///
 
 doubleSquareBracketClose = new RegExp ///
-    \]{2}    # exactly two open square brackets
+    \]{2}   # exactly two open square brackets
   ///
 
 trippleSharpComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
     \#{3}   # exactly 3 sharp character
   ///
 
 slashStarComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
     /       # slash character
     \*+     # one or more stars
-    (?!     # start negative lookahead
-      .*    # zero or more of any kind
-      \*    # start character
-      /     # slash character
-    )       # end lookahead
-    .*      # zero or more of any kind
-    $       # end of line
-  ///
-
-singleLineSlashStarComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    /       # slash character
-    \*+     # one or more stars
-    .*      # any or no characters
-    \*+     # one or more stars
-    /{1}    # exactly one slash character
-    \s*     # zero or more spaces
-    $       # end of line
   ///
 
 starSlashComment = new RegExp ///
-    ^       # beginning of the line
-    .*      # any or no characters
     \*      # one star characters
     /{1}    # slash character
-    \s*     # zero or more spaces
-    $       # end of line
   ///
 
 trippleQuoteComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    (
-      \"{3} # exactly three quote characters
-      |     # or
-      \'{3} # exactly three single quote characters
-    )
+    \"{3}   # exactly three quote characters
+    |       # or
+    \'{3}   # exactly three single quote characters
   ///
 
 combine = (r1, r2, type='|') ->
   new RegExp r1.toString()[1...-1] + type + r2.toString()[1...-1]
 
-singleLineHtmlComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    <!--    # html start comment
-    .*      # any or no characters
-    -->     # html stop comment
-    \s*     # zero or more spaces
-    $       # end of line
-  ///
-
 startHtmlComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
     <!--    # html start comment
-    (?!     # start negative lookahead
-      .*    # zero or more of any kind
-      -->   # html stop comment
-    )       # end lookahead
-    .*      # zero or more of any kind
-    $       # end of line
   ///
 
 stopHtmlComment = new RegExp ///
     -->     # html stop comment
-    \s*     # zero or more spaces
-    $       # end of line
   ///
 
 getEmptyLinesCount = (lines) ->
   (i for l,i in lines when whiteSpaceLine.test l).length
 
-countComments = (lines, cExpr, l, idx=0, startLine, counter={scloc:0, mcloc:0}) ->
+getMatches = (line, regex) ->
 
-  l ?= lines[idx]
+  exec = (r) ->
+    return [] unless r?
+    l = line
+    while (m = l.match r)?
+      l = l.substring m.index+m[0].length
+      m
 
-  return counter if idx >= lines.length
+  start  : exec regex.startBlock
+  stop   : exec regex.stopBlock
+  single : exec regex.single
 
-  if not startLine? and (m = l.match cExpr.startBlock)?
-    startLine = idx
-    countComments lines, cExpr, l.substring(m.index+m[0].length), idx, startLine, counter
+countComments = (lines, regex) ->
 
-  else if startLine? is true and (m = l.match cExpr.stopBlock)?
-    x = idx - startLine + 1
-    counter.mcloc += x
-    countComments lines, cExpr, l.substring(m.index+m[0].length), idx, null, counter
+  blocks      = []
+  single      = []
+  mixed       = []
+  start       = null
+  whiteSpaces = /[^\s]/
 
-  else
-    counter.scloc++ if not startLine? and cExpr.single.test l
-    countComments lines, cExpr, lines[idx+1], idx+1, startLine, counter
+
+  checkForMixedLine = (l, match, idx) ->
+    if (l.substring(0, match.index).match whiteSpaces)?
+      mixed.push {start: idx, stop: idx }
+
+  handleSingle = (l, m, idx) ->
+    single.push {start: idx, stop: idx }
+    checkForMixedLine l, m.single[0], idx
+
+  handleStart = (l, m, idx) ->
+    start = idx
+    checkForMixedLine l, m.start[0], idx
+    checkLine l.substring(m.start[0].index+m.start[0][0].length), idx
+
+  handleStop = (l, m, idx) ->
+    blocks.push {start, stop: idx }
+    start = null
+    checkLine l.substring(m.stop[0].index+m.stop[0][0].length), idx, idx
+
+  checkLine  = (l, idx, lastComment) ->
+
+    return if l is ''
+
+    m           = getMatches l, regex
+    singleMatch = m.single?[0]
+    startMatch  = m.start?[0]
+    stopMatch   = m.stop?[0]
+
+    if not start?
+      if singleMatch and startMatch
+        if startMatch.index <= singleMatch.index
+          handleStart l, m, idx
+        else
+          handleSingle l, m, idx
+
+      else if singleMatch
+        handleSingle l, m, idx
+
+      else if startMatch
+        handleStart l, m, idx
+
+      else if l.match(whiteSpaces)? and idx is lastComment
+         mixed.push {start: idx, stop: idx }
+
+    else if start? and stopMatch
+      handleStop l, m, idx
+
+  checkLine l,idx for l, idx in lines
+
+  lineSum = (comments) ->
+    sum = 0
+    for c,i in comments
+      d = (c.stop - c.start) + 1
+      d-- if comments[i+1]?.start is c.stop
+      sum += d
+    sum
+
+  cloc = 0
+  for b, i in blocks
+    d = (b.stop - b.start) + 1
+    if (s for s in single when s.start is b.start or s.start is b.stop).length > 0
+      d -= 3
+    cloc += d
+
+  slen = lineSum single
+  cloc += slen
+
+  scloc: slen
+  mcloc: lineSum blocks
+  mxloc: lineSum mixed
+  cloc:  cloc
 
 getCommentExpressions = (lang) ->
 
@@ -157,11 +176,11 @@ getCommentExpressions = (lang) ->
       when "coffeescript", "coffee", "python", "py"
         sharpComment
       when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "scss", "less", "styl", "stylus"
-        combine doubleSlashComment, singleLineSlashStarComment
+        doubleSlashComment
       when "css"
-        singleLineSlashStarComment
+        null
       when "html"
-        singleLineHtmlComment
+        null
       when "lua"
         doubleHyphenComment
       else
@@ -204,10 +223,9 @@ slocModule = (code, lang) ->
   loc   = lines.length
   nloc  = getEmptyLinesCount lines
 
-  { scloc, mcloc } = countComments lines, getCommentExpressions lang
+  { scloc, mcloc, mxloc, cloc } = countComments lines, getCommentExpressions lang
 
-  sloc = loc - scloc - mcloc - nloc
-  cloc = scloc + mcloc
+  sloc = loc - scloc - mcloc - nloc + mxloc
 
   # result
   { loc, sloc, cloc, scloc, mcloc, nloc }

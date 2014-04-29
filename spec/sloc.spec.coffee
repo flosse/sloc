@@ -43,3 +43,11 @@ describe "The sloc module", ->
     sloc.keys.should.be.an 'array'
     for k in sloc.keys
       (k in keys).should.be.true
+
+  it "can handle at least 100.000 lines", ->
+    lines = ('#' for i in [0...100000]).join('\n')
+    (-> sloc lines, "coffee") .should.not.throw()
+
+  it "can handle lines with at least 10.000 characters", ->
+    lines = ('###    ###' for i in [0...1000]).join('')
+    (-> sloc lines, "coffee") .should.not.throw()

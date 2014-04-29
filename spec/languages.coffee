@@ -8,14 +8,19 @@ module.exports =
           source.code() # comment
 
           ### block
-          comment
+          comment # commented comment
           ###
+          source() ### one line block ###
+          ### one line block ### code()
+          ### block ### code() ###
+          ### souce() # comment ### no block ###
+          ###### code() ###### code()
         """
-      cloc: 4
-      sloc: 1
-      scloc: 1
-      mcloc: 3
-      loc: 6
+      cloc: 10
+      sloc: 5
+      scloc: 3
+      mcloc: 8
+      loc: 11
       nloc: 1
     }
     {
@@ -32,9 +37,9 @@ module.exports =
           another block comment
           // */
         """
-      cloc: 8
+      cloc: 9
       sloc: 1
-      mcloc: 6
+      mcloc: 7
       scloc: 2
       loc: 9
       nloc: 0
@@ -54,11 +59,11 @@ module.exports =
           another block comment
           '''
         """
-      cloc: 8
+      cloc: 9
       sloc: 1
       mcloc: 6
       loc: 10
-      scloc: 2
+      scloc: 3
       nloc: 1
     }
     {
@@ -77,10 +82,10 @@ module.exports =
             another block comment
            */
         """
-      cloc: 9
+      cloc: 11
       sloc: 2
-      mcloc: 7
-      scloc: 2
+      mcloc: 10
+      scloc: 1
       loc: 11
       nloc: 0
     }
@@ -101,12 +106,12 @@ module.exports =
           another block comment
           // */
         """
-      cloc: 8
+      cloc: 10
       sloc: 4
-      mcloc: 6
+      mcloc: 9
       loc: 12
       nloc: 0
-      scloc: 2
+      scloc: 1
     }
     {
       names: ["php", "php5"]
@@ -119,12 +124,12 @@ module.exports =
          $test = 0;  // bla
          // comment
         """
-      cloc: 4
+      cloc: 5
       sloc: 1
       mcloc: 3
       loc: 6
       nloc: 1
-      scloc: 1
+      scloc: 2
     }
     {
       names: ["go"]
@@ -140,9 +145,9 @@ module.exports =
         /* general
         // comment */
         """
-      cloc: 6
+      cloc: 7
       sloc: 3
-      mcloc: 5
+      mcloc: 6
       loc: 9
       nloc: 0
       scloc: 1
@@ -151,24 +156,24 @@ module.exports =
       names: ["css"]
       code:
         """
-        /* line comment */
+        /* comment */
         selector { property: value; /* comment */ }
         * { color: blue; }
         /* block
            comment */
         """
-      cloc: 3
+      cloc: 4
       sloc: 2
-      mcloc: 2
+      mcloc: 4
       loc: 5
       nloc: 0
-      scloc: 1
+      scloc: 0
     }
     {
       names: ["scss"]
       code:
         """
-        /* line comment */
+        /* comment */
         selector { property: value; /* comment */ }
         * { color: blue; }
         /* block
@@ -176,12 +181,12 @@ module.exports =
         body { margin: 0 }
         // double slash line comment
         """
-      cloc: 4
+      cloc: 5
       sloc: 3
-      mcloc: 2
+      mcloc: 4
       loc: 7
       nloc: 0
-      scloc: 2
+      scloc: 1
     }
     {
       names: ["less"]
@@ -195,12 +200,12 @@ module.exports =
         body { margin: 0 }
         // double slash line comment
         """
-      cloc: 4
+      cloc: 5
       sloc: 3
-      mcloc: 2
+      mcloc: 4
       loc: 7
       nloc: 0
-      scloc: 2
+      scloc: 1
     }
     {
       names: ["html"]
@@ -216,12 +221,12 @@ module.exports =
           </body>
         </html>
         """
-      cloc: 4
+      cloc: 5
       sloc: 5
-      mcloc: 3
+      mcloc: 5
       loc: 9
       nloc: 0
-      scloc: 1
+      scloc: 0
     }
     {
       names: ["styl", "stylus"]
@@ -241,11 +246,11 @@ module.exports =
            */
         """
       loc: 12
-      cloc: 7
+      cloc: 8
       sloc: 4
       mcloc: 6
       nloc: 1
-      scloc: 1
+      scloc: 2
     }
     {
       names: ["lua"]
@@ -262,10 +267,10 @@ module.exports =
                string]]
         """
       loc: 9
-      cloc: 4
+      cloc: 5
       sloc: 5
       mcloc: 3
-      scloc: 1
+      scloc: 2
       nloc: 0
     }
   ]
