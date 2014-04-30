@@ -183,6 +183,8 @@ getCommentExpressions = (lang) ->
         null
       when "lua"
         doubleHyphenComment
+      when "erl"
+        /\%/
       else
         doubleSlashComment
 
@@ -208,6 +210,10 @@ getCommentExpressions = (lang) ->
     when "lua"
       startBlock = combine doubleHyphenComment, doubleSquareBracketOpen , ''
       stopBlock  = combine doubleHyphenComment, doubleSquareBracketClose, ''
+
+    when "erl"
+      startBlock = null
+      stopBlock  = null
 
     else
       throw new TypeError "File extension '#{lang}' is not supported"
@@ -236,6 +242,7 @@ slocModule.extensions = [
   "javascript", "js"
   "c"
   "cc"
+  "erl"
   "java"
   "php", "php5"
   "go"

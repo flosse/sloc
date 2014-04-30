@@ -273,4 +273,23 @@ module.exports =
       scloc: 2
       nloc: 0
     }
+    {
+      names: ["erl"]
+      code:
+        """
+        -module(foo).
+        -export([bar/1]).
+        % on line comment
+        bar(0) -> 1;
+        %% oohh
+        bar(42) -> -3; %%% don't tell!
+        bar(N) -> N * bar(N-1).
+        """
+      loc: 7
+      cloc: 3
+      sloc: 5
+      mcloc: 0
+      scloc: 3
+      nloc: 0
+    }
   ]
