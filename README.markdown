@@ -116,7 +116,7 @@ fs.readFile("mySourceFile.coffee", "utf8", function(err, code){
 
   if(err){ console.error(err); }
   else{
-    var stats = sloc(code,"coffeescript");
+    var stats = sloc(code,"coffee");
     console.log("total   lines: " + stats.loc);
     console.log("source  lines: " + stats.sloc);
     console.log("comment lines: " + stats.cloc);

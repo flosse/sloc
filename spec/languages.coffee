@@ -1,7 +1,7 @@
 module.exports =
   [
     {
-      names: ["coffee", "coffeescript"]
+      names: ["coffee"]
       code:
         """
           # a
@@ -24,7 +24,7 @@ module.exports =
       nloc: 1
     }
     {
-      names: ["js", "javascript"]
+      names: ["js"]
       code:
         """
           /* a */
@@ -45,7 +45,7 @@ module.exports =
       nloc: 0
     }
     {
-      names: ["py", "python"]
+      names: ["py"]
       code:
         """
           \"""
@@ -67,7 +67,7 @@ module.exports =
       nloc: 1
     }
     {
-      names: ["c"]
+      names: ["c", "h", "cpp", "hpp"]
       code:
         """
           /* a */
@@ -229,7 +229,7 @@ module.exports =
       scloc: 0
     }
     {
-      names: ["styl", "stylus"]
+      names: ["styl"]
       code:
         """
         $foo = "bar"
