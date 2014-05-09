@@ -2,6 +2,8 @@ chai      = require 'chai'
 should    = chai.should()
 langs     = require "./languages"
 sloc      = require "../src/sloc"
+manyLines = ('# \n'    for i in [0...100000]).join('')
+longLine  = ('### ###' for i in [0...100000]).join('')
 
 describe "The sloc module", ->
 
@@ -45,9 +47,7 @@ describe "The sloc module", ->
       (k in keys).should.be.true
 
   it "can handle at least 100.000 lines", ->
-    lines = ('#' for i in [0...100000]).join('\n')
-    (-> sloc lines, "coffee") .should.not.throw()
+    (-> sloc manyLines, "coffee") .should.not.throw()
 
-  it "can handle lines with at least 10.000 characters", ->
-    lines = ('###    ###' for i in [0...1000]).join('')
-    (-> sloc lines, "coffee") .should.not.throw()
+  it "can handle lines with at least 100.000 characters", ->
+    (-> sloc longLine, "coffee") .should.not.throw()

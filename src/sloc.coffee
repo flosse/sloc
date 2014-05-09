@@ -12,137 +12,131 @@ keys = [
   'nloc'    # null loc
   ]
 
-whiteSpaceLine = ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    $       # end of the line
-  ///
+nonEmptyLine = /[^\s]/
+endOfLine    = /$/m
+newLines     = /\n/g
 
-sharpComment = ///
-    \#{1}   # exactly one sharp character
-    [^      # not followed by
-    \#]{2}  # two sharp characters
-  ///
+countMixed = (lines, match, idx, startIdx, res) ->
 
-doubleSlashComment = new RegExp ///
-    /{2}    # exactly two slash
-  ///
+  if nonEmptyLine.exec(lines[0]) and idx isnt 0
+    res.push {type: 'mixed', start: idx, stop: idx}
 
-doubleHyphenComment = new RegExp ///
-    -{2}    # exactly two hypens
-  ///
+  if nonEmptyLine.exec lines[startIdx-idx]
+    res.push {type: 'mixed', start: startIdx, stop: startIdx}
 
-doubleSquareBracketOpen = new RegExp ///
-    \[{2}   # exactly two open square brackets
-  ///
+getStop = (comment, type, regex) ->
+  comment.match switch type
+    when 'single' then endOfLine
+    when 'block'  then regex.stop
 
-doubleSquareBracketClose = new RegExp ///
-    \]{2}   # exactly two open square brackets
-  ///
+getType = (single, start) ->
+  if      single  and not start   then 'single'
+  else if start   and not single  then 'block'
+  else
+    if start.index <= single.index then 'block' else 'single'
 
-trippleSharpComment = new RegExp ///
-    \#{3}   # exactly 3 sharp character
-  ///
+countComments = (code, regex) ->
 
-slashStarComment = new RegExp ///
-    /       # slash character
-    \*+     # one or more stars
-  ///
+  myself = (code, idx, res) ->
+    return res if code is ''
 
-starSlashComment = new RegExp ///
-    \*      # one star characters
-    /{1}    # slash character
-  ///
+    start  = regex.start?.exec code
+    single = regex.single?.exec code
 
-trippleQuoteComment = new RegExp ///
-    \"{3}   # exactly three quote characters
-    |       # or
-    \'{3}   # exactly three single quote characters
-  ///
+    return res unless start or single
 
-combine = (r1, r2, type='|') ->
-  new RegExp r1.toString()[1...-1] + type + r2.toString()[1...-1]
+    type = getType single, start
 
-startHtmlComment = new RegExp ///
-    <!--    # html start comment
-  ///
+    match = switch type
+      when 'single' then single
+      when 'block'  then start
 
-stopHtmlComment = new RegExp ///
-    -->     # html stop comment
-  ///
+    cContentIdx = match.index + match[0].length
+    comment     = code.substring cContentIdx
+    lines       = code.substring(0, match.index).split '\n'
+    startIdx    = lines.length - 1 + idx
+    stop        = getStop comment, type, regex
 
-getEmptyLinesCount = (lines) ->
-  (i for l,i in lines when whiteSpaceLine.test l).length
+    unless stop
+      res.push type:'error', start: idx, stop: idx
+      return res
 
-getMatches = (line, regex) ->
+    comment = comment.substring 0, stop.index
+    len     = comment.match(newLines)?.length or 0
+    splitAt = cContentIdx + comment.length + stop[0].length
+    code    = code.substring splitAt
 
-  exec = (r) ->
-    return [] unless r?
-    l = line
-    while (m = l.match r)?
-      l = l.substring m.index+m[0].length
-      m
+    countMixed lines, match, idx, startIdx, res
+    res.push {type, start: startIdx, stop: startIdx + len}
 
-  start  : exec regex.startBlock
-  stop   : exec regex.stopBlock
-  single : exec regex.single
+    -> myself code, startIdx + len, res
 
-countComments = (lines, regex) ->
+  trampoline myself code, 0, []
 
-  blocks      = []
-  single      = []
-  mixed       = []
-  start       = null
-  whiteSpaces = /[^\s]/
+getCommentExpressions = (lang) ->
 
+  # single line comments
+  single =
+    switch lang
 
-  checkForMixedLine = (l, match, idx) ->
-    if (l.substring(0, match.index).match whiteSpaces)?
-      mixed.push {start: idx, stop: idx }
+      when "coffeescript", "coffee", "python", "py"
+        /\#/
+      when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "scss", "less", "styl", "stylus"
+        /\/{2}/
+      when "lua"
+        /--/
+      when "erl"
+        /\%/
+      else null
 
-  handleSingle = (l, m, idx) ->
-    single.push {start: idx, stop: idx }
-    checkForMixedLine l, m.single[0], idx
+  ## block comments
+  switch lang
 
-  handleStart = (l, m, idx) ->
-    start = idx
-    checkForMixedLine l, m.start[0], idx
-    checkLine l.substring(m.start[0].index+m.start[0][0].length), idx
+    when "coffeescript", "coffee"
+      start = stop = /\#{3}/
 
-  handleStop = (l, m, idx) ->
-    blocks.push {start, stop: idx }
-    start = null
-    checkLine l.substring(m.stop[0].index+m.stop[0][0].length), idx, idx
+    when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "css", "scss", "less", "styl", "stylus"
+      start = /\/\*+/
+      stop  = /\*\/{1}/
 
-  checkLine  = (l, idx, lastComment) ->
+    when "python", "py"
+      start = stop = /\"{3}|\'{3}/
 
-    return if l is ''
+    when "html"
+      start = /<\!--/
+      stop  = /-->/
 
-    m           = getMatches l, regex
-    singleMatch = m.single?[0]
-    startMatch  = m.start?[0]
-    stopMatch   = m.stop?[0]
+    when "lua"
+      start = /--\[{2}/
+      stop  = /--\]{2}/
 
-    if not start?
-      if singleMatch and startMatch
-        if startMatch.index <= singleMatch.index
-          handleStart l, m, idx
-        else
-          handleSingle l, m, idx
+    when "erl"
+      start = stop = null
 
-      else if singleMatch
-        handleSingle l, m, idx
+    else throw new TypeError "File extension '#{lang}' is not supported"
 
-      else if startMatch
-        handleStart l, m, idx
+  { start, stop, single }
 
-      else if l.match(whiteSpaces)? and idx is lastComment
-         mixed.push {start: idx, stop: idx }
+trampoline = (next) ->
+  next = next() while typeof next is 'function'
+  next
 
-    else if start? and stopMatch
-      handleStop l, m, idx
+slocModule = (code, lang) ->
 
-  checkLine l,idx for l, idx in lines
+  unless typeof code is "string"
+    throw new TypeError "'code' has to be a string"
+
+  loc   = 1 + code.match(newLines)?.length or 0
+  nloc  = code.match(/^\s*$/mg)?.length or 0
+
+  comments = countComments code, getCommentExpressions lang
+
+  res =
+    block  : []
+    mixed  : []
+    single : []
+
+  res[c.type]?.push c for c in comments
 
   lineSum = (comments) ->
     sum = 0
@@ -153,83 +147,17 @@ countComments = (lines, regex) ->
     sum
 
   cloc = 0
-  for b, i in blocks
+  for b, i in res.block
     d = (b.stop - b.start) + 1
-    if (s for s in single when s.start is b.start or s.start is b.stop).length > 0
+    if (s for s in res.single when s.start is b.start or s.start is b.stop).length > 0
       d -= 3
     cloc += d
 
-  slen = lineSum single
-  cloc += slen
+  scloc = lineSum res.single
+  cloc += scloc
 
-  scloc: slen
-  mcloc: lineSum blocks
-  mxloc: lineSum mixed
-  cloc:  cloc
-
-getCommentExpressions = (lang) ->
-
-  # single line comments
-  single =
-    switch lang
-
-      when "coffeescript", "coffee", "python", "py"
-        sharpComment
-      when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "scss", "less", "styl", "stylus"
-        doubleSlashComment
-      when "css"
-        null
-      when "html"
-        null
-      when "lua"
-        doubleHyphenComment
-      when "erl"
-        /\%/
-      else
-        doubleSlashComment
-
-  ## block comments
-  switch lang
-
-    when "coffeescript", "coffee"
-      startBlock = trippleSharpComment
-      stopBlock  = trippleSharpComment
-
-    when "javascript", "js", "c", "cc", "java", "php", "php5", "go", "css", "scss", "less", "styl", "stylus"
-      startBlock = slashStarComment
-      stopBlock  = starSlashComment
-
-    when "python", "py"
-      startBlock = trippleQuoteComment
-      stopBlock  = trippleQuoteComment
-
-    when "html"
-      startBlock = startHtmlComment
-      stopBlock  = stopHtmlComment
-
-    when "lua"
-      startBlock = combine doubleHyphenComment, doubleSquareBracketOpen , ''
-      stopBlock  = combine doubleHyphenComment, doubleSquareBracketClose, ''
-
-    when "erl"
-      startBlock = null
-      stopBlock  = null
-
-    else
-      throw new TypeError "File extension '#{lang}' is not supported"
-
-  { startBlock, stopBlock, single }
-
-slocModule = (code, lang) ->
-
-  unless typeof code is "string"
-    throw new TypeError "'code' has to be a string"
-
-  lines = code.split '\n'
-  loc   = lines.length
-  nloc  = getEmptyLinesCount lines
-
-  { scloc, mcloc, mxloc, cloc } = countComments lines, getCommentExpressions lang
+  mcloc= lineSum res.block
+  mxloc= lineSum res.mixed
 
   sloc = loc - scloc - mcloc - nloc + mxloc
 
@@ -256,13 +184,10 @@ slocModule.extensions = [
 slocModule.keys = keys
 
 # AMD support
-if define?.amd?
-  define -> slocModule
+if define?.amd? then define -> slocModule
 
 # Node.js support
-else if module?.exports?
-  module.exports = slocModule
+else if module?.exports? then module.exports = slocModule
 
 # Browser support
-else if window?
-  window.sloc = slocModule
+else if window? then window.sloc = slocModule
