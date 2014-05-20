@@ -15,7 +15,7 @@
   ],
   "licenses": [
     {
-      "type": "GPLv3"
+      "type": "MIT"
     }
   ],
   "engine": "node",

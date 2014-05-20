@@ -177,4 +177,4 @@ gulp.task('sloc', function(){
 
 ## License
 
-sloc is licensed under the GPLv3 licence
+sloc is licensed under the MIT licence
