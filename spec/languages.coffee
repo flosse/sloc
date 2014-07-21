@@ -289,4 +289,28 @@ module.exports =
       scloc: 1
       nloc: 0
     }
+    {
+      names: ["hx"]
+      code:
+        """
+        // on line comment
+        class Test {
+          static function main() {
+            var people = [
+              "Elizabeth" /* block comment */ => "Programming",
+              "Joel" => "Design" // comment
+            ];
+            /*
+             * multiline comment
+             */
+          }
+        }
+        """
+      loc: 12
+      cloc: 4
+      sloc: 8
+      mcloc: 3
+      scloc: 1
+      nloc: 0
+    }
   ]

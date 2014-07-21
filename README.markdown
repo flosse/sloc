@@ -20,6 +20,7 @@ Count source lines by
 - CSS / SCSS / LESS / Stylus
 - Go
 - HTML
+- Haxe
 - Java
 - JavaScript
 - Lua
