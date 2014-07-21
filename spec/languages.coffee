@@ -40,7 +40,7 @@ module.exports =
       nloc: 0
     }
     {
-      names: ["hx", "haxe"]
+      names: ["hx"]
       code:
         """
         /* a */
