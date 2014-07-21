@@ -21,6 +21,7 @@ Count source lines by
 - Erlang
 - Go
 - HTML
+- Haxe
 - Java
 - JavaScript
 - Lua
@@ -191,6 +192,7 @@ gulp.task('sloc', function(){
     - erlang
     - less
     - lua
+    - haxe
 
 ### v0.0.x
 

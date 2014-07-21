@@ -67,6 +67,31 @@ module.exports =
       nloc: 1
     }
     {
+      names: ["hx"]
+      code:
+        """
+        /* a */
+        source.code(); //comment
+        // comment
+        /** foo
+        block comment
+        */
+        var people = [
+			    "Elizabeth" /* block comment */ => "Programming",
+			    "Joel" => "Design" // mixed
+		    ];
+        /*
+        another block comment
+        // */
+        """
+      cloc: 11
+      sloc: 5
+      mcloc: 8
+      scloc: 3
+      loc: 13
+      nloc: 0
+    }
+    {
       names: ["c", "h", "cpp", "hpp"]
       code:
         """

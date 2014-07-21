@@ -1,6 +1,6 @@
 {
   "name": "sloc",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "main": "./lib/sloc",
   "bin": {
     "sloc": "./bin/sloc"
@@ -20,14 +20,14 @@
   ],
   "engine": "node",
   "dependencies": {
-    "commander": "~2.2.0",
-    "async": "~0.8.0",
+    "commander": "~2.3.0",
+    "async": "~0.9.0",
     "cli-table": "^0.3.0",
-    "readdirp": "^1.0.1"
+    "readdirp": "^1.1.0"
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",
-    "mocha": "~1.18.2",
+    "mocha": "~1.20.1",
     "chai": "~1.9.1"
   },
   "repository": {
