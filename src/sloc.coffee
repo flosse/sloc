@@ -3,215 +3,192 @@ This program is distributed under the terms of the GPLv3 license.
 Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
-whiteSpaceLine = ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    $       # end of the line
-  ///
+keys = [
+  'loc'     # physical lines of code
+  'sloc'    # source loc
+  'cloc'    # total comment loc
+  'scloc'   # single line comments
+  'mcloc'   # multiline comment loc
+  'nloc'    # empty lines
+  ]
 
-sharpComment = ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    \#      # sharp character
-  ///
+nonEmptyLine = /[^\s]/
+endOfLine    = /$/m
+newLines     = /\n/g
+emptyLines   = /^\s*$/mg
 
-doubleSlashComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    /{2}    # exactly two slash
-  ///
+getCommentExpressions = (lang) ->
 
-doubleHyphenComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    -{2}    # exactly two hypens
-  ///
+  # single line comments
+  single =
+    switch lang
 
-doubleSquareBracketOpen = new RegExp ///
-    \[{2}    # exactly two open square brackets
-  ///
+      when "coffee", "py"
+        /\#/
+      when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", \
+           "php", "php5", "go", "scss", "less", "styl"
+        /\/{2}/
+      when "lua"
+        /--/
+      when "erl"
+        /\%/
+      else null
 
-doubleSquareBracketClose = new RegExp ///
-    \]{2}    # exactly two open square brackets
-  ///
+  ## block comments
+  switch lang
 
-trippleSharpComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    \#{3}   # exactly 3 sharp character
-  ///
+    when "coffee"
+      start = stop = /\#{3}/
 
-slashStarComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    /       # slash character
-    \*+     # one or more stars
-    (?!     # start negative lookahead
-      .*    # zero or more of any kind
-      \*    # start character
-      /     # slash character
-    )       # end lookahead
-    .*      # zero or more of any kind
-    $       # end of line
-  ///
+    when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", \
+          "php", "php5", "go", "css", "scss", "less", "styl"
+      start = /\/\*+/
+      stop  = /\*\/{1}/
 
-singleLineSlashStarComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    /       # slash character
-    \*+     # one or more stars
-    .*      # any or no characters
-    \*+     # one or more stars
-    /{1}    # exactly one slash character
-    \s*     # zero or more spaces
-    $       # end of line
-  ///
+    when "python", "py"
+      start = stop = /\"{3}|\'{3}/
 
-starSlashComment = new RegExp ///
-    ^       # beginning of the line
-    .*      # any or no characters
-    \*      # one star characters
-    /{1}    # slash character
-    \s*     # zero or more spaces
-    $       # end of line
-  ///
+    when "html"
+      start = /<\!--/
+      stop  = /-->/
 
-trippleQuoteComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    (
-      \"{3} # exactly three quote characters
-      |     # or
-      \'{3} # exactly three single quote characters
-    )
-  ///
+    when "lua"
+      start = /--\[{2}/
+      stop  = /--\]{2}/
 
-combine = (r1, r2, type='|') ->
-  new RegExp r1.toString()[1...-1] + type + r2.toString()[1...-1]
+    when "erl"
+      start = stop = null
 
-singleLineHtmlComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    <!--    # html start comment
-    .*      # any or no characters
-    -->     # html stop comment
-    \s*     # zero or more spaces
-    $       # end of line
-  ///
+    else throw new TypeError "File extension '#{lang}' is not supported"
 
-startHtmlComment = new RegExp ///
-    ^       # beginning of the line
-    \s*     # zero or more spaces
-    <!--    # html start comment
-    (?!     # start negative lookahead
-      .*    # zero or more of any kind
-      -->   # html stop comment
-    )       # end lookahead
-    .*      # zero or more of any kind
-    $       # end of line
-  ///
+  { start, stop, single }
 
-stopHtmlComment = new RegExp ///
-    -->     # html stop comment
-    \s*     # zero or more spaces
-    $       # end of line
-  ///
+countMixed = (lines, match, idx, startIdx, res) ->
+
+  if nonEmptyLine.exec(lines[0]) and idx isnt 0
+    res.mixed.push start: idx, stop: idx
+
+  if nonEmptyLine.exec lines[startIdx-idx]
+    res.mixed.push start: startIdx, stop: startIdx
+
+getStop = (comment, type, regex) ->
+  comment.match switch type
+    when 'single' then endOfLine
+    when 'block'  then regex.stop
+
+getType = (single, start) ->
+  if      single  and not start   then 'single'
+  else if start   and not single  then 'block'
+  else
+    if start.index <= single.index then 'block' else 'single'
+
+countComments = (code, regex) ->
+
+  myself = (code, idx, res) ->
+    return res if code is ''
+
+    start  = regex.start?.exec code
+    single = regex.single?.exec code
+
+    return res unless start or single
+
+    type = getType single, start
+
+    match = switch type
+      when 'single' then single
+      when 'block'  then start
+
+    cContentIdx = match.index + match[0].length
+    comment     = code.substring cContentIdx
+    lines       = code.substring(0, match.index).split '\n'
+    startIdx    = lines.length - 1 + idx
+    stop        = getStop comment, type, regex
+
+    unless stop
+      res.error = yes
+      return res
+
+    comment = comment.substring 0, stop.index
+    len     = comment.match(newLines)?.length or 0
+    splitAt = cContentIdx + comment.length + stop[0].length
+    code    = code.substring splitAt
+
+    countMixed lines, match, idx, startIdx, res
+    res[type].push start: startIdx, stop: startIdx + len
+
+    -> myself code, startIdx + len, res
+
+  trampoline myself code, 0, {single:[], block:[], mixed:[]}
+
+trampoline = (next) ->
+  next = next() while typeof next is 'function'
+  next
+
+lineSum = (comments) ->
+  sum = 0
+  for c,i in comments
+    d = (c.stop - c.start) + 1
+    d-- if comments[i+1]?.start is c.stop
+    sum += d
+  sum
+
+countBlock = (res) ->
+  cloc = 0
+  for b,i in res.block
+    d = (b.stop - b.start) + 1
+    for s in res.single when s.start is b.start or s.start is b.stop
+      d -= 3
+      break
+    cloc += d
+  cloc
 
 slocModule = (code, lang) ->
 
   unless typeof code is "string"
     throw new TypeError "'code' has to be a string"
 
-  # single line comments
-  switch lang
-
-    when "coffeescript", "coffee", "python", "py"
-      comment = sharpComment
-    when "javascript", "js", "hx", "c", "cc", "java", "php", "php5", "go", "scss", "less", "styl", "stylus"
-      comment = combine doubleSlashComment, singleLineSlashStarComment
-    when "css"
-      comment = singleLineSlashStarComment
-    when "html"
-      comment = singleLineHtmlComment
-    when "lua"
-      comment = doubleHyphenComment
-    else
-      comment = doubleSlashComment
-
-  ## block comments
-  switch lang
-
-    when "coffeescript", "coffee"
-      startMultiLineComment = trippleSharpComment
-      stopMultiLineComment  = trippleSharpComment
-
-    when "javascript", "js", "hx", "c", "cc", "java", "php", "php5", "go", "css", "scss", "less", "styl", "stylus"
-      startMultiLineComment = slashStarComment
-      stopMultiLineComment  = starSlashComment
-
-    when "python", "py"
-      startMultiLineComment = trippleQuoteComment
-      stopMultiLineComment  = trippleQuoteComment
-
-    when "html"
-      startMultiLineComment = startHtmlComment
-      stopMultiLineComment  = stopHtmlComment
-
-    when "lua"
-      startMultiLineComment = combine doubleHyphenComment, doubleSquareBracketOpen , ''
-      stopMultiLineComment  = combine doubleHyphenComment, doubleSquareBracketClose, ''
-
-    else
-      throw new TypeError "File extension '#{lang}' is not supported"
-
-  commentLineNumbers  = []
-  nullLineNumbers     = []
-
-  lines = code.split '\n'
-  loc   = lines.length
-  nloc  = (for l,i in lines when whiteSpaceLine.test l
-            nullLineNumbers.push i; l
-          ).length
-
-  start               = false
-  cCounter            = 0
-  bCounter            = 0
-
-  for l,i in lines
-
-    if start is false and startMultiLineComment.test l
-      start = true
-      startLine = i
-
-    else if start is true and stopMultiLineComment.test l
-      start = false
-      x = i - startLine + 1
-      commentLineNumbers.push nr for nr in [startLine..i]
-      bCounter += x
-
-    else if start is false and comment.test l
-      cCounter++
-      commentLineNumbers.push i
-
-  sloc      = loc - cCounter - bCounter - nloc
-  totalC    = cCounter + bCounter
+  loc   = 1 + code.match(newLines)?.length or 0
+  nloc  = code.match(emptyLines)?.length   or 0
+  res   = countComments code, getCommentExpressions lang
+  cloc  = countBlock res
+  scloc = lineSum res.single
+  mcloc = lineSum res.block
+  mxloc = lineSum res.mixed
+  cloc  = cloc + scloc
+  sloc  = loc - scloc - mcloc - nloc + mxloc
 
   # result
-  loc:    loc        # physical lines of code
-  sloc:   sloc       # source loc
-  cloc:   totalC     # total comment loc
-  scloc:  cCounter   # single line comments
-  mcloc:  bCounter   # multiline comment loc
-  nloc:   nloc       # null loc
+  { loc, sloc, cloc, scloc, mcloc, nloc }
+
+slocModule.extensions = [
+  "coffee"
+  "py"
+  "js"
+  "c"
+  "cc"
+  "cpp"
+  "h"
+  "hpp"
+  "hx"
+  "ino"
+  "erl"
+  "java"
+  "php", "php5"
+  "go"
+  "lua"
+  "scss"
+  "less"
+  "css"
+  "styl",
+  "html" ]
+
+slocModule.keys = keys
 
 # AMD support
-if define?.amd?
-  define -> slocModule
+if define?.amd? then define -> slocModule
 
 # Node.js support
-else if module?.exports?
-  module.exports = slocModule
+else if module?.exports? then module.exports = slocModule
 
 # Browser support
-else if window?
-  window.sloc = slocModule
+else if window? then window.sloc = slocModule

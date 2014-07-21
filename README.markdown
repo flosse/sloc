@@ -18,6 +18,7 @@ Count source lines by
 - CoffeeScript
 - C / C++
 - CSS / SCSS / LESS / Stylus
+- Erlang
 - Go
 - HTML
 - Haxe
@@ -26,6 +27,14 @@ Count source lines by
 - Lua
 - Python
 - PHP
+
+## Supported outputs
+
+sloc provides a set of output formatters:
+
+- CSV
+- JSON
+- Commandline table
 
 ## Install
 
@@ -70,11 +79,10 @@ Options:
 ```
 -h, --help             output usage information
 -V, --version          output the version number
--j, --json             return JSON object
--c, --csv              return CSV output
--s, --sloc             print only number of source lines
--v, --verbose          print or add analzed files
 -e, --exclude <regex>  regular expression to exclude files and folders
+-f, --format <format>  format output: json, csv, cli-table
+-k, --keys <keys>      report only numbers of the given keys
+-d, --details          report stats of each analzed file
 ```
 
 e.g.:
@@ -109,7 +117,7 @@ fs.readFile("mySourceFile.coffee", "utf8", function(err, code){
 
   if(err){ console.error(err); }
   else{
-    var stats = sloc(code,"coffeescript");
+    var stats = sloc(code,"coffee");
     console.log("total   lines: " + stats.loc);
     console.log("source  lines: " + stats.sloc);
     console.log("comment lines: " + stats.cloc);
@@ -168,6 +176,28 @@ gulp.task('sloc', function(){
 
     npm test
 
+## Changelog
+
+### v0.1.0
+
+- refactored the algorithm
+- relicensed under the MIT license
+- support counting mixed lines (comment + source code)
+- limit reported numbers by a list of keys
+- multiple output formatters
+    - csv
+    - cli table
+    - json
+- new supported languages
+    - erlang
+    - less
+    - lua
+    - haxe
+
+### v0.0.x
+
+Please run `git log v0.0.1...v0.0.8` ;-)
+
 ## License
 
-sloc is licensed under the GPLv3 licence
+sloc is licensed under the MIT license

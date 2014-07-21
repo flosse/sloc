@@ -1,6 +1,6 @@
 {
   "name": "sloc",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "main": "./lib/sloc",
   "bin": {
     "sloc": "./bin/sloc"
@@ -15,13 +15,15 @@
   ],
   "licenses": [
     {
-      "type": "GPLv3"
+      "type": "MIT"
     }
   ],
   "engine": "node",
   "dependencies": {
     "commander": "~2.3.0",
-    "async": "~0.9.0"
+    "async": "~0.9.0",
+    "cli-table": "^0.3.0",
+    "readdirp": "^1.1.0"
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",
@@ -41,6 +43,6 @@
   ],
   "scripts": {
     "prepublish": "coffee -c -o lib/ src/*.coffee",
-    "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register spec/*.spec.coffee"
+    "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/"
   }
 }
