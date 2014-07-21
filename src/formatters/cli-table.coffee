@@ -4,15 +4,17 @@ sloc  = require '../sloc'
 
 module.exports = (data, options={}) ->
 
-  headers = for h in ['Path', sloc.keys...]
-    i18n.en[h]
+  keys = options.keys or sloc.keys
 
-  table = new Table head: headers
+  heads = if options.details then ['Path', keys...] else keys
 
-  statToArray = (d) -> d[k] for k in sloc.keys
+  table = new Table head: (i18n.en[k] for k in heads)
+
+  statToArray = (d) -> d[k] for k in keys
 
   if options.details
     table.push [f.path, statToArray(f.stats)...] for f in data.files
+
   else if (s = data.summary)?
     table.push statToArray s
 
