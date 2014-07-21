@@ -175,6 +175,27 @@ gulp.task('sloc', function(){
 
     npm test
 
+## Changelog
+
+### v0.1.0
+
+- refactored the algorithm
+- relicensed under the MIT license
+- support counting mixed lines (comment + source code)
+- limit reported numbers by a list of keys
+- multiple output formatters
+    - csv
+    - cli table
+    - json
+- new supported languages
+    - erlang
+    - less
+    - lua
+
+### v0.0.x
+
+Please run `git log v0.0.1...v0.0.8` ;-)
+
 ## License
 
-sloc is licensed under the MIT licence
+sloc is licensed under the MIT license
