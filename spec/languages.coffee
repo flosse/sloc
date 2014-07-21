@@ -40,6 +40,27 @@ module.exports =
       nloc: 0
     }
     {
+      names: ["hx", "haxe"]
+      code:
+        """
+        /* a */
+        source.code(); //comment
+        // comment
+        /** foo
+        block comment
+        */
+        /*
+        another block comment
+        // */
+        """
+      cloc: 8
+      sloc: 1
+      mcloc: 6
+      scloc: 2
+      loc: 9
+      nloc: 0
+    }
+    {
       names: ["py", "python"]
       code:
         """
