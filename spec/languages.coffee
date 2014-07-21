@@ -16,12 +16,13 @@ module.exports =
           ### souce() # comment ### no block ###
           ###### code() ###### code()
         """
-      cloc: 10
-      sloc: 5
-      scloc: 3
-      mcloc: 8
-      loc: 11
-      nloc: 1
+      comment: 10
+      source: 5
+      single: 3
+      block: 8
+      total: 11
+      mixed: 6
+      empty: 1
     }
     {
       names: ["js"]
@@ -37,12 +38,13 @@ module.exports =
           another block comment
           // */
         """
-      cloc: 9
-      sloc: 1
-      mcloc: 7
-      scloc: 2
-      loc: 9
-      nloc: 0
+      comment: 9
+      source: 1
+      block: 7
+      single: 2
+      total: 9
+      mixed: 1
+      empty: 0
     }
     {
       names: ["py"]
@@ -59,12 +61,13 @@ module.exports =
           another block comment
           '''
         """
-      cloc: 9
-      sloc: 1
-      mcloc: 6
-      loc: 10
-      scloc: 3
-      nloc: 1
+      comment: 9
+      source: 1
+      block: 6
+      total: 10
+      single: 3
+      mixed: 1
+      empty: 1
     }
     {
       names: ["hx"]
@@ -84,12 +87,13 @@ module.exports =
         another block comment
         // */
         """
-      cloc: 11
-      sloc: 5
-      mcloc: 8
-      scloc: 3
-      loc: 13
-      nloc: 0
+      comment: 11
+      source: 5
+      block: 8
+      single: 3
+      total: 13
+      mixed: 3
+      empty: 0
     }
     {
       names: ["c", "h", "cpp", "hpp"]
@@ -107,12 +111,13 @@ module.exports =
             another block comment
            */
         """
-      cloc: 11
-      sloc: 2
-      mcloc: 10
-      scloc: 1
-      loc: 11
-      nloc: 0
+      comment: 11
+      source: 2
+      block: 10
+      single: 1
+      total: 11
+      mixed: 2
+      empty: 0
     }
     {
       names: ["java"]
@@ -131,12 +136,12 @@ module.exports =
           another block comment
           // */
         """
-      cloc: 10
-      sloc: 4
-      mcloc: 9
-      loc: 12
-      nloc: 0
-      scloc: 1
+      comment: 10
+      source: 4
+      block: 9
+      total: 12
+      empty: 0
+      single: 1
     }
     {
       names: ["php", "php5"]
@@ -149,12 +154,12 @@ module.exports =
          $test = 0;  // bla
          // comment
         """
-      cloc: 5
-      sloc: 1
-      mcloc: 3
-      loc: 6
-      nloc: 1
-      scloc: 2
+      comment: 5
+      source: 1
+      block: 3
+      total: 6
+      empty: 1
+      single: 2
     }
     {
       names: ["go"]
@@ -170,12 +175,12 @@ module.exports =
         /* general
         // comment */
         """
-      cloc: 7
-      sloc: 3
-      mcloc: 6
-      loc: 9
-      nloc: 0
-      scloc: 1
+      comment: 7
+      source: 3
+      block: 6
+      total: 9
+      empty: 0
+      single: 1
     }
     {
       names: ["css"]
@@ -187,12 +192,12 @@ module.exports =
         /* block
            comment */
         """
-      cloc: 4
-      sloc: 2
-      mcloc: 4
-      loc: 5
-      nloc: 0
-      scloc: 0
+      comment: 4
+      source: 2
+      block: 4
+      total: 5
+      empty: 0
+      single: 0
     }
     {
       names: ["scss"]
@@ -206,12 +211,12 @@ module.exports =
         body { margin: 0 }
         // double slash line comment
         """
-      cloc: 5
-      sloc: 3
-      mcloc: 4
-      loc: 7
-      nloc: 0
-      scloc: 1
+      comment: 5
+      source: 3
+      block: 4
+      total: 7
+      empty: 0
+      single: 1
     }
     {
       names: ["less"]
@@ -225,12 +230,12 @@ module.exports =
         body { margin: 0 }
         // double slash line comment
         """
-      cloc: 5
-      sloc: 3
-      mcloc: 4
-      loc: 7
-      nloc: 0
-      scloc: 1
+      comment: 5
+      source: 3
+      block: 4
+      total: 7
+      empty: 0
+      single: 1
     }
     {
       names: ["html"]
@@ -246,12 +251,12 @@ module.exports =
           </body>
         </html>
         """
-      cloc: 5
-      sloc: 5
-      mcloc: 5
-      loc: 9
-      nloc: 0
-      scloc: 0
+      comment: 5
+      source: 5
+      block: 5
+      total: 9
+      empty: 0
+      single: 0
     }
     {
       names: ["styl"]
@@ -270,12 +275,12 @@ module.exports =
              buffered
            */
         """
-      loc: 12
-      cloc: 8
-      sloc: 4
-      mcloc: 6
-      nloc: 1
-      scloc: 2
+      total: 12
+      comment: 8
+      source: 4
+      block: 6
+      empty: 1
+      single: 2
     }
     {
       names: ["lua"]
@@ -291,12 +296,12 @@ module.exports =
                line
                string]]
         """
-      loc: 9
-      cloc: 5
-      sloc: 5
-      mcloc: 3
-      scloc: 2
-      nloc: 0
+      total: 9
+      comment: 5
+      source: 5
+      block: 3
+      single: 2
+      empty: 0
     }
     {
       names: ["erl"]
@@ -310,11 +315,11 @@ module.exports =
         bar(42) -> -3; %%% don't tell!
         bar(N) -> N * bar(N-1).
         """
-      loc: 7
-      cloc: 3
-      sloc: 5
-      mcloc: 0
-      scloc: 3
-      nloc: 0
+      total: 7
+      comment: 3
+      source: 5
+      block: 0
+      single: 3
+      empty: 0
     }
   ]

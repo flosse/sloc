@@ -1,11 +1,12 @@
 module.exports =
   en:
-    loc   : "Physical"
-    sloc  : "Source"
-    cloc  : "Total comment"
-    scloc : "Single-line comment"
-    mcloc : "Multi-line comment"
-    nloc  : "Empty"
+    total   : "Physical"
+    source  : "Source"
+    comment : "Comment"
+    single  : "Single-line comment"
+    block   : "Block comment"
+    mixed   : "Mixed"
+    empty   : "Empty"
 
     Result    : "Result"
     Path      : "Path"

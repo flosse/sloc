@@ -4,12 +4,13 @@ Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 keys = [
-  'loc'     # physical lines of code
-  'sloc'    # source loc
-  'cloc'    # total comment loc
-  'scloc'   # single line comments
-  'mcloc'   # multiline comment loc
-  'nloc'    # empty lines
+  'total'     # physical lines of code
+  'source'    # lines of source
+  'comment'   # lines with comments
+  'single'    # lines with single-line comments
+  'block'     # lines with block comments
+  'mixed'     # lines mixed up with source and comments
+  'empty'     # empty lines
   ]
 
 nonEmptyLine = /[^\s]/
@@ -147,18 +148,18 @@ slocModule = (code, lang) ->
   unless typeof code is "string"
     throw new TypeError "'code' has to be a string"
 
-  loc   = 1 + code.match(newLines)?.length or 0
-  nloc  = code.match(emptyLines)?.length   or 0
-  res   = countComments code, getCommentExpressions lang
-  cloc  = countBlock res
-  scloc = lineSum res.single
-  mcloc = lineSum res.block
-  mxloc = lineSum res.mixed
-  cloc  = cloc + scloc
-  sloc  = loc - scloc - mcloc - nloc + mxloc
+  total   = 1 + code.match(newLines)?.length or 0
+  empty   = code.match(emptyLines)?.length   or 0
+  res     = countComments code, getCommentExpressions lang
+  comment = countBlock res
+  single  = lineSum res.single
+  block   = lineSum res.block
+  mixed   = lineSum res.mixed
+  comment = comment + single
+  source  = total - single - block - empty + mixed
 
   # result
-  { loc, sloc, cloc, scloc, mcloc, nloc }
+  { total, source, comment, single, block, mixed, empty }
 
 slocModule.extensions = [
   "coffee"

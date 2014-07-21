@@ -12,13 +12,14 @@ describe "The CSV formatter", ->
 
   it "should create a csv", ->
     stats =
-      loc   : 1
-      sloc  : 2
-      cloc  : 3
-      scloc : 4
-      mcloc : 5
-      nloc  : 6
+      total   : 1
+      source  : 2
+      comment : 3
+      single  : 4
+      block   : 5
+      mixed   : 6
+      empty   : 7
     csv(summary: stats).should.equal """
-      Path,Physical,Source,Total comment,Single-line comment,Multi-line comment,Empty
-      Total,1,2,3,4,5,6
+      Path,Physical,Source,Comment,Single-line comment,Block comment,Mixed,Empty
+      Total,1,2,3,4,5,6,7
       """

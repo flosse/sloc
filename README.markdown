@@ -1,11 +1,12 @@
 # sloc
 
-Count source lines by
+Create stats of your source code:
 
-- source lines
-- comment lines
-- multiline comment lines
-- single comment lines
+- lines of code
+- lines with comments
+- lines with block comments
+- lines with single-line comments
+- lines mixed up with source and comments
 - empty lines
 - physical lines
 
@@ -90,17 +91,17 @@ e.g.:
 ```
 $ sloc src/
 
----------- result ------------
+---------- Result ------------
 
-      physical lines :  301
-lines of source code :  236
-       total comment :  17
-          singleline :  9
-           multiline :  8
-               empty :  48
+            Physical :  1202
+              Source :  751
+             Comment :  322
+ Single-line comment :  299
+       Block comment :  23
+               Mixed :  116
+               Empty :  245
 
-
-number of files read :  2
+Number of files read :  10
 
 ------------------------------
 ```
@@ -118,9 +119,9 @@ fs.readFile("mySourceFile.coffee", "utf8", function(err, code){
   if(err){ console.error(err); }
   else{
     var stats = sloc(code,"coffee");
-    console.log("total   lines: " + stats.loc);
-    console.log("source  lines: " + stats.sloc);
-    console.log("comment lines: " + stats.cloc);
+    console.log("total   lines: " + stats.total);
+    console.log("source  lines: " + stats.source);
+    console.log("comment lines: " + stats.comment);
   }
 
 });
@@ -133,9 +134,9 @@ var sourceCode = "foo();\n /* bar */\n baz();";
 
 var stats = window.sloc(sourceCode,"javascript");
 
-console.log("total   lines: " + stats.loc);
-console.log("source  lines: " + stats.sloc);
-console.log("comment lines: " + stats.cloc);
+console.log("total   lines: " + stats.total);
+console.log("source  lines: " + stats.source);
+console.log("comment lines: " + stats.comment);
 ```
 
 ### Grunt
@@ -180,6 +181,7 @@ gulp.task('sloc', function(){
 
 ### v0.1.0
 
+- changed API (now it has a better readability)
 - refactored the algorithm
 - relicensed under the MIT license
 - support counting mixed lines (comment + source code)

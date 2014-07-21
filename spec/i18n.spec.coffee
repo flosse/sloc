@@ -9,12 +9,13 @@ describe "The i18n module", ->
 
   it "should contain at least the english strings", ->
 
-    i18n.en.loc     .should.equal "Physical"
-    i18n.en.sloc    .should.equal "Source"
-    i18n.en.cloc    .should.equal "Total comment"
-    i18n.en.scloc   .should.equal "Single-line comment"
-    i18n.en.mcloc   .should.equal "Multi-line comment"
-    i18n.en.nloc    .should.equal "Empty"
+    i18n.en.total   .should.equal "Physical"
+    i18n.en.source  .should.equal "Source"
+    i18n.en.comment .should.equal "Comment"
+    i18n.en.single  .should.equal "Single-line comment"
+    i18n.en.block   .should.equal "Block comment"
+    i18n.en.empty   .should.equal "Empty"
+    i18n.en.mixed   .should.equal "Mixed"
 
     i18n.en.Result  .should.equal "Result"
     i18n.en.Total   .should.equal "Total"

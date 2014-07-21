@@ -11,18 +11,20 @@ describe "The sloc module", ->
     sloc.should.be.a 'function'
 
   it "should count all lines", ->
-    sloc("a\nb\nc", "js").loc.should.equal 3
+    sloc("a\nb\nc", "js").total.should.equal 3
 
   it "should create correct stats for all languages", ->
     for l in langs
       for n in l.names
         res = sloc l.code, n
-        res.loc   .should.equal l.loc
-        res.sloc  .should.equal l.sloc
-        res.cloc  .should.equal l.cloc
-        res.scloc .should.equal l.scloc
-        res.mcloc .should.equal l.mcloc
-        res.nloc  .should.equal l.nloc
+        res.total   .should.equal l.total
+        res.source  .should.equal l.source
+        res.comment .should.equal l.comment
+        res.single  .should.equal l.single
+        res.block   .should.equal l.block
+        res.empty   .should.equal l.empty
+        if l.mixed
+          res.mixed.should.equal l.mixed
 
   it "should throw an error", ->
     (-> sloc "foo", "foobar").should.throw()
@@ -36,12 +38,13 @@ describe "The sloc module", ->
 
   it "keeps an array with all supported keys", ->
     keys = [
-      'loc'
-      'sloc'
-      'cloc'
-      'scloc'
-      'mcloc'
-      'nloc'  ]
+      'total'
+      'source'
+      'comment'
+      'single'
+      'block'
+      'mixed'
+      'empty'  ]
     sloc.keys.should.be.an 'array'
     for k in sloc.keys
       (k in keys).should.be.true
