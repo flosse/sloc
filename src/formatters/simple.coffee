@@ -3,6 +3,10 @@ i18n    = require '../i18n'
 helpers = require '../helpers'
 align   = helpers.alignRight
 col     = 20
+colors  =
+  source  : "green"
+  comment : "cyan"
+  empty   : "yellow"
 
 stat = (data, options) ->
 
@@ -10,11 +14,12 @@ stat = (data, options) ->
     return "#{align i18n.en.Error, col} :  #{i18n.en.BadFile}"
 
   str = for k in options.keys when (x = data.stats[k])?
-    "#{align i18n.en[k], col} :  #{x}"
+    n = if (c = colors[k])? and (i = String(x)[c])? then i else x
+    "#{align i18n.en[k], col} :  #{n}"
 
   str.join '\n'
 
-module.exports = (data, options={}) ->
+module.exports = (data, options={}, fmtOpts) ->
 
   if options.keys?.length is 1 and not options.reportDetails
     return data.summary[options.keys[0]]
@@ -28,7 +33,8 @@ module.exports = (data, options={}) ->
 
   badFiles = data.files.filter (x) -> x.badFile
 
-  result += "\n\n#{i18n.en.NumberOfFilesRead} :  #{data.files.length - badFiles.length}"
+  fileCount = data.files.length - badFiles.length
+  result += "\n\n#{i18n.en.NumberOfFilesRead} :  #{fileCount}"
 
   if bl = badFiles.length > 0
     result += "\n#{align i18n.en.Brokenfiles, col} :  #{badFiles.length}"

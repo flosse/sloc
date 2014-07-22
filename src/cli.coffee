@@ -11,12 +11,7 @@ readdirp  = require 'readdirp'
 sloc      = require './sloc'
 helpers   = require './helpers'
 pkg       = require '../package.json'
-
-formatters =
-  'csv'       : require './formatters/csv'
-  'cli-table' : require './formatters/cli-table'
-  'simple'    : require './formatters/simple'
-  'json'      : require './formatters/json'
+fmts      = require './formatters'
 
 list = (val) -> val.split ','
 exts = ("*.#{k}" for k in sloc.extensions)
@@ -24,6 +19,8 @@ exts = ("*.#{k}" for k in sloc.extensions)
 collect = (val, memo) ->
   memo.push val
   memo
+
+colorRegex = /\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/g
 
 parseFile = (f, cb=->) ->
   res = { path: f, stats: {}, badFile: no }
@@ -37,9 +34,10 @@ parseFile = (f, cb=->) ->
 print = (err, result, opts, fmtOpts) ->
   return console.error "Error: #{err}" if err
   f = programm.format or 'simple'
-  unless (fmt = formatters[f])?
+  unless (fmt = fmts[f])?
     return console.error "Error: format #{f} is not supported"
   out = fmt result, opts, fmtOpts
+  out = out.replace colorRegex, '' if programm.stripColors
   console.log out if typeof out is "string"
 
 addResult = (res, global) ->
@@ -62,14 +60,15 @@ programm
   .version pkg.version
   .usage '[option] <file> | <directory>'
   .option '-e, --exclude <regex>',        'regular expression to exclude files and folders'
-  .option '-f, --format <format>',        'format output:' + (" #{k}" for k of formatters).join ','
+  .option '-f, --format <format>',        'format output:' + (" #{k}" for k of fmts).join ','
   .option '    --format-option [value]',  'add formatter option', collect, fmtOpts
+  .option '    --strip-colors',           'remove all color characters'
   .option '-k, --keys <keys>',            'report only numbers of the given keys', list
   .option '-d, --details',                'report stats of each analized file'
 
 programm.parse process.argv
-options.keys    = programm.keys
-options.details = programm.details
+options.keys        = programm.keys
+options.details     = programm.details
 
 return programm.help() if programm.args.length < 1
 
