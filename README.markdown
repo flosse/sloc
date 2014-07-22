@@ -110,7 +110,11 @@ Number of files read :  10
 or
 
 ```
-$ sloc --details --format cli-table --keys total,source,comment --exclude i18n*.\.coffee --format-option no-head src/
+$ sloc --details \
+       --format cli-table \
+       --keys total,source,comment \
+       --exclude i18n*.\.coffee \
+       --format-option no-head src/
 
 ┌─────────────────────────────────┬──────────┬────────┬─────────┐
 │ src/cli.coffee                  │ 98       │ 74     │ 7       │
