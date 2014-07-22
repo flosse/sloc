@@ -11,12 +11,19 @@ readdirp  = require 'readdirp'
 sloc      = require './sloc'
 helpers   = require './helpers'
 pkg       = require '../package.json'
-csvify    = require './formatters/csv'
-cliTable  = require './formatters/cli-table'
-simpleOut = require './formatters/simple'
 
-list      = (val) -> val.split ','
-exts      = ("*.#{k}" for k in sloc.extensions)
+formatters =
+  'csv'       : require './formatters/csv'
+  'cli-table' : require './formatters/cli-table'
+  'simple'    : require './formatters/simple'
+  'json'      : require './formatters/json'
+
+list = (val) -> val.split ','
+exts = ("*.#{k}" for k in sloc.extensions)
+
+collect = (val, memo) ->
+  memo.push val
+  memo
 
 parseFile = (f, cb=->) ->
   res = { path: f, stats: {}, badFile: no }
@@ -27,18 +34,13 @@ parseFile = (f, cb=->) ->
     res.stats = sloc code, path.extname(f)[1...]
     cb null, res
 
-print = (err, result) ->
+print = (err, result, options, fmtOpts) ->
   return console.error "Error: #{err}" if err
-  unless f = programm.format
-    console.log simpleOut result, options
-  else
-    out = switch f
-      when 'json'      then JSON.stringify result, null, 2
-      when 'csv'       then csvify result, options
-      when 'cli-table' then cliTable result, options
-
-    if typeof out is 'string' then console.log out
-    else console.error "Error: format #{f} is not supported"
+  f = programm.format or 'simple'
+  unless (fmt = formatters[f])?
+    return console.error "Error: format #{f} is not supported"
+  out = fmt result, options, fmtOpts
+  console.log out if typeof out is "string"
 
 addResult = (res, global) ->
   if res.badFile then global.brokenFiles++
@@ -54,16 +56,18 @@ filterFiles = (files) ->
 
   (path.normalize(p + r.path) for r in res)
 
+options = {}
+fmtOpts = []
 programm
   .version pkg.version
   .usage '[option] <file> | <directory>'
-  .option '-e, --exclude <regex>',  'regular expression to exclude files and folders'
-  .option '-f, --format <format>',  'format output: json, csv, cli-table'
-  .option '-k, --keys <keys>',      'report only numbers of the given keys', list
-  .option '-d, --details',          'report stats of each analized file'
+  .option '-e, --exclude <regex>',        'regular expression to exclude files and folders'
+  .option '-f, --format <format>',        'format output:' + (" #{k}" for k of formatters).join ','
+  .option '    --format-option [value]',  'add formatter option', collect, fmtOpts
+  .option '-k, --keys <keys>',            'report only numbers of the given keys', list
+  .option '-d, --details',                'report stats of each analized file'
 
 programm.parse process.argv
-options         = {}
 options.keys    = programm.keys
 options.details = programm.details
 
@@ -74,13 +78,13 @@ result = files: []
 readSingleFile = (f) -> parseFile p, (err, res) ->
   addResult res, result
   result.summary = res.stats
-  print err, result
+  print err, result, options, fmtOpts
 
 readDir = (dir) ->
 
   finish = (err, x) ->
     result.summary = helpers.summarize result.files.map (x) -> x.stats
-    print err, result
+    print err, result, options, fmtOpts
 
   processFile = (f, next) -> parseFile f, (err, r) ->
     addResult r, result

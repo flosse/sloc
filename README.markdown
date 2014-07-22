@@ -78,12 +78,13 @@ sloc [option] <file>|<directory>
 Options:
 
 ```
--h, --help             output usage information
--V, --version          output the version number
--e, --exclude <regex>  regular expression to exclude files and folders
--f, --format <format>  format output: json, csv, cli-table
--k, --keys <keys>      report only numbers of the given keys
--d, --details          report stats of each analzed file
+-h, --help                  output usage information
+-V, --version               output the version number
+-e, --exclude <regex>       regular expression to exclude files and folders
+-f, --format <format>       format output: json, csv, cli-table
+    --format-option [value] add formatter option
+-k, --keys <keys>           report only numbers of the given keys
+-d, --details               report stats of each analzed file
 ```
 
 e.g.:
@@ -109,11 +110,9 @@ Number of files read :  10
 or
 
 ```
-$ sloc --details --format cli-table --keys total,source,comment --exclude i18n*.\.coffee src/
+$ sloc --details --format cli-table --keys total,source,comment --exclude i18n*.\.coffee --format-option no-head src/
 
 ┌─────────────────────────────────┬──────────┬────────┬─────────┐
-│ Path                            │ Physical │ Source │ Comment │
-├─────────────────────────────────┼──────────┼────────┼─────────┤
 │ src/cli.coffee                  │ 98       │ 74     │ 7       │
 ├─────────────────────────────────┼──────────┼────────┼─────────┤
 │ src/helpers.coffee              │ 26       │ 20     │ 0       │
@@ -141,11 +140,11 @@ fs.readFile("mySourceFile.coffee", "utf8", function(err, code){
   if(err){ console.error(err); }
   else{
     var stats = sloc(code,"coffee");
-    console.log("total   lines: " + stats.total);
-    console.log("source  lines: " + stats.source);
-    console.log("comment lines: " + stats.comment);
+    for(i in sloc.keys){
+      var k = sloc.keys[i];
+      console.log(k + " : " + stats[k]);
+    }
   }
-
 });
 ```
 
@@ -155,11 +154,34 @@ fs.readFile("mySourceFile.coffee", "utf8", function(err, code){
 var sourceCode = "foo();\n /* bar */\n baz();";
 
 var stats = window.sloc(sourceCode,"javascript");
-
-console.log("total   lines: " + stats.total);
-console.log("source  lines: " + stats.source);
-console.log("comment lines: " + stats.comment);
 ```
+
+### Contribute an new formatter
+
+1. Fork this repo
+
+2. add the new formatter into `src/formatters/` that exports a
+   method with two arguments:
+   1. results
+   2. global options
+   3. formatter specific options
+
+```javascript
+module.exports = function(results, options, formatOptions){
+  // process results
+}
+```
+
+3. add the formatter in `src/cli.coffee`:
+
+```coffeescript
+formatters =
+  # ...
+  'yourKey' : require './formatters/yourFormatter'
+  # ...
+```
+
+4. open a pull request
 
 ### Grunt
 

@@ -7,7 +7,7 @@ i18n = require '../i18n'
 
 module.exports = (data, options={}) ->
 
-  return new Error "missing data" unless data?
+  return console.error "Error: missing data" unless data?
 
   lines = "#{i18n.en.Path},#{(i18n.en[k] for k in sloc.keys).join ','}\n"
 

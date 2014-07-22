@@ -2,13 +2,15 @@ Table = require 'cli-table'
 i18n  = require '../i18n'
 sloc  = require '../sloc'
 
-module.exports = (data, options={}) ->
+module.exports = (data, options, fmtOpts) ->
 
   keys = options.keys or sloc.keys
 
   heads = if options.details then ['Path', keys...] else keys
 
-  table = new Table head: (i18n.en[k] for k in heads)
+  head = if 'no-head' in fmtOpts then [] else (i18n.en[k] for k in heads)
+
+  table = new Table { head }
 
   statToArray = (d) -> d[k] for k in keys
 
