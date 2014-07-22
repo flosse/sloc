@@ -161,25 +161,12 @@ var stats = window.sloc(sourceCode,"javascript");
 1. Fork this repo
 
 2. add the new formatter into `src/formatters/` that exports a
-   method with two arguments:
-   1. results
-   2. global options
-   3. formatter specific options
+   method with three arguments:
+   1. results (object)
+   2. global options (object)
+   3. formatter specific options (array)
 
-```javascript
-module.exports = function(results, options, formatOptions){
-  // process results
-}
-```
-
-3. add the formatter in `src/cli.coffee`:
-
-```coffeescript
-formatters =
-  # ...
-  'yourKey' : require './formatters/yourFormatter'
-  # ...
-```
+3. add the formatter in `src/cli.coffee`
 
 4. open a pull request
 
