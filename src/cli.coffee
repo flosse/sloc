@@ -34,12 +34,12 @@ parseFile = (f, cb=->) ->
     res.stats = sloc code, path.extname(f)[1...]
     cb null, res
 
-print = (err, result, options, fmtOpts) ->
+print = (err, result, opts, fmtOpts) ->
   return console.error "Error: #{err}" if err
   f = programm.format or 'simple'
   unless (fmt = formatters[f])?
     return console.error "Error: format #{f} is not supported"
-  out = fmt result, options, fmtOpts
+  out = fmt result, opts, fmtOpts
   console.log out if typeof out is "string"
 
 addResult = (res, global) ->

@@ -8,4 +8,4 @@ describe "The table formatter", ->
     table.should.be.a 'function'
 
   it "should return a string", ->
-    table({}).should.be.a 'string'
+    table({},{},[]).should.be.a 'string'
