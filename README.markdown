@@ -208,6 +208,13 @@ gulp.task('sloc', function(){
 });
 ```
 
+### [Atom](https://atom.io/)
+
+![screenshot](https://raw.githubusercontent.com/sgade/atom-sloc/master/assets/screen.png)
+
+You can use [atom-sloc](https://github.com/sgade/atom-sloc) to display stats
+of the current file in the statusbar.
+
 ## Run tests
 
     npm test
