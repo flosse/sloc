@@ -322,4 +322,34 @@ module.exports =
       single: 3
       empty: 0
     }
+    {
+      names: ["monkey"]
+      code:
+        """
+        Strict
+        Import mojo
+        Import brl.httprequest
+        #rem
+        Block comment
+        #end
+        #Rem
+        Case insensitive test
+        #ENd
+        Function Main:Int()
+          Print("Hello World") 'comment
+          Return 0
+        End Function
+        ' comment
+        #rem
+        Block comment 2
+        #end
+        """
+      comment: 11
+      source: 7
+      block: 9
+      single: 2
+      total: 17
+      mixed: 1
+      empty: 0
+    }
   ]
