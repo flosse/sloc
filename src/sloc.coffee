@@ -33,6 +33,8 @@ getCommentExpressions = (lang) ->
         /--/
       when "erl"
         /\%/
+      when "monkey"
+        /'/
       else null
 
   ## block comments
@@ -59,6 +61,10 @@ getCommentExpressions = (lang) ->
 
     when "erl"
       start = stop = null
+
+    when "monkey"
+      start = /#rem/i
+      stop  = /#end/i
 
     else throw new TypeError "File extension '#{lang}' is not supported"
 
@@ -173,6 +179,7 @@ slocModule.extensions = [
   "hx"
   "ino"
   "erl"
+  "monkey"
   "java"
   "php", "php5"
   "go"

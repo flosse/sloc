@@ -26,6 +26,7 @@ Create stats of your source code:
 - Java
 - JavaScript
 - Lua
+- Monkey
 - Python
 - PHP
 
