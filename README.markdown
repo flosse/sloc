@@ -222,6 +222,12 @@ of the current file in the statusbar.
 
 ## Changelog
 
+### v0.1.1
+
+- added Monkey support
+- print with colors
+- add `--strip-colors` option
+
 ### v0.1.0
 
 - changed API (now it has a better readability)
