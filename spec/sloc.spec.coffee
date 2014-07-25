@@ -14,7 +14,7 @@ describe "The sloc module", ->
     sloc("a\nb\nc", "js").total.should.equal 3
 
   it "should handle CRLF line endings", ->
-    expect(sloc("a\r\nb\r\nc", "js")).toEqual
+    sloc("a\r\nb\r\nc", "js").should.eql
       block:    0
       comment:  0
       empty:    0
