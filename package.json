@@ -1,6 +1,6 @@
 {
   "name": "sloc",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./lib/sloc",
   "bin": {
     "sloc": "./bin/sloc"
@@ -11,7 +11,13 @@
   "contributors": [
     "Markus Kohlhase",
     "feugy",
-    "Sören Gade"
+    "Sören Gade",
+    "as3boyan",
+    "mark-hahn",
+    "hsablonniere",
+    "programmerby",
+    "daclayton",
+    "yoshi6jp"
   ],
   "license": "MIT",
   "engine": "node",

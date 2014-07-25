@@ -227,6 +227,10 @@ type for all files in the project.
 
 ## Changelog
 
+### v0.1.2
+
+- added CRLF
+
 ### v0.1.1
 
 - added Monkey support
