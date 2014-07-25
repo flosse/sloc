@@ -13,6 +13,16 @@ describe "The sloc module", ->
   it "should count all lines", ->
     sloc("a\nb\nc", "js").total.should.equal 3
 
+  it "should handle CRLF line endings", ->
+    expect(sloc("a\r\nb\r\nc", "js")).toEqual
+      block:    0
+      comment:  0
+      empty:    0
+      mixed:    0
+      single:   0
+      source:   3
+      total:    3
+
   it "should create correct stats for all languages", ->
     for l in langs
       for n in l.names

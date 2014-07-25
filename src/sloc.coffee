@@ -154,6 +154,8 @@ slocModule = (code, lang) ->
   unless typeof code is "string"
     throw new TypeError "'code' has to be a string"
 
+  code = code.replace /\r/g, ''
+
   total   = 1 + code.match(newLines)?.length or 0
   empty   = code.match(emptyLines)?.length   or 0
   res     = countComments code, getCommentExpressions lang
