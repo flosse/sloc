@@ -233,6 +233,7 @@ type for all files in the project.
 - print with colors
 - add `--strip-colors` option
 - fixed summarize helper method
+- fixed path concatenation
 
 ### v0.1.0
 

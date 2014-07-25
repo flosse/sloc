@@ -52,7 +52,7 @@ filterFiles = (files) ->
     else
       files
 
-  (path.normalize(p + r.path) for r in res)
+  (path.join p, r.path for r in res)
 
 options = {}
 fmtOpts = []
