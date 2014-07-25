@@ -227,6 +227,7 @@ of the current file in the statusbar.
 - added Monkey support
 - print with colors
 - add `--strip-colors` option
+- fixed summarize helper method
 
 ### v0.1.0
 

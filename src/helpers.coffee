@@ -9,17 +9,15 @@ alignRight = (string='', width=0) ->
     Array(width - string.length + 1).join(' ') + string
 
 summarize = (fileStats) ->
-  sum =
-    loc   : 0
-    sloc  : 0
-    cloc  : 0
-    scloc : 0
-    mcloc : 0
-    nloc  : 0
 
-  fileStats.reduce (a,b) ->
+  return {} unless Array.isArray(fileStats) and fileStats.length > 0
+
+  fileStats.reduce (a, b) ->
     o = {}
-    o[k] = a[k] + (b[k] or 0) for k,v of a
+    for x in [a,b] when x?
+      for k,v of x when typeof v is "number"
+        o[k] ?= 0
+        o[k] += v
     o
 
 module.exports = { alignRight, summarize }
