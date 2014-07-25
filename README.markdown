@@ -216,6 +216,11 @@ gulp.task('sloc', function(){
 You can use [atom-sloc](https://github.com/sgade/atom-sloc) to display stats
 of the current file in the statusbar.
 
+And there is another great atom package called
+[line-count](https://github.com/mark-hahn/line-count) that gives you a more
+detailed report showing line counts broken down by file, directory, and file
+type for all files in the project.
+
 ## Run tests
 
     npm test
