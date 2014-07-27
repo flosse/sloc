@@ -24,10 +24,10 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "py"
+      when "coffee", "py", "ls"
         /\#/
       when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", \
-           "php", "php5", "go", "scss", "less", "styl"
+           "php", "php5", "go", "scss", "less", "styl", "scala"
         /\/{2}/
       when "lua"
         /--/
@@ -43,8 +43,8 @@ getCommentExpressions = (lang) ->
     when "coffee"
       start = stop = /\#{3}/
 
-    when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", \
-          "php", "php5", "go", "css", "scss", "less", "styl"
+    when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "ls", \
+          "php", "php5", "go", "css", "scss", "less", "styl", "scala"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -163,27 +163,30 @@ slocModule = (code, lang) ->
   { total, source, comment, single, block, mixed, empty }
 
 slocModule.extensions = [
-  "coffee"
-  "py"
-  "js"
   "c"
   "cc"
+  "coffee"
   "cpp"
+  "css"
+  "erl"
+  "go"
   "h"
   "hpp"
+  "html"
   "hx"
   "ino"
-  "erl"
-  "monkey"
   "java"
-  "php", "php5"
-  "go"
-  "lua"
-  "scss"
+  "js"
   "less"
-  "css"
-  "styl",
-  "html" ]
+  "lua"
+  "ls"
+  "monkey"
+  "php", "php5"
+  "py"
+  "scala"
+  "scss"
+  "styl"
+]
 
 slocModule.keys = keys
 

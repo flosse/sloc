@@ -5,6 +5,9 @@
 - added CRLF support
 - fixed counting mixed lines
 - fixed counting total comments
+- new supported languages
+    - Scala
+    - LiveScript
 
 ## v0.1.1
 

@@ -28,6 +28,7 @@ describe "The sloc module", ->
       for n in l.names then do (n) ->
         it "should support #{n}", ->
           res = sloc l.code, n
+          (n in sloc.extensions).should.equal true
           if l.total
             res.total   .should.equal l.total
           if l.source

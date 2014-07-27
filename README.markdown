@@ -26,9 +26,11 @@ Create stats of your source code:
 - Java
 - JavaScript
 - Lua
+- LiveScript
 - Monkey
 - Python
 - PHP
+- Scala
 
 ## Supported outputs
 

@@ -353,4 +353,45 @@ module.exports =
       mixed: 1
       empty: 0
     }
+    {
+      names: ["ls"]
+      code:
+        """
+        # a
+        source.code() # comment
+
+        /* block
+        comment # commented comment
+        */
+        source() /* one line block */
+        /* one line block */ code()
+        /* block */ code() /*
+        */ souce() # comment /* no block */
+        """
+      comment: 9
+      source: 5
+      block: 7
+      single: 3
+      total: 10
+      mixed: 5
+      empty: 1
+    }
+    {
+      names: ["scala"]
+      code:
+        """
+        // define index handler
+        def index = Action {
+          Ok(views.html.index("Hello World!")) // render index template
+        }
+        /* block comment */ source()
+        """
+      comment: 3
+      source: 4
+      block: 1
+      single: 2
+      total: 5
+      mixed: 2
+      empty: 0
+    }
   ]
