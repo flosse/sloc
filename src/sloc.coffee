@@ -141,16 +141,6 @@ lineSum = (comments) ->
     sum += d
   sum
 
-countBlock = (res) ->
-  cloc = 0
-  for b,i in res.block
-    d = (b.stop - b.start) + 1
-    for s in res.single when s.start is b.start or s.start is b.stop
-      d -= 3
-      break
-    cloc += d
-  cloc
-
 slocModule = (code, lang) ->
 
   unless typeof code is "string"
@@ -161,12 +151,13 @@ slocModule = (code, lang) ->
   total   = 1 + code.match(newLines)?.length or 0
   empty   = code.match(emptyLines)?.length   or 0
   res     = countComments code, getCommentExpressions lang
-  comment = countBlock res
   single  = lineSum res.single
   block   = lineSum res.block
   mixed   = lineSum res.mixed
-  comment = comment + single
-  source  = total - single - block - empty + mixed
+  comment = block + single
+  bIdx    = (b.stop for b in res.block when not (b.stop in _results))
+  comment-- for s in res.single when s.start in bIdx
+  source  = total - comment - empty + mixed
 
   # result
   { total, source, comment, single, block, mixed, empty }

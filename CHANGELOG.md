@@ -4,6 +4,7 @@
 
 - added CRLF support
 - fixed counting mixed lines
+- fixed counting total comments
 
 ## v0.1.1
 

@@ -17,7 +17,7 @@ module.exports =
           ###### code() ###### code()
         """
       comment: 10
-      source: 5
+      source: 6
       single: 3
       block: 8
       total: 11
