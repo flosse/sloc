@@ -142,6 +142,7 @@ module.exports =
       total: 12
       empty: 0
       single: 1
+      mixed: 2
     }
     {
       names: ["php", "php5"]

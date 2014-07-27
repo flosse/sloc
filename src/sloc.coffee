@@ -70,12 +70,12 @@ getCommentExpressions = (lang) ->
 
   { start, stop, single }
 
-countMixed = (lines, match, idx, startIdx, res) ->
+countMixed = (lines, idx, startIdx, res) ->
 
   if nonEmptyLine.exec(lines[0]) and idx isnt 0
     res.mixed.push start: idx, stop: idx
 
-  if nonEmptyLine.exec lines[startIdx-idx]
+  if (i=startIdx-idx) isnt 0 and nonEmptyLine.exec lines[i]
     res.mixed.push start: startIdx, stop: startIdx
 
 getStop = (comment, type, regex) ->
@@ -97,7 +97,9 @@ countComments = (code, regex) ->
     start  = regex.start?.exec code
     single = regex.single?.exec code
 
-    return res unless start or single
+    unless start or single
+      countMixed code.split('\n'), idx, idx, res
+      return res
 
     type = getType single, start
 
@@ -120,7 +122,7 @@ countComments = (code, regex) ->
     splitAt = cContentIdx + comment.length + stop[0].length
     code    = code.substring splitAt
 
-    countMixed lines, match, idx, startIdx, res
+    countMixed lines, idx, startIdx, res
     res[type].push start: startIdx, stop: startIdx + len
 
     -> myself code, startIdx + len, res

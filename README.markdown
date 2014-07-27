@@ -229,7 +229,7 @@ type for all files in the project.
 
 ### v0.1.2
 
-- added CRLF
+- added CRLF support
 
 ### v0.1.1
 

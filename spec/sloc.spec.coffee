@@ -23,18 +23,25 @@ describe "The sloc module", ->
       source:   3
       total:    3
 
-  it "should create correct stats for all languages", ->
-    for l in langs
-      for n in l.names
-        res = sloc l.code, n
-        res.total   .should.equal l.total
-        res.source  .should.equal l.source
-        res.comment .should.equal l.comment
-        res.single  .should.equal l.single
-        res.block   .should.equal l.block
-        res.empty   .should.equal l.empty
-        if l.mixed
-          res.mixed.should.equal l.mixed
+  describe "language support", ->
+    for l in langs then do (l) ->
+      for n in l.names then do (n) ->
+        it "should support #{n}", ->
+          res = sloc l.code, n
+          if l.total
+            res.total   .should.equal l.total
+          if l.source
+            res.source  .should.equal l.source
+          if l.comment
+            res.comment .should.equal l.comment
+          if l.single
+            res.single  .should.equal l.single
+          if l.block
+            res.block   .should.equal l.block
+          if l.empty
+            res.empty   .should.equal l.empty
+          if l.mixed
+            res.mixed   .should.equal l.mixed
 
   it "should throw an error", ->
     (-> sloc "foo", "foobar").should.throw()
