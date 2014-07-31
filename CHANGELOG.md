@@ -1,5 +1,10 @@
 # Changelog
 
+## next
+
+- new supported languages
+    - Ruby
+
 ## v0.1.2
 
 - added CRLF support

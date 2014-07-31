@@ -232,7 +232,7 @@ type for all files in the project.
 
 ## Changelog
 
-see `CHANGELOG.markdown`
+see `CHANGELOG.md`
 
 ## License
 

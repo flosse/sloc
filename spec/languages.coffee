@@ -394,4 +394,27 @@ module.exports =
       mixed: 2
       empty: 0
     }
+    {
+      names: ["rb"]
+      code:
+        """
+        # a
+        source.code() # comment
+
+        =begin=begin block
+        comment # commented comment
+        =end
+        source() =begin one line block=end
+        =begin one line block =end code()
+        =begin block =end code() =begin
+        =end souce() # comment =begin no block =end
+        """
+      comment: 9
+      source: 5
+      block: 7
+      single: 3
+      total: 10
+      mixed: 5
+      empty: 1
+    }
   ]
