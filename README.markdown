@@ -34,6 +34,7 @@ Create stats of your source code:
 - PHP
 - Ruby
 - Scala
+- Typescript
 
 ## Supported outputs
 

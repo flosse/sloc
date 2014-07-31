@@ -25,7 +25,7 @@ module.exports =
       empty: 1
     }
     {
-      names: ["js"]
+      names: ["js", "ts"]
       code:
         """
           /* a */
