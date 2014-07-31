@@ -1,9 +1,10 @@
 # Changelog
 
-## next
+## v0.1.3
 
 - new supported languages
     - Ruby
+    - TypeScript
 
 ## v0.1.2
 
