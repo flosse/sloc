@@ -24,7 +24,7 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "py", "ls"
+      when "coffee", "py", "ls", "rb"
         /\#/
       when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", \
            "php", "php5", "go", "scss", "less", "styl", "scala"
@@ -65,6 +65,10 @@ getCommentExpressions = (lang) ->
     when "monkey"
       start = /#rem/i
       stop  = /#end/i
+
+    when "rb"
+      start = /\=begin/
+      stop = /\=end/
 
     else throw new TypeError "File extension '#{lang}' is not supported"
 
@@ -183,6 +187,7 @@ slocModule.extensions = [
   "monkey"
   "php", "php5"
   "py"
+  "rb"
   "scala"
   "scss"
   "styl"

@@ -1,5 +1,6 @@
 # sloc
 
+
 Create stats of your source code:
 
 - lines of code
@@ -16,6 +17,7 @@ Create stats of your source code:
 
 ## Supported languages
 
+
 - CoffeeScript
 - C / C++
 - CSS / SCSS / LESS / Stylus
@@ -30,6 +32,7 @@ Create stats of your source code:
 - Monkey
 - Python
 - PHP
+- Ruby
 - Scala
 
 ## Supported outputs
