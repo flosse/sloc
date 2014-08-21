@@ -417,4 +417,19 @@ module.exports =
       mixed: 5
       empty: 1
     }
+    {
+      names: ["jl"]
+      code:
+        """
+        # Single line comment
+        #= block comment =#
+        """
+      comment: 2
+      source: 0
+      block: 1
+      single: 1
+      total: 2
+      mixed: 0
+      empty: 0
+    }
   ]

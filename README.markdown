@@ -27,6 +27,7 @@ Create stats of your source code:
 - Haxe
 - Java
 - JavaScript
+- Julia
 - Lua
 - LiveScript
 - Monkey
