@@ -33,7 +33,7 @@ getCommentExpressions = (lang) ->
         /--/
       when "erl"
         /\%/
-      when "monkey"
+      when "monkey", "vb"
         /'/
       else null
 
@@ -59,7 +59,7 @@ getCommentExpressions = (lang) ->
       start = /--\[{2}/
       stop  = /--\]{2}/
 
-    when "erl", "swift"
+    when "erl", "swift", "vb"
       start = stop = null
 
     when "monkey"
@@ -199,6 +199,7 @@ slocModule.extensions = [
   "styl"
   "swift"
   "ts"
+  "vb"
 ]
 
 slocModule.keys = keys

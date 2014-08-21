@@ -445,4 +445,17 @@ module.exports =
       single: 1
       total: 2
     }
+    {
+      names: ["vb"]
+      code:
+        """
+        ' single
+        ' line
+        """
+      comment: 2
+      source: 0
+      block: 0
+      single: 2
+      total: 2
+    }
   ]

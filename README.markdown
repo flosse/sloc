@@ -38,6 +38,7 @@ Create stats of your source code:
 - Scala
 - Swift
 - Typescript
+- Visual Basic
 
 ## Supported outputs
 

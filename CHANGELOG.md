@@ -6,6 +6,7 @@
     - Julia
     - Rust
     - Swift
+    - Visual Baisc
 
 ## v0.1.3
 
