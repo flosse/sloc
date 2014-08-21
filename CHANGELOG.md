@@ -4,6 +4,7 @@
 
 - new supported languages
     - Julia
+    - R
     - Rust
     - Swift
     - Visual Baisc

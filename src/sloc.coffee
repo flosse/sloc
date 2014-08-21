@@ -24,7 +24,7 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "py", "ls", "rb", "jl"
+      when "coffee", "py", "ls", "r", "rb", "jl"
         /\#/
       when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "php", \
            "php5", "go", "scss", "less", "rs", "styl", "scala", "swift", "ts"
@@ -59,7 +59,7 @@ getCommentExpressions = (lang) ->
       start = /--\[{2}/
       stop  = /--\]{2}/
 
-    when "erl", "swift", "vb"
+    when "erl", "swift", "vb", "r"
       start = stop = null
 
     when "monkey"
@@ -192,6 +192,7 @@ slocModule.extensions = [
   "monkey"
   "php", "php5"
   "py"
+  "r"
   "rb"
   "rs"
   "scala"

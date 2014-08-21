@@ -33,6 +33,7 @@ Create stats of your source code:
 - Monkey
 - Python
 - PHP
+- R
 - Ruby
 - Rust
 - Scala
