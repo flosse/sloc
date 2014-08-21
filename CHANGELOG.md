@@ -3,6 +3,7 @@
 ## v0.1.4
 
 - new supported languages
+    - Clojure
     - Haskell
     - Julia
     - R
