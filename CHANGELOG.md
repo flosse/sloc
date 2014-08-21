@@ -5,6 +5,7 @@
 - new supported languages
     - Julia
     - Rust
+    - Swift
 
 ## v0.1.3
 

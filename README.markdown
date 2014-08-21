@@ -36,6 +36,7 @@ Create stats of your source code:
 - Ruby
 - Rust
 - Scala
+- Swift
 - Typescript
 
 ## Supported outputs
