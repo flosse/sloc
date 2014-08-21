@@ -5,6 +5,7 @@
 - new supported languages
     - Clojure
     - Haskell
+    - hy
     - Julia
     - R
     - Racket

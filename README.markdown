@@ -27,6 +27,7 @@ Create stats of your source code:
 - HTML
 - Haskell
 - Haxe
+- hy
 - Java
 - JavaScript
 - Julia
