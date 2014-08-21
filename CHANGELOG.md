@@ -7,6 +7,7 @@
     - Haskell
     - hy
     - Julia
+    - Perl 5
     - R
     - Racket
     - Rust

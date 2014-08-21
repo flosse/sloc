@@ -34,6 +34,7 @@ Create stats of your source code:
 - Lua
 - LiveScript
 - Monkey
+- Perl 5
 - Python
 - PHP
 - R
