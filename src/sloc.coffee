@@ -29,7 +29,7 @@ getCommentExpressions = (lang) ->
       when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "php", \
            "php5", "go", "scss", "less", "rs", "styl", "scala", "swift", "ts"
         /\/{2}/
-      when "lua"
+      when "lua", "hs"
         /--/
       when "erl"
         /\%/
@@ -52,6 +52,10 @@ getCommentExpressions = (lang) ->
 
     when "python", "py"
       start = stop = /\"{3}|\'{3}/
+
+    when "hs"
+      start = /\{-/
+      stop  = /-\}/
 
     when "html"
       start = /<\!--/
@@ -186,6 +190,7 @@ slocModule.extensions = [
   "go"
   "h"
   "hpp"
+  "hs"
   "html"
   "hx"
   "ino"

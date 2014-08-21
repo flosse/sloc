@@ -468,10 +468,33 @@ module.exports =
         #| begin block
         comment ; commented comment
         |#
-        (nto #t) #| begin one line block |#
+        (not #t) #| begin one line block |#
         #| begin one line block |# #\A
         #| begin block |# (exp 2 3) #| begin
         |# (/ 1 3) ; comment #| begin no block |#
+        """
+      comment: 9
+      source: 5
+      block: 7
+      single: 3
+      total: 10
+      mixed: 5
+      empty: 1
+    }
+    {
+      names: ["hs"]
+      code:
+        """
+        -- a
+        1 + 1 -- comment
+
+        {- begin block
+        comment -- commented comment
+        -}
+        [1..5] {- begin one line block -}
+        {- begin one line block -} [x*2 | x <- [1..5]]
+        {- begin block -} ("haskell", 1) {- begin
+        -} snd ("haskell", 1) -- comment {- begin no block -}
         """
       comment: 9
       source: 5

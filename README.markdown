@@ -24,6 +24,7 @@ Create stats of your source code:
 - Erlang
 - Go
 - HTML
+- Haskell
 - Haxe
 - Java
 - JavaScript
