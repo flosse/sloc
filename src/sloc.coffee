@@ -35,6 +35,8 @@ getCommentExpressions = (lang) ->
         /\%/
       when "monkey", "vb"
         /'/
+      when "rkt"
+        /;/
       else null
 
   ## block comments
@@ -68,7 +70,11 @@ getCommentExpressions = (lang) ->
 
     when "rb"
       start = /\=begin/
-      stop = /\=end/
+      stop  = /\=end/
+
+    when "rkt"
+      start = /#\|/
+      stop  = /\|#/
 
     when "jl"
       start = /\#\=/
@@ -194,6 +200,7 @@ slocModule.extensions = [
   "py"
   "r"
   "rb"
+  "rkt"
   "rs"
   "scala"
   "scss"
