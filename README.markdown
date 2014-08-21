@@ -34,6 +34,7 @@ Create stats of your source code:
 - Python
 - PHP
 - Ruby
+- Rust
 - Scala
 - Typescript
 

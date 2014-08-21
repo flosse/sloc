@@ -26,8 +26,8 @@ getCommentExpressions = (lang) ->
 
       when "coffee", "py", "ls", "rb", "jl"
         /\#/
-      when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", \
-           "php", "php5", "go", "scss", "less", "styl", "scala", "ts"
+      when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "php", \
+           "php5", "go", "scss", "less", "rs", "styl", "scala", "ts"
         /\/{2}/
       when "lua"
         /--/
@@ -43,8 +43,8 @@ getCommentExpressions = (lang) ->
     when "coffee"
       start = stop = /\#{3}/
 
-    when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "ls", \
-          "php", "php5", "go", "css", "scss", "less", "styl", "scala", "ts"
+    when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "ls", "php", \
+         "php5", "go", "css", "scss", "less", "rs", "styl", "scala", "ts"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -193,6 +193,7 @@ slocModule.extensions = [
   "php", "php5"
   "py"
   "rb"
+  "rs"
   "scala"
   "scss"
   "styl"
