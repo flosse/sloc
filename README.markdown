@@ -33,6 +33,7 @@ Create stats of your source code:
 - Julia
 - Lua
 - LiveScript
+- Nix
 - Monkey
 - Perl 5
 - Python

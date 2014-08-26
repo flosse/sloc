@@ -13,10 +13,10 @@ keys = [
   'empty'     # empty lines
   ]
 
-nonEmptyLine = /[^\s]/
-endOfLine    = /$/m
-newLines     = /\n/g
-emptyLines   = /^\s*$/mg
+nonEmpty    = /[^\s]/
+endOfLine   = /$/m
+newLines    = /\n/g
+emptyLines  = /^\s*$/mg
 
 getCommentExpressions = (lang) ->
 
@@ -24,7 +24,7 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "py", "ls", "r", "rb", "jl", "pl"
+      when "coffee", "py", "ls", "nix", "r", "rb", "jl", "pl"
         /\#/
       when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "php", \
            "php5", "go", "scss", "less", "rs", "styl", "scala", "swift", "ts"
@@ -45,8 +45,8 @@ getCommentExpressions = (lang) ->
     when "coffee"
       start = stop = /\#{3}/
 
-    when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "ls", "php", \
-         "php5", "go", "css", "scss", "less", "rs", "styl", "scala", "ts"
+    when "js", "c", "cc", "cpp", "h", "hpp", "hx", "ino", "java", "ls", "nix", \
+         "php", "php5", "go", "css", "scss", "less", "rs", "styl", "scala", "ts"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -88,13 +88,12 @@ getCommentExpressions = (lang) ->
 
   { start, stop, single }
 
-countMixed = (lines, idx, startIdx, res) ->
+countMixed = (res, lines, idx, startIdx, match) ->
 
-  if nonEmptyLine.exec(lines[0]) and idx isnt 0
-    res.mixed.push start: idx, stop: idx
-
-  if (i=startIdx-idx) isnt 0 and nonEmptyLine.exec lines[i]
-    res.mixed.push start: startIdx, stop: startIdx
+  if (nonEmpty.exec lines[0]) and (res.last?.stop is idx or startIdx is idx)
+      res.mixed.push start: idx, stop: idx
+  if match? and nonEmpty.exec lines[-1..][0].substr 0, match.index
+      res.mixed.push start: startIdx, stop: startIdx
 
 getStop = (comment, type, regex) ->
   comment.match switch type
@@ -109,14 +108,15 @@ getType = (single, start) ->
 
 countComments = (code, regex) ->
 
-  myself = (code, idx, res) ->
+  myself = (res, code, idx) ->
     return res if code is ''
+    if code[0] is '\n' then return -> myself res, code.slice(1), ++idx
 
     start  = regex.start?.exec code
     single = regex.single?.exec code
 
     unless start or single
-      countMixed code.split('\n'), idx, idx, res
+      countMixed res, code.split('\n'), idx
       return res
 
     type = getType single, start
@@ -140,12 +140,14 @@ countComments = (code, regex) ->
     splitAt = cContentIdx + comment.length + stop[0].length
     code    = code.substring splitAt
 
-    countMixed lines, idx, startIdx, res
-    res[type].push start: startIdx, stop: startIdx + len
+    countMixed res, lines, idx, startIdx, match
 
-    -> myself code, startIdx + len, res
+    res.last = start: startIdx, stop: startIdx + len
+    res[type].push res.last
 
-  trampoline myself code, 0, {single:[], block:[], mixed:[]}
+    -> myself res, code, startIdx + len
+
+  trampoline myself {single:[], block:[], mixed:[]}, code, 0
 
 trampoline = (next) ->
   next = next() while typeof next is 'function'
@@ -203,6 +205,7 @@ slocModule.extensions = [
   "lua"
   "ls"
   "monkey"
+  "nix"
   "php", "php5"
   "pl"
   "py"

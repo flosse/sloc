@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.5
+
+- fixed problems with first line comments
+- added support for nix
+
 ## v0.1.4
 
 - new supported languages

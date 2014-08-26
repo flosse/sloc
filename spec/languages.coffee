@@ -80,9 +80,9 @@ module.exports =
         block comment
         */
         var people = [
-			    "Elizabeth" /* block comment */ => "Programming",
-			    "Joel" => "Design" // mixed
-		    ];
+          "Elizabeth" /* block comment */ => "Programming",
+          "Joel" => "Design" // mixed
+        ];
         /*
         another block comment
         // */
@@ -263,7 +263,7 @@ module.exports =
       names: ["styl"]
       code:
         """
-        $foo = "bar"
+        $foo = "bar" /* x */
         html
           font-size 2em
           // one line comment
@@ -277,11 +277,12 @@ module.exports =
            */
         """
       total: 12
-      comment: 8
+      comment: 9
       source: 4
-      block: 6
+      block: 7
       empty: 1
       single: 2
+      mixed: 2
     }
     {
       names: ["lua"]
@@ -502,6 +503,30 @@ module.exports =
       single: 3
       total: 10
       mixed: 5
+      empty: 1
+    }
+    {
+      names: ["nix"]
+      code:
+        """
+        { pkgs }: /* foo bar baz */
+
+        # setup
+        let
+          nodePackages = import <nixpkgs/pkgs/top-level/node-packages.nix> {
+          inherit pkgs;
+          inherit (pkgs) stdenv nodejs fetchurl fetchgit;
+          neededNatives = [ pkgs.python ]
+          self = nodePackages;
+          generated = ./package.nix;
+        }; # bla bla
+        """
+      comment: 3
+      source: 9
+      block: 1
+      single: 2
+      total: 11
+      mixed: 2
       empty: 1
     }
   ]
