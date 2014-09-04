@@ -1,10 +1,8 @@
 {
   "name": "sloc",
   "version": "0.1.5",
-  "main": "./lib/sloc",
-  "bin": {
-    "sloc": "./bin/sloc"
-  },
+  "main": "lib/sloc",
+  "bin": "bin/sloc",
   "description": "sloc is a simple tool to count SLOC (source lines of code)",
   "author": "Markus Kohlhase",
   "bugs": "http://github.com/flosse/sloc/issues",
@@ -17,6 +15,7 @@
     "hsablonniere",
     "programmerby",
     "daclayton",
+    "stevenvachon",
     "yoshi6jp"
   ],
   "license": "MIT",
@@ -44,8 +43,12 @@
       "web": "http://github.com/flosse/"
     }
   ],
+  "files": [
+    "bin",
+    "lib"
+  ],
   "scripts": {
     "prepublish": "coffee -c -o lib/ src/",
-    "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/"
+    "test": "mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/"
   }
 }
