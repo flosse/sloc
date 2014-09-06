@@ -25,6 +25,7 @@ Create stats of your source code:
 - CSS / SCSS / LESS / Stylus
 - Erlang
 - Go
+- Groovy
 - HTML
 - Haskell
 - Haxe
@@ -47,6 +48,7 @@ Create stats of your source code:
 - Swift
 - Typescript
 - Visual Basic
+- Yaml
 
 ## Supported outputs
 

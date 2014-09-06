@@ -24,10 +24,11 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "py", "ls", "nix", "r", "rb", "jl", "pl"
+      when "coffee", "py", "ls", "nix", "r", "rb", "jl", "pl", "yaml"
         /\#/
-      when "js", "c", "cc", "cpp", "cs", "h", "hpp", "hx", "ino", "java", "php", \
-           "php5", "go", "scss", "less", "rs", "styl", "scala", "swift", "ts"
+      when "js", "c", "cc", "cpp", "cs", "h", "hpp", "hx", "ino", "java", \
+           "php", "php5", "go", "groovy", "scss", "less", "rs", "styl", \
+            "scala", "swift", "ts"
         /\/{2}/
       when "lua", "hs"
         /--/
@@ -45,8 +46,9 @@ getCommentExpressions = (lang) ->
     when "coffee"
       start = stop = /\#{3}/
 
-    when "js", "c", "cc", "cpp", "cs", "h", "hpp", "hx", "ino", "java", "ls", "nix", \
-         "php", "php5", "go", "css", "scss", "less", "rs", "styl", "scala", "ts"
+    when "js", "c", "cc", "cpp", "cs", "h", "hpp", "hx", "ino", "java", "ls", \
+         "nix", "php", "php5", "go", "groovy", "css", "scss", "less", "rs", \
+         "styl", "scala", "ts"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -81,10 +83,9 @@ getCommentExpressions = (lang) ->
       start = /\#\=/
       stop  = /\=\#/
 
-    when "erl", "swift", "vb", "r", "clj", "hy", "pl"
-      start = stop = null
-
-    else throw new TypeError "File extension '#{lang}' is not supported"
+    else
+      if lang in extensions then start = stop = null
+      else throw new TypeError "File extension '#{lang}' is not supported"
 
   { start, stop, single }
 
@@ -182,7 +183,7 @@ slocModule = (code, lang) ->
   # result
   { total, source, comment, single, block, mixed, empty }
 
-slocModule.extensions = [
+extensions = [
   "c"
   "cc"
   "clj"
@@ -192,6 +193,7 @@ slocModule.extensions = [
   "css"
   "erl"
   "go"
+  "groovy"
   "h"
   "hpp"
   "hs"
@@ -220,7 +222,10 @@ slocModule.extensions = [
   "swift"
   "ts"
   "vb"
+  "yaml"
 ]
+
+slocModule.extensions = extensions
 
 slocModule.keys = keys
 

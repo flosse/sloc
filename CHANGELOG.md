@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.7
+
+- new supported languages
+    - Groovy
+    - Yaml
+
 ## v0.1.6
 
 - added C# support
