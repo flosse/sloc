@@ -20,6 +20,7 @@ Create stats of your source code:
 
 - CoffeeScript
 - C / C++
+- C#
 - Clojure
 - CSS / SCSS / LESS / Stylus
 - Erlang

@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.6
+
+- added C# support
+- use coffee-script 1.8.0
+- `package.json´ optimizations
+
 ## v0.1.5
 
 - fixed problems with first line comments

@@ -1,6 +1,6 @@
 {
   "name": "sloc",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "lib/sloc",
   "bin": "bin/sloc",
   "description": "sloc is a simple tool to count SLOC (source lines of code)",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "chai": "~1.9.1",
-    "coffee-script": "~1.7.1",
+    "coffee-script": "~1.8.0",
     "mocha": "~1.21.4",
     "chai": "~1.9.1"
   },
