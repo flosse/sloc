@@ -168,6 +168,7 @@ slocModule = (code, lang) ->
     throw new TypeError "'code' has to be a string"
 
   code = code.replace /\r\n|\r/g, '\n'
+  code = code[0...-1] if code[-1..] is '\n'
 
   total   = 1 + code.match(newLines)?.length or 1
   empty   = code.match(emptyLines)?.length   or 0

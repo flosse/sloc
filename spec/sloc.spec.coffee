@@ -84,3 +84,9 @@ describe "The sloc module", ->
       res.source.should.equal 0
       res.total.should.equal 1
       done()
+
+  it "ignores the last newline char", ->
+    res = sloc "foo\nbar\n", "js"
+    res.empty.should.equal 0
+    res.source.should.equal 2
+    res.total.should.equal 2
