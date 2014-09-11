@@ -24,6 +24,9 @@ describe "The sloc module", ->
       source:   3
       total:    3
 
+  it "should handle CR line endings", ->
+    sloc("a\rb\rc", "js").total.should.equal 3
+
   describe "language support", ->
     for l in langs then do (l) ->
       for n in l.names then do (n) ->
