@@ -169,7 +169,7 @@ slocModule = (code, lang) ->
 
   code = code.replace /\r/g, ''
 
-  total   = 1 + code.match(newLines)?.length or 0
+  total   = 1 + code.match(newLines)?.length or 1
   empty   = code.match(emptyLines)?.length   or 0
   res     = countComments code, getCommentExpressions lang
   single  = lineSum res.single

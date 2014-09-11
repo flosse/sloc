@@ -1,3 +1,4 @@
+fs        = require 'fs'
 chai      = require 'chai'
 should    = chai.should()
 langs     = require "./languages"
@@ -72,3 +73,11 @@ describe "The sloc module", ->
 
   it "can handle lines with at least 10.000 characters", ->
     (-> sloc longLine, "coffee") .should.not.throw()
+
+  it "evaluates an emty file correctly", (done) ->
+    fs.readFile "./spec/testfiles/empty.js", "utf-8", (err, code) ->
+      res = sloc code, "js"
+      res.empty.should.equal 1
+      res.source.should.equal 0
+      res.total.should.equal 1
+      done()

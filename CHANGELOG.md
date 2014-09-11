@@ -2,6 +2,7 @@
 
 ## v0.1.7
 
+- fixed reading empty files
 - new supported languages
     - Groovy
     - Yaml

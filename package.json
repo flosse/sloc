@@ -49,6 +49,6 @@
   ],
   "scripts": {
     "prepublish": "coffee -c -o lib/ src/",
-    "test": "mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/"
+    "test": "mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/*.spec.coffee"
   }
 }
