@@ -3,6 +3,7 @@
 ## v0.1.7
 
 - fixed reading empty files
+- fixed calculating source lines
 - new supported languages
     - Groovy
     - Yaml

@@ -77,6 +77,19 @@ describe "The sloc module", ->
   it "can handle lines with at least 10.000 characters", ->
     (-> sloc longLine, "coffee") .should.not.throw()
 
+  it "evaluates the testfiles correctly", (done) ->
+    fs.readFile "./spec/testfiles/test.js", "utf-8", (err, code) ->
+      should.not.exist err
+      res = sloc code, "js"
+      res.total.should.equal 175
+      res.single.should.equal 0
+      res.block.should.equal 165
+      res.mixed.should.equal 0
+      res.comment.should.equal 165
+      res.empty.should.equal 26
+      res.source.should.equal 8
+      done()
+
   it "evaluates an emty file correctly", (done) ->
     fs.readFile "./spec/testfiles/empty.js", "utf-8", (err, code) ->
       res = sloc code, "js"

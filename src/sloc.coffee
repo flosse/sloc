@@ -107,6 +107,12 @@ getType = (single, start) ->
   else
     if start.index <= single.index then 'block' else 'single'
 
+matchIdx = (m) -> m.index + m[0].length
+
+emptyLns = (c) -> c.match(emptyLines)?.length or 0
+
+newLns   = (c) -> c.match(newLines)?.length or 0
+
 countComments = (code, regex) ->
 
   myself = (res, code, idx) ->
@@ -126,24 +132,25 @@ countComments = (code, regex) ->
       when 'single' then single
       when 'block'  then start
 
-    cContentIdx = match.index + match[0].length
-    comment     = code.substring cContentIdx
-    lines       = code.substring(0, match.index).split '\n'
-    startIdx    = lines.length - 1 + idx
-    stop        = getStop comment, type, regex
+    cStartIdx = matchIdx match
+    comment   = code.substring cStartIdx
+    lines     = code.substring(0, match.index).split '\n'
+    startIdx  = lines.length - 1 + idx
+    stop      = getStop comment, type, regex
 
     unless stop
       res.error = yes
       return res
 
+    empty   = emptyLns code.substring match.index, cStartIdx + matchIdx stop
     comment = comment.substring 0, stop.index
-    len     = comment.match(newLines)?.length or 0
-    splitAt = cContentIdx + comment.length + stop[0].length
+    len     = newLns comment
+    splitAt = cStartIdx + comment.length + stop[0].length
     code    = code.substring splitAt
 
     countMixed res, lines, idx, startIdx, match
 
-    res.last = start: startIdx, stop: startIdx + len
+    res.last = start: startIdx, stop: startIdx + len, empty: empty
     res[type].push res.last
 
     -> myself res, code, startIdx + len
@@ -162,16 +169,19 @@ lineSum = (comments) ->
     sum += d
   sum
 
+X = null
+
 slocModule = (code, lang) ->
 
+  X = lang
   unless typeof code is "string"
     throw new TypeError "'code' has to be a string"
 
   code = code.replace /\r\n|\r/g, '\n'
   code = code[0...-1] if code[-1..] is '\n'
 
-  total   = 1 + code.match(newLines)?.length or 1
-  empty   = code.match(emptyLines)?.length   or 0
+  total   = (1 + newLns code) or 1
+  empty   = emptyLns code
   res     = countComments code, getCommentExpressions lang
   single  = lineSum res.single
   block   = lineSum res.block
@@ -179,7 +189,9 @@ slocModule = (code, lang) ->
   comment = block + single
   bIdx    = (b.stop for b in res.block when not (b.stop in _results))
   comment-- for s in res.single when s.start in bIdx
-  source  = total - comment - empty + mixed
+  blockEmpty = 0
+  blockEmpty =+ x.empty for x in res.block
+  source  = total - comment - empty + blockEmpty + mixed
 
   # result
   { total, source, comment, single, block, mixed, empty }
