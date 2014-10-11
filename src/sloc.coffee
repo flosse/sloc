@@ -169,11 +169,8 @@ lineSum = (comments) ->
     sum += d
   sum
 
-X = null
+slocModule = (code, lang, opt={}) ->
 
-slocModule = (code, lang) ->
-
-  X = lang
   unless typeof code is "string"
     throw new TypeError "'code' has to be a string"
 
@@ -192,6 +189,8 @@ slocModule = (code, lang) ->
   blockEmpty = 0
   blockEmpty =+ x.empty for x in res.block
   source  = total - comment - empty + blockEmpty + mixed
+
+  console.log res if opt.debug
 
   # result
   { total, source, comment, single, block, mixed, empty }
