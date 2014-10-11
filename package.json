@@ -27,10 +27,9 @@
     "readdirp": "^1.1.0"
   },
   "devDependencies": {
-    "chai": "~1.9.1",
+    "chai": "~1.9.2",
     "coffee-script": "~1.8.0",
-    "mocha": "~1.21.4",
-    "chai": "~1.9.1"
+    "mocha": "~1.21.4"
   },
   "repository": {
     "type": "git",

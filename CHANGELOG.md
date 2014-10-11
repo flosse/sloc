@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+
+- support ClosureScript
+
 ## v0.1.7
 
 - fixed reading empty files

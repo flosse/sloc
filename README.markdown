@@ -21,7 +21,7 @@ Create stats of your source code:
 - CoffeeScript
 - C / C++
 - C#
-- Clojure
+- Clojure / ClojureScript
 - CSS / SCSS / LESS / Stylus
 - Erlang
 - Go
