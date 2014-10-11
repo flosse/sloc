@@ -36,7 +36,7 @@ getCommentExpressions = (lang) ->
         /\%/
       when "monkey", "vb"
         /'/
-      when "rkt", "clj", "hy"
+      when "rkt", "clj", "cljs", "hy"
         /;/
       else null
 
@@ -199,6 +199,7 @@ extensions = [
   "c"
   "cc"
   "clj"
+  "cljs"
   "coffee"
   "cpp"
   "cs"
