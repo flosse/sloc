@@ -55,6 +55,10 @@ getCommentExpressions = (lang) ->
     when "python", "py"
       start = stop = /\"{3}|\'{3}/
 
+    when "handlebars", "hbs", "mustache"
+      start = /\{\{\!/
+      stop = /\}\}/
+
     when "hs"
       start = /\{-/
       stop  = /-\}/
@@ -208,6 +212,7 @@ extensions = [
   "go"
   "groovy"
   "h"
+  "handlebars", "hbs"
   "hpp"
   "hs"
   "html"
@@ -221,6 +226,7 @@ extensions = [
   "lua"
   "ls"
   "monkey"
+  "mustache"
   "nix"
   "php", "php5"
   "pl"
