@@ -283,6 +283,50 @@ module.exports =
       single: 0
     }
     {
+      names: ["mustache"]
+      code:
+        """
+        {{! line comment }}
+        {{!-- line comment --}}
+        {{#list}} {{.}} {{/list}}
+        {{^list.length}}nothing{{/list.length}}
+        {{! multiple
+            line comment
+        }}
+        {{!-- multiple
+              line comment
+        --}}
+        """
+      comment: 8
+      source: 2
+      block: 8
+      total: 10
+      empty: 0
+      single: 0
+    }
+    {
+      names: ["handlebars", "hbs"]
+      code:
+        """
+        {{! line comment }}
+        {{!-- line comment --}}
+        {{#each list}} {{@index}} {{/each}}
+        {{#unless list.length}}nothing{{/unless}}
+        {{! multiple
+            line comment
+        }}
+        {{!-- multiple
+              line comment
+        --}}
+        """
+      comment: 8
+      source: 2
+      block: 8
+      total: 10
+      empty: 0
+      single: 0
+    }
+    {
       names: ["styl"]
       code:
         """
