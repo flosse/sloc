@@ -63,7 +63,7 @@ getCommentExpressions = (lang) ->
       start = /\{-/
       stop  = /-\}/
 
-    when "html"
+    when "html", "htm", "svg", "xml"
       start = /<\!--/
       stop  = /-->/
 
@@ -215,7 +215,7 @@ extensions = [
   "handlebars", "hbs"
   "hpp"
   "hs"
-  "html"
+  "html", "htm"
   "hx"
   "hy"
   "ino"
@@ -238,9 +238,11 @@ extensions = [
   "scala"
   "scss"
   "styl"
+  "svg"
   "swift"
   "ts"
   "vb"
+  "xml"
   "yaml"
 ]
 

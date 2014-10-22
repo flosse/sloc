@@ -239,7 +239,7 @@ module.exports =
       single: 1
     }
     {
-      names: ["html"]
+      names: ["html", "htm"]
       code:
         """
         <html>
@@ -256,6 +256,29 @@ module.exports =
       source: 5
       block: 5
       total: 9
+      empty: 0
+      single: 0
+    }
+    {
+      names: ["xml", "svg"]
+      code:
+        """
+        <svg>
+          <!-- one line comment -->
+          <defs>
+            <!-- one line comment -->
+            <rect id="box" width="10" height="10"/>
+          </defs>
+          <use x="100" y="100" xlink:href="#box"/>
+          <!-- multiple
+               line comment
+           -->
+        </svg>
+        """
+      comment: 5
+      source: 6
+      block: 5
+      total: 11
       empty: 0
       single: 0
     }
