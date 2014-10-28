@@ -35,6 +35,7 @@ Create stats of your source code:
 - Julia
 - Lua
 - LiveScript
+- Mustache / Handlebars
 - Nix
 - Monkey
 - Perl 5
@@ -48,6 +49,7 @@ Create stats of your source code:
 - Swift
 - Typescript
 - Visual Basic
+- XML / SVG
 - Yaml
 
 ## Supported outputs
