@@ -24,7 +24,7 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "py", "ls", "nix", "r", "rb", "jl", "pl", "yaml"
+      when "coffee", "py", "ls", "nix", "r", "rb", "jl", "pl", "yaml", "hr"
         /\#/
       when "js", "c", "cc", "cpp", "cs", "h", "hpp", "hx", "ino", "java", \
            "php", "php5", "go", "groovy", "scss", "less", "rs", "styl", \
@@ -209,6 +209,7 @@ extensions = [
   "groovy"
   "h"
   "hpp"
+  "hr"
   "hs"
   "html", "htm"
   "hx"

@@ -2,7 +2,9 @@
 
 ## Next
 
-- support ClosureScript
+- new supported languages
+    - ClosureScript
+    - Hilbert
 
 ## v0.1.7
 

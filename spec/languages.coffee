@@ -552,4 +552,21 @@ module.exports =
       mixed: 2
       empty: 1
     }
+    {
+      names: ["hr"]
+      code:
+        """
+        P | Q # P or Q
+        ~P    # not P
+        Q?    # Q is TURE?
+        => TURE
+        """
+      comment: 3
+      source: 4
+      block: 0
+      single: 3
+      total: 4
+      mixed: 0
+      empty: 0
+    }
   ]

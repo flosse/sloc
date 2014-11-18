@@ -15,41 +15,6 @@ Create stats of your source code:
 [![Dependency Status](https://gemnasium.com/flosse/sloc.png)](https://gemnasium.com/flosse/sloc)
 [![NPM version](https://badge.fury.io/js/sloc.png)](http://badge.fury.io/js/sloc)
 
-## Supported languages
-
-
-- CoffeeScript
-- C / C++
-- C#
-- Clojure / ClojureScript
-- CSS / SCSS / LESS / Stylus
-- Erlang
-- Go
-- Groovy
-- HTML
-- Haskell
-- Haxe
-- hy
-- Java
-- JavaScript
-- Julia
-- Lua
-- LiveScript
-- Nix
-- Monkey
-- Perl 5
-- Python
-- PHP
-- R
-- Racket
-- Ruby
-- Rust
-- Scala
-- Swift
-- Typescript
-- Visual Basic
-- Yaml
-
 ## Supported outputs
 
 sloc provides a set of output formatters:
@@ -240,6 +205,45 @@ And there is another great atom package called
 [line-count](https://github.com/mark-hahn/line-count) that gives you a more
 detailed report showing line counts broken down by file, directory, and file
 type for all files in the project.
+
+## Supported languages
+
+- CoffeeScript
+- C / C++
+- C#
+- Clojure / ClojureScript
+- CSS / SCSS / LESS / Stylus
+- Erlang
+- Go
+- Groovy
+- HTML
+- Handlebars
+- Haskell
+- Haxe
+- Hilbert
+- hy
+- Java
+- JavaScript
+- Julia
+- Lua
+- LiveScript
+- Nix
+- Monkey
+- Mustache
+- Perl 5
+- Python
+- PHP
+- R
+- Racket
+- Ruby
+- Rust
+- Scala
+- SVG
+- Swift
+- Typescript
+- Visual Basic
+- Yaml
+- XML
 
 ## Run tests
 
