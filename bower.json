@@ -7,10 +7,8 @@
   "main": "lib/sloc.js",
   "license": "MIT",
   "ignore": [
-    "**/.*",
     "node_modules",
     "bower_components",
     "spec",
-    "src"
   ]
 }
