@@ -29,7 +29,8 @@
   "devDependencies": {
     "chai": "~1.10.0",
     "coffee-script": "~1.8.0",
-    "mocha": "~2.0.1"
+    "mocha": "~2.0.1",
+    "pre-commit": "0.0.9"
   },
   "repository": {
     "type": "git",
