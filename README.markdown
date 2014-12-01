@@ -71,6 +71,7 @@ Options:
     --format-option [value] add formatter option
 -k, --keys <keys>           report only numbers of the given keys
 -d, --details               report stats of each analzed file
+-a, --alias <custom ext=standard ext> treat all files with the custom ext as if they ended in standard ext (eg. php5=php)
 ```
 
 e.g.:
