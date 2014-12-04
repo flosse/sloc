@@ -613,4 +613,21 @@ module.exports =
       mixed: 0
       empty: 0
     }
+    {
+      names: ["hy"]
+      code:
+        """
+        (print "Hy!");comment
+        ; on line comment
+        (.strip " foo   ")
+        ;;; comment
+        """
+      comment: 3
+      source: 2
+      block: 0
+      single: 3
+      total: 4
+      mixed: 1
+      empty: 0
+    }
   ]
