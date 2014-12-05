@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.9
+
+- fixed counting empty lines within block comments
+
 ## v0.1.8
 
 - new supported languages
