@@ -14,6 +14,13 @@ pkg       = require '../package.json'
 fmts      = require './formatters'
 
 list = (val) -> val.split ','
+keyvalue = (val) -> val.split '='
+object = (val) ->
+  result = {}
+  for split in list(val).map(keyvalue)
+    [custom, original] = split
+    result[custom] = original
+  result
 exts = ("*.#{k}" for k in sloc.extensions)
 
 collect = (val, memo) ->
@@ -28,7 +35,8 @@ parseFile = (f, cb=->) ->
     if err
       res.badFile = yes
       return cb err, res
-    res.stats = sloc code, path.extname(f)[1...]
+    ext = path.extname(f)[1...]
+    res.stats = sloc code, options.alias[ext] or ext
     cb null, res
 
 print = (err, result, opts, fmtOpts) ->
@@ -65,10 +73,12 @@ programm
   .option '    --strip-colors',           'remove all color characters'
   .option '-k, --keys <keys>',            'report only numbers of the given keys', list
   .option '-d, --details',                'report stats of each analized file'
+  .option '-a, --alias <custom ext>=<standard ext>', 'alias custom ext to act like standard ext', object
 
 programm.parse process.argv
 options.keys        = programm.keys
 options.details     = programm.details
+options.alias       = programm.alias
 
 return programm.help() if programm.args.length < 1
 
