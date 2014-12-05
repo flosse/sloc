@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## v0.1.8
 
 - new supported languages
     - ClosureScript
