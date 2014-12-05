@@ -88,7 +88,14 @@ describe "The sloc module", ->
       res.comment.should.equal 165
       res.empty.should.equal 26
       res.source.should.equal 8
-      done()
+
+      fs.readFile "./spec/testfiles/test2.js", "utf-8", (err, code) ->
+        res = sloc code, "js", debug: yes
+        res.source.should.equal 0
+        res.empty.should.equal 5
+        res.block.should.equal 13
+        res.total.should.equal 13
+        done()
 
   it "evaluates an emty file correctly", (done) ->
     fs.readFile "./spec/testfiles/empty.js", "utf-8", (err, code) ->

@@ -191,7 +191,7 @@ slocModule = (code, lang, opt={}) ->
   bIdx    = (b.stop for b in res.block when not (b.stop in _results))
   comment-- for s in res.single when s.start in bIdx
   blockEmpty = 0
-  blockEmpty =+ x.empty for x in res.block
+  blockEmpty += x.empty for x in res.block
   source  = total - comment - empty + blockEmpty + mixed
 
   console.log res if opt.debug
