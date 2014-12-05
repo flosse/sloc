@@ -53,6 +53,14 @@ sloc is also available via [bower](http://twitter.github.com/bower/):
 bower install sloc
 ```
 
+**Note**:
+You need to compile the coffee-script files yourself.
+If you want to use a precompiled bower package, you can run
+
+```
+bower install sloc-bower
+```
+
 ## Usage
 
 ### CLI
