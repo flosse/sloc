@@ -5,6 +5,10 @@
 - new supported languages
     - ClosureScript
     - Hilbert
+    - htm,svg,xml as html variants
+    - Handlebars
+    - Mustache
+- syntax alias support (e.g. `sloc -a foo=php5 src/`)
 
 ## v0.1.7
 
