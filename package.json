@@ -50,7 +50,8 @@
     "lib"
   ],
   "scripts": {
-    "prepublish": "coffee -c -o lib/ src/",
+    "watch": "coffee -o lib -cw src/",
+    "prepublish": "coffee -o lib/ -c src/",
     "test": "mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/*.spec.coffee"
   }
 }

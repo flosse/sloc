@@ -258,6 +258,10 @@ type for all files in the project.
 
     npm test
 
+## Build
+
+    npm run prepublish
+
 ## Changelog
 
 see `CHANGELOG.md`
