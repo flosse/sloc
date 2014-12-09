@@ -37,7 +37,8 @@ module.exports = (data, options={}, fmtOpts) ->
   result += "\n\n#{i18n.en.NumberOfFilesRead} :  #{fileCount}"
 
   if bl = badFiles.length > 0
-    result += "\n#{align i18n.en.BrokenFiles, col} :  #{String(badFiles.length).red}"
+    result += "\n#{align i18n.en.BrokenFiles, col} \
+              :  #{String(badFiles.length).red}"
 
   if options.details and data.files.length > 1
     result += "\n\n---------- #{i18n.en.Details} -----------\n"

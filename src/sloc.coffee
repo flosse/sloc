@@ -96,9 +96,9 @@ getCommentExpressions = (lang) ->
 countMixed = (res, lines, idx, startIdx, match) ->
 
   if (nonEmpty.exec lines[0]) and (res.last?.stop is idx or startIdx is idx)
-      res.mixed.push start: idx, stop: idx
+    res.mixed.push start: idx, stop: idx
   if match? and nonEmpty.exec lines[-1..][0].substr 0, match.index
-      res.mixed.push start: startIdx, stop: startIdx
+    res.mixed.push start: startIdx, stop: startIdx
 
 getStop = (comment, type, regex) ->
   comment.match switch type

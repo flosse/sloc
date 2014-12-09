@@ -65,20 +65,37 @@ filterFiles = (files) ->
 options = {}
 fmtOpts = []
 programm
+
   .version pkg.version
+
   .usage '[option] <file> | <directory>'
-  .option '-e, --exclude <regex>',        'regular expression to exclude files and folders'
-  .option '-f, --format <format>',        'format output:' + (" #{k}" for k of fmts).join ','
-  .option '    --format-option [value]',  'add formatter option', collect, fmtOpts
-  .option '    --strip-colors',           'remove all color characters'
-  .option '-k, --keys <keys>',            'report only numbers of the given keys', list
-  .option '-d, --details',                'report stats of each analized file'
-  .option '-a, --alias <custom ext>=<standard ext>', 'alias custom ext to act like standard ext', object
+
+  .option '-e, --exclude <regex>',
+    'regular expression to exclude files and folders'
+
+  .option '-f, --format <format>',
+    'format output:' + (" #{k}" for k of fmts).join ','
+
+  .option '--format-option [value]',
+    'add formatter option', collect, fmtOpts
+
+  .option '--strip-colors',
+    'remove all color characters'
+
+  .option '-k, --keys <keys>',
+    'report only numbers of the given keys', list
+
+  .option '-d, --details',
+    'report stats of each analized file'
+
+  .option '-a, --alias <custom ext>=<standard ext>',
+    'alias custom ext to act like standard ext', object
 
 programm.parse process.argv
-options.keys        = programm.keys
-options.details     = programm.details
-options.alias       = programm.alias
+
+options.keys    = programm.keys
+options.details = programm.details
+options.alias   = programm.alias
 
 return programm.help() if programm.args.length < 1
 

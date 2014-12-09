@@ -31,6 +31,7 @@
   "devDependencies": {
     "chai": "~1.10.0",
     "coffee-script": "~1.8.0",
+    "coffeelint": "^1.6.1",
     "mocha": "~2.0.1",
     "pre-commit": "0.0.9"
   },
@@ -50,8 +51,9 @@
     "lib"
   ],
   "scripts": {
+    "lint": "coffeelint src/",
     "watch": "coffee -o lib -cw src/",
     "prepublish": "coffee -o lib/ -c src/",
-    "test": "mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/*.spec.coffee"
+    "test": "npm run lint && mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/*.spec.coffee"
   }
 }
