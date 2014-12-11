@@ -11,9 +11,10 @@ Create stats of your source code:
 - empty lines
 - physical lines
 
-[![Build Status](https://secure.travis-ci.org/flosse/sloc.png)](http://travis-ci.org/flosse/sloc)
-[![Dependency Status](https://gemnasium.com/flosse/sloc.png)](https://gemnasium.com/flosse/sloc)
-[![NPM version](https://badge.fury.io/js/sloc.png)](http://badge.fury.io/js/sloc)
+[![Build Status](https://secure.travis-ci.org/flosse/sloc.svg)](http://travis-ci.org/flosse/sloc)
+[![Dependency Status](https://gemnasium.com/flosse/sloc.svg)](https://gemnasium.com/flosse/sloc)
+[![NPM version](https://badge.fury.io/js/sloc.svg)](http://badge.fury.io/js/sloc)
+[![License](https://img.shields.io/npm/l/sloc.svg?style=flat)](https://github.com/flosse/sloc/blob/master/LICENCE.txt)
 
 ## Supported outputs
 
