@@ -220,6 +220,7 @@ extensions = [
   "hx"
   "hy"
   "ino"
+  "jade"
   "java"
   "jl"
   "js"
