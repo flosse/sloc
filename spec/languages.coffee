@@ -630,4 +630,20 @@ module.exports =
       mixed: 1
       empty: 0
     }
+    {
+      names: ["mochi"]
+      code:
+        """
+          # a
+          source.code(); #comment
+          # no.source.code();
+        """
+      comment: 3
+      source: 1
+      block: 0
+      total: 3
+      single: 3
+      mixed: 1
+      empty: 0
+    }
   ]

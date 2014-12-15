@@ -16,7 +16,7 @@ Create stats of your source code:
 [![NPM version](https://badge.fury.io/js/sloc.svg)](http://badge.fury.io/js/sloc)
 [![Bower version](https://img.shields.io/bower/v/sloc.svg)](https://github.com/flosse/sloc)
 [![License](https://img.shields.io/npm/l/sloc.svg)](https://github.com/flosse/sloc/blob/master/LICENCE.txt)
-![Minified size](http://img.shields.io/badge/size-6,1K-blue.svg)
+[![Minified size](http://img.shields.io/badge/size-6,1K-blue.svg)](https://github.com/flosse/sloc)
 
 ## Supported outputs
 
@@ -240,6 +240,7 @@ type for all files in the project.
 - Lua
 - LiveScript
 - Nix
+- Mochi
 - Monkey
 - Mustache
 - Perl 5

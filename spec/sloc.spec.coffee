@@ -90,7 +90,7 @@ describe "The sloc module", ->
       res.source.should.equal 8
 
       fs.readFile "./spec/testfiles/test2.js", "utf-8", (err, code) ->
-        res = sloc code, "js", debug: yes
+        res = sloc code, "js"
         res.source.should.equal 0
         res.empty.should.equal 5
         res.block.should.equal 13

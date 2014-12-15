@@ -1,5 +1,10 @@
 # Changelog
 
+## next
+
+- new supported languages
+  - Mochi
+
 ## v0.1.9
 
 - fixed counting empty lines within block comments
