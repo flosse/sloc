@@ -12,6 +12,7 @@ module.exports =
     Path      : "Path"
     Total     : "Total"
     Details   : "Details"
+    Extension : "Extension"
     Error     : "Error"
     BadDir    : "Bad directory"
     BadFile   : "Bad file"

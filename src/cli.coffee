@@ -1,6 +1,6 @@
 ###
 This program is distributed under the terms of the MIT license.
-Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
+Copyright 2012 - 2015 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 fs        = require 'fs'
@@ -48,9 +48,9 @@ print = (err, result, opts, fmtOpts) ->
   out = out.replace colorRegex, '' if programm.stripColors
   console.log out if typeof out is "string"
 
-addResult = (res, global) ->
-  if res.badFile then global.brokenFiles++
-  global.files.push res
+addResult = (res, all) ->
+  if res.badFile then all.brokenFiles++
+  all.files.push res
 
 filterFiles = (files) ->
   res =
@@ -101,6 +101,17 @@ return programm.help() if programm.args.length < 1
 
 result = files: []
 
+groupByExt = (data) ->
+  map = {}
+  for f in data.files
+    ext = (path.extname f.path)[1...]
+    m   = map[ext] ?= { files: [] }
+    m.files.push f
+
+  for ext, d of map
+    d.summary = helpers.summarize d.files.map (x) -> x.stats
+  map
+
 readSingleFile = (f) -> parseFile p, (err, res) ->
   addResult res, result
   result.summary = res.stats
@@ -110,6 +121,7 @@ readDir = (dir) ->
 
   finish = (err, x) ->
     result.summary = helpers.summarize result.files.map (x) -> x.stats
+    result.byExt = groupByExt result
     print err, result, options, fmtOpts
 
   processFile = (f, next) -> parseFile f, (err, r) ->
