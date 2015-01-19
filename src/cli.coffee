@@ -86,7 +86,7 @@ programm
     'report only numbers of the given keys', list
 
   .option '-d, --details',
-    'report stats of each analized file'
+    'report stats of each analyzed file'
 
   .option '-a, --alias <custom ext>=<standard ext>',
     'alias custom ext to act like standard ext', object
