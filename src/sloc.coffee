@@ -28,8 +28,8 @@ getCommentExpressions = (lang) ->
            "yaml", "hr"
         /\#/
       when "js", "c", "cc", "cpp", "cs", "h", "m", "mm", "hpp", "hx", "ino", \
-           "java", "php", "php5", "go", "groovy", "scss", "less", "rs", "styl", \
-            "scala", "swift", "ts", "jade"
+           "java", "php", "php5", "go", "groovy", "scss", "less", "rs", \
+            "styl", "scala", "swift", "ts", "jade"
         /\/{2}/
       when "lua", "hs"
         /--/
