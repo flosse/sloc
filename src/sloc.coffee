@@ -27,8 +27,8 @@ getCommentExpressions = (lang) ->
       when "coffee", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", \
            "yaml", "hr"
         /\#/
-      when "js", "c", "cc", "cpp", "cs", "h", "hpp", "hx", "ino", "java", \
-           "php", "php5", "go", "groovy", "scss", "less", "rs", "styl", \
+      when "js", "c", "cc", "cpp", "cs", "h", "m", "mm", "hpp", "hx", "ino", \
+           "java", "php", "php5", "go", "groovy", "scss", "less", "rs", "styl", \
             "scala", "swift", "ts", "jade"
         /\/{2}/
       when "lua", "hs"
@@ -47,9 +47,9 @@ getCommentExpressions = (lang) ->
     when "coffee"
       start = stop = /\#{3}/
 
-    when "js", "c", "cc", "cpp", "cs", "h", "hpp", "hx", "ino", "java", "ls", \
-         "nix", "php", "php5", "go", "groovy", "css", "scss", "less", "rs", \
-         "styl", "scala", "ts"
+    when "js", "c", "cc", "cpp", "cs", "h", "m", "mm", "hpp", "hx", "ino", \
+         "java", "ls", "nix", "php", "php5", "go", "groovy", "css", "scss", \
+         "less", "rs", "styl", "scala", "ts"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -248,6 +248,8 @@ extensions = [
   "vb"
   "xml"
   "yaml"
+  "m"
+  "mm"
 ]
 
 slocModule.extensions = extensions
