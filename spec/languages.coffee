@@ -646,4 +646,21 @@ module.exports =
       mixed: 1
       empty: 0
     }
+    {
+      names: ["m", "mm"]
+      code:
+        """
+          // comment
+          NSLog("foo"); // comment
+
+          /* block comment */
+        """
+      comment: 3
+      source: 1
+      block: 1
+      total: 4
+      single: 2
+      mixed: 1
+      empty: 1
+    }
   ]

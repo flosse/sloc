@@ -4,6 +4,8 @@
 
 - new supported languages
   - Mochi
+  - Objective-C
+  - Objective-C++
 
 ## v0.1.9
 
