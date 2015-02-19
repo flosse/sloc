@@ -1,6 +1,6 @@
 ###
 This program is distributed under the terms of the MIT license.
-Copyright 2012 - 2014 (c) Markus Kohlhase <mail@markus-kohlhase.de>
+Copyright 2012 - 2015 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 keys = [
@@ -189,7 +189,7 @@ slocModule = (code, lang, opt={}) ->
   block   = lineSum res.block
   mixed   = lineSum res.mixed
   comment = block + single
-  bIdx    = (b.stop for b in res.block when not (b.stop in _results))
+  bIdx    = (b.stop for b in res.block)
   comment-- for s in res.single when s.start in bIdx
   blockEmpty = 0
   blockEmpty += x.empty for x in res.block
