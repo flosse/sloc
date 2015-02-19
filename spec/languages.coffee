@@ -663,4 +663,21 @@ module.exports =
       mixed: 1
       empty: 1
     }
+    {
+      names: ["sass"]
+      code:
+        """
+        // comment
+        body
+          font: 100% Helvecia, sans-serif /* multi
+          line comments */
+        """
+      comment: 3
+      source: 2
+      block: 2
+      total: 4
+      single: 1
+      mixed: 1
+      empty: 0
+    }
   ]

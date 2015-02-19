@@ -224,7 +224,7 @@ type for all files in the project.
 - C / C++
 - C#
 - Clojure / ClojureScript
-- CSS / SCSS / LESS / Stylus
+- CSS / SCSS / SASS / LESS / Stylus
 - Erlang
 - Go
 - Groovy
@@ -253,8 +253,7 @@ type for all files in the project.
 - Scala
 - SVG
 - Swift
-- Objective-C
-- Objective-C++
+- Objective-C / Objective-C++
 - Typescript
 - Visual Basic
 - Yaml
