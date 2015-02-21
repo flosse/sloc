@@ -96,6 +96,8 @@ programm.parse process.argv
 options.keys    = programm.keys
 options.details = programm.details
 options.alias   = programm.alias
+for k of options.alias
+  exts.push "*.#{k}"
 
 return programm.help() if programm.args.length < 1
 
