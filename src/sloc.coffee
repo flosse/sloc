@@ -27,7 +27,7 @@ getCommentExpressions = (lang) ->
       when "coffee", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", \
            "yaml", "hr"
         /\#/
-      when "js", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", "hx", "hxx," "ino", \
+      when "js", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", "hx", "hxx", "ino", \
            "java", "php", "php5", "go", "groovy", "scss", "less", "rs", \
             "sass", "styl", "scala", "swift", "ts", "jade", "gs"
         /\/{2}/
