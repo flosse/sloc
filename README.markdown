@@ -1,4 +1,4 @@
-# sloc
+# ![sloc](https://cdn.rawgit.com/flosse/sloc/master/media/logo-min.svg)
 
 
 Create stats of your source code:

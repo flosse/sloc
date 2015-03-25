@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="181" height="88" viewBox="0 0 181 88">
+<defs>
+	<path id="digit1" d="M1.406,0h19.969c0.117,0,0.586,0.469,1.406,1.406c0,0.118-1.406,1.524-4.219,4.219H4.219C4.101,5.625,2.695,4.219,0,1.406C0,1.289,0.469,0.821,1.406,0z"/>
+	<path id="digit2" d="M2.812,0h16.594c0.117,0,1.055,0.938,2.812,2.812v0.141c0,0.117-0.938,1.055-2.812,2.812H2.812C2.694,5.765,1.757,4.828,0,2.953V2.812C-0.001,2.695,0.937,1.758,2.812,0z"/>
+	<path id="digit3" d="M1.407,0c0.119,0,1.526,1.405,4.226,4.215v16.017c0,0.114-1.406,1.524-4.226,4.224c-0.115,0-0.58-0.477-1.407-1.414V1.405C0,1.29,0.465,0.817,1.407,0z"/>
+	<path id="digit4" d="M0,0h22.76c0.124,0,0.583,0.473,1.405,1.406c0,0.115-1.405,1.525-4.221,4.218H5.613C2.223,2.441,0.345,0.614,0,0.141V0z"/>
+	<path id="digit5" d="M0.279,0h1.677c1.795,1.401,10.46,9.437,12.159,11.197v5.27c0,0.176-0.094,0.264-0.279,0.264h-2.098C7.758,12.77,3.841,9.042,0,5.533V0.264C0.025,0.084,0.118,0,0.279,0z"/>
+	<path id="digit6" d="M0.277,0h4.078c1.969,1.002,3.657,4.025,5.059,9.07c0.374,0.786,1.598,4.088,3.66,9.907c-0.469,0.926-0.699,1.484-0.699,1.675h-0.141c-3.84-1.37-5.766-2.486-5.766-3.356C3.657,9.37,1.5,3.641,0,0.126L0.277,0z"/>
+	<filter id="feather">
+		<feGaussianBlur stdDeviation="1.5" result="blur"/>                           <!-- Shadow Blur -->
+		<feComposite operator="out" in="SourceGraphic" in2="blur" result="inverse"/> <!-- Invert the drop shadow to create an inner shadow -->
+		<feFlood flood-color="black" flood-opacity="1" result="color"/>              <!-- Color & Opacity -->
+		<feComposite operator="in" in="color" in2="inverse" result="shadow"/>        <!-- Mask color inside shadow -->
+		<feComposite operator="over" in="shadow" in2="SourceGraphic"/>               <!-- Put shadow over original object -->
+		<feGaussianBlur stdDeviation="0.2"/>                                         <!-- Overall blur -->
+	</filter>
+	<filter id="glow-big" x="-30%" y="-30%" width="160%" height="160%">
+		<feFlood flood-color="white" flood-opacity="1" result="color"/>              <!-- Inner: Color -->
+		<feComposite operator="in" in="color" in2="SourceGraphic" result="color"/>   <!-- Inner: Mask color in original -->
+		<feGaussianBlur in="color" stdDeviation="2" result="blur"/>                  <!-- Inner: Blur -->
+		<feComposite operator="out" in="blur" in2="blur" result="inverse"/>          <!-- Inner: Invert outer glow to create "border" glow -->
+		<feComposite operator="in" in="color" in2="inverse" result="glow"/>          <!-- Inner: Mask glow inside original -->
+		<feComponentTransfer in="glow" result="inner">                               <!-- Inner: Glow Opacity -->
+			<feFuncA type="linear" slope=".45"/>
+		</feComponentTransfer>
+		
+		<feFlood flood-color="#00B0B9" flood-opacity=".85" result="color"/>          <!-- Outer: Color & Opacity -->
+		<feComposite operator="in" in="color" in2="SourceGraphic" result="color"/>   <!-- Outer: Mask color in original -->
+		<feGaussianBlur in="color" stdDeviation="5" result="outer"/>                 <!-- Outer: Blur -->
+		
+		<feMerge>
+			<feMergeNode in="SourceGraphic" mode="normal"/>
+			<feMergeNode in="outer" mode="normal"/>
+			<feMergeNode in="inner" mode="normal"/>
+		</feMerge>
+	</filter>
+	<filter id="glow-small" x="-50%" y="-50%" width="200%" height="200%">
+		<feFlood flood-color="white" flood-opacity="1" result="color"/>              <!-- Inner: Color -->
+		<feComposite operator="in" in="color" in2="SourceGraphic" result="color"/>   <!-- Inner: Mask color in original -->
+		<feGaussianBlur in="color" stdDeviation="0.5" result="blur"/>                <!-- Inner: Blur -->
+		<feComposite operator="out" in="blur" in2="blur" result="inverse"/>          <!-- Inner: Invert outer glow to create "border" glow -->
+		<feComposite operator="in" in="color" in2="inverse" result="glow"/>          <!-- Inner: Mask glow inside original -->
+		<feComponentTransfer in="glow" result="inner">                               <!-- Inner: Glow Opacity -->
+			<feFuncA type="linear" slope=".45"/>
+		</feComponentTransfer>
+		
+		<feFlood flood-color="#00B0B9" flood-opacity=".55" result="color"/>          <!-- Outer: Color & Opacity -->
+		<feComposite operator="in" in="color" in2="SourceGraphic" result="color"/>   <!-- Outer: Mask color in original -->
+		<feGaussianBlur in="color" stdDeviation="2" result="outer"/>                 <!-- Outer: Blur -->
+		
+		<feMerge>
+			<feMergeNode in="SourceGraphic" mode="normal"/>
+			<feMergeNode in="outer" mode="normal"/>
+			<feMergeNode in="inner" mode="normal"/>
+		</feMerge>
+	</filter>
+</defs>
+<g id="source-lines-of-code" fill="#00ABB9" filter="url(#glow-small)" transform="translate(15,73)">
+	<g transform="scale(0.1527)">
+		<g id="source">
+			<g id="s">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+				<use xlink:href="#digit2" x="2.81" y="22.08"/>
+			</g>
+			<g id="o" transform="translate(31.8,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+				<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+				<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			</g>
+			<g id="u" transform="translate(63.7,0)">
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit3" x="0" y="0"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+				<use xlink:href="#digit3" x="28.2" y="24.55" transform="rotate(180 28.2 24.55)"/>
+				<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			</g>
+			<g id="r" transform="translate(95.5,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit3" x="0" y="25.8"/>
+				<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+				<use xlink:href="#digit2" x="2.81" y="22.08"/>
+				<use xlink:href="#digit6" x="15.2" y="29.35"/>
+			</g>
+			<g id="c" transform="translate(127.3,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+			</g>
+			<g id="e" transform="translate(159.15,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+				<use xlink:href="#digit2" x="2.81" y="22.08"/>
+			</g>
+		</g>
+		<g id="lines" transform="translate(294.65,0)">
+			<g id="l">
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit3" x="0" y="0"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+			</g>
+			<g id="i" transform="translate(31.8,0)">
+				<use xlink:href="#digit3" x="0" y="0"/>
+				<use xlink:href="#digit3" x="5.75" y="50.2" transform="rotate(180 5.75 50.2)"/>
+			</g>
+			<g id="n" transform="translate(41.7,0)">
+				<use xlink:href="#digit3" x="0" y="0"/>
+				<use xlink:href="#digit3" x="0" y="25.8"/>
+				<use xlink:href="#digit3" x="28.2" y="24.55" transform="rotate(180 28.2 24.55)"/>
+				<use xlink:href="#digit3" x="28.2" y="50.2" transform="rotate(180 28.2 50.2)"/>
+				<use xlink:href="#digit5" x="6.85" y="6.95"/>
+			</g>
+			<g id="e" transform="translate(73.5,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+				<use xlink:href="#digit2" x="2.81" y="22.08"/>
+			</g>
+			<g id="s" transform="translate(105.3,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+				<use xlink:href="#digit2" x="2.81" y="22.08"/>
+			</g>
+		</g>
+		<g id="of" transform="translate(615.55,0)">
+			<g id="o">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+				<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+				<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			</g>
+			<g id="f" transform="translate(31.8,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit3" x="0" y="25.8"/>
+				<use xlink:href="#digit2" x="2.81" y="22.08"/>
+			</g>
+		</g>
+		<g id="code" transform="translate(844.75,0)">
+			<g id="c">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+			</g>
+			<g id="o" transform="translate(31.8,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+				<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+				<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			</g>
+			<g id="d" transform="translate(63.7,0)">
+				<use xlink:href="#digit4" x="1.42" y="0"/>
+				<use xlink:href="#digit4" x="1.42" y="-50.2" transform="scale(1,-1)"/>
+				<use xlink:href="#digit4" x="0" y="0.28" transform="rotate(-90 0 0.28) scale(-1,1)"/>
+				<use xlink:href="#digit4" x="-50" y="0" transform="rotate(-90)"/>
+				<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+				<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			</g>
+			<g id="e" transform="translate(95.5,0)">
+				<use xlink:href="#digit1" x="2.81" y="0"/>
+				<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+				<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+				<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+				<use xlink:href="#digit2" x="2.81" y="22.08"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g id="sloc" transform="translate(15,15)">
+	<g id="unlit" fill="#80B5B9" opacity="0.15" filter="url(#feather)">
+		<g id="s">
+			<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+			<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+		</g>
+		<g id="l" transform="translate(41.82,0)">
+			<use xlink:href="#digit1" x="2.81" y="0"/>
+			<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+			<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			<use xlink:href="#digit2" x="2.81" y="22.08"/>
+		</g>
+		<g id="o" transform="translate(83.63,0)">
+			<use xlink:href="#digit2" x="2.81" y="22.08"/>
+		</g>
+		<g id="c" transform="translate(125.45,0)">
+			<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+			<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			<use xlink:href="#digit2" x="2.81" y="22.08"/>
+		</g>
+	</g>
+	<g id="lit" fill="#00ABB9" filter="url(#glow-big)">
+		<g id="s">
+			<use xlink:href="#digit1" x="2.81" y="0"/>
+			<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+			<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+			<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+			<use xlink:href="#digit2" x="2.81" y="22.08"/>
+		</g>
+		<g id="l" transform="translate(41.82,0)">
+			<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+			<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+			<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+		</g>
+		<g id="o" transform="translate(83.63,0)">
+			<use xlink:href="#digit1" x="2.81" y="0"/>
+			<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+			<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+			<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+			<use xlink:href="#digit1" x="28.27" y="1.41" transform="rotate(90 28.27 1.41)"/>
+			<use xlink:href="#digit1" x="28.27" y="25.88" transform="rotate(90 28.27 25.88)"/>
+		</g>
+		<g id="c" transform="translate(125.45,0)">
+			<use xlink:href="#digit1" x="2.81" y="0"/>
+			<use xlink:href="#digit1" x="25.45" y="50.2" transform="rotate(180 25.45 50.2)"/>
+			<use xlink:href="#digit1" x="0" y="24.33" transform="rotate(-90 0 24.33)"/>
+			<use xlink:href="#digit1" x="0" y="48.52" transform="rotate(-90 0 48.52)"/>
+		</g>
+	</g>
+</g>
+</svg>
