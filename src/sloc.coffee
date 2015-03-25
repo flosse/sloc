@@ -27,9 +27,9 @@ getCommentExpressions = (lang) ->
       when "coffee", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", \
            "yaml", "hr"
         /\#/
-      when "js", "c", "cc", "cpp", "cs", "h", "m", "mm", "hpp", "hx", "ino", \
-           "java", "php", "php5", "go", "groovy", "scss", "less", "rs", \
-            "sass", "styl", "scala", "swift", "ts", "jade", "gs"
+      when "js", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", "hx", \
+           "hxx", "ino", "java", "php", "php5", "go", "groovy", "scss", \
+            "less", "rs", "sass", "styl", "scala", "swift", "ts", "jade", "gs"
         /\/{2}/
       when "lua", "hs"
         /--/
@@ -47,9 +47,9 @@ getCommentExpressions = (lang) ->
     when "coffee"
       start = stop = /\#{3}/
 
-    when "js", "c", "cc", "cpp", "cs", "h", "m", "mm", "hpp", "hx", "ino", \
-         "java", "ls", "nix", "php", "php5", "go", "groovy", "css", "sass", \
-         "scss", "less", "rs", "styl", "scala", "ts", "gs"
+    when "js", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", "hx", \
+         "hxx", "ino", "java", "ls", "nix", "php", "php5", "go", "groovy", \
+         "css", "sass", "scss", "less", "rs", "styl", "scala", "ts", "gs"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -209,6 +209,7 @@ extensions = [
   "cpp"
   "cs"
   "css"
+  "cxx"
   "erl"
   "go"
   "groovy"
@@ -220,6 +221,7 @@ extensions = [
   "hs"
   "html", "htm"
   "hx"
+  "hxx"
   "hy"
   "ino"
   "jade"

@@ -96,7 +96,7 @@ module.exports =
       empty: 0
     }
     {
-      names: ["c", "h", "cpp", "hpp"]
+      names: ["c", "h", "cpp", "hpp", "cxx", "hxx"]
       code:
         """
           /* a */
