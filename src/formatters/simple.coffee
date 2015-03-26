@@ -21,9 +21,6 @@ stat = (data, options) ->
 
 module.exports = (data, options={}, fmtOpts) ->
 
-  if options.keys?.length is 1 and not options.reportDetails
-    return data.summary[options.keys[0]]
-
   if not options.keys?
     options.keys = sloc.keys
 
