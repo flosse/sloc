@@ -680,4 +680,21 @@ module.exports =
       mixed: 1
       empty: 0
     }
+    {
+      names: ["cr"]
+      code:
+        """
+        # comment
+        def lerp(a, b, v)
+          a * (1.0 - v) + b * v
+        end
+        """
+      comment: 1
+      source: 3
+      block: 0
+      total: 4
+      single: 1
+      mixed: 0
+      empty: 0
+    }
   ]

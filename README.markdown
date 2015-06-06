@@ -225,6 +225,7 @@ type for all files in the project.
 - C#
 - Clojure / ClojureScript
 - CSS / SCSS / SASS / LESS / Stylus
+- Crystal
 - Erlang
 - Go
 - Groovy
