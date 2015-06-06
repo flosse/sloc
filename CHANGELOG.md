@@ -6,6 +6,10 @@
   - Mochi
   - Objective-C
   - Objective-C++
+  - SASS
+  - Crystal
+  - Nim
+- fixed problem with coffee-script v1.9.x
 
 ## v0.1.9
 
