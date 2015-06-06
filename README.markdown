@@ -244,6 +244,7 @@ type for all files in the project.
 - Mochi
 - Monkey
 - Mustache
+- Nim
 - Perl 5
 - Python
 - PHP

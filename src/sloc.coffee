@@ -37,6 +37,24 @@ getCommentExpressions = (lang) ->
         /\%/
       when "monkey", "vb"
         /'/
+      when "nim"
+        r =
+          ///
+          (?:           # non-capturing group
+            ^           # start of line
+            [^\#]*      # any char but '#'
+          )
+          (             # start group
+            \#          # exact one '#'
+          )
+          (?:           # non-capturing group
+            (?!         # negative lookahead
+              [\#\!]    # any char but '#' and '!'
+            )
+          )
+          ///
+        r._matchGroup_ = 1 # dirty fix
+        r
       when "rkt", "clj", "cljs", "hy"
         /;/
       else null
@@ -76,6 +94,11 @@ getCommentExpressions = (lang) ->
       start = /#rem/i
       stop  = /#end/i
 
+    when "nim"
+      # nim has no real block comments but doc comments so we distinguish
+      # between single line comments and doc comments
+      start = /\#{2}/
+      # stop is end of line
     when "rb"
       start = /\=begin/
       stop  = /\=end/
@@ -101,10 +124,10 @@ countMixed = (res, lines, idx, startIdx, match) ->
   if match? and nonEmpty.exec lines[-1..][0].substr 0, match.index
     res.mixed.push start: startIdx, stop: startIdx
 
-getStop = (comment, type, regex) ->
-  comment.match switch type
+getStopRegex = (type, regex) ->
+  switch type
     when 'single' then endOfLine
-    when 'block'  then regex.stop
+    when 'block'  then regex or endOfLine
 
 getType = (single, start) ->
   if      single  and not start   then 'single'
@@ -118,14 +141,27 @@ emptyLns = (c) -> c.match(emptyLines)?.length or 0
 
 newLns   = (c) -> c.match(newLines)?.length or 0
 
+indexOfGroup = (match, n) ->
+  ix = match.index
+  ix+= match[i].length for i in [1..n]
+  ix
+
+matchDefinedGroup = (reg, code) ->
+  res = reg?.exec code
+  # This is dirty but it works ;-)
+  if res? and (g = reg?._matchGroup_)?
+    res.index = indexOfGroup res, g
+    res[0] = res[g]
+  res
+
 countComments = (code, regex) ->
 
   myself = (res, code, idx) ->
     return res if code is ''
     if code[0] is '\n' then return -> myself res, code.slice(1), ++idx
 
-    start  = regex.start?.exec code
-    single = regex.single?.exec code
+    start  = matchDefinedGroup regex.start, code
+    single = matchDefinedGroup regex.single, code
 
     unless start or single
       countMixed res, code.split('\n'), idx
@@ -141,7 +177,7 @@ countComments = (code, regex) ->
     comment   = code.substring cStartIdx
     lines     = code.substring(0, match.index).split '\n'
     startIdx  = lines.length - 1 + idx
-    stop      = getStop comment, type, regex
+    stop      = matchDefinedGroup (getStopRegex type, regex.stop), comment
 
     unless stop
       res.error = yes
@@ -234,6 +270,7 @@ extensions = [
   "monkey"
   "mustache"
   "nix"
+  "nim"
   "php", "php5"
   "pl"
   "py"

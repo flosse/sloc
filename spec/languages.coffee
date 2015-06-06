@@ -697,4 +697,30 @@ module.exports =
       mixed: 0
       empty: 0
     }
+    {
+      names: ["nim"]
+      code:
+        """
+        i = 0  # This is a single comment over multiple lines.
+         # The scanner merges these two pieces.
+         # The comment continues here.
+         # Documentation comments are comments that start with two ##
+
+        #! strongSpaces
+        if foo+4 * 4 == 8  and  b&c | 9  ++
+            bar:
+          echo ""
+
+        proc `host=`*(s: var Socket, value: int) {.inline.} =
+         ## setter of hostAddr
+         s.FHost = value
+        """
+      comment: 5
+      source: 7
+      block: 1
+      total: 13
+      single: 4
+      mixed: 1
+      empty: 2
+    }
   ]
