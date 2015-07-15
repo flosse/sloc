@@ -237,6 +237,7 @@ type for all files in the project.
 - hy
 - Java
 - JavaScript
+- JSX
 - Julia
 - Lua
 - LiveScript
