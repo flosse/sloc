@@ -112,6 +112,10 @@ getCommentExpressions = (lang) ->
       start = /\#\=/
       stop  = /\=\#/
 
+    when "ml", "mli"
+      start = /\(\*/
+      stop  = /\*\)/
+
     else
       if lang in extensions then start = stop = null
       else throw new TypeError "File extension '#{lang}' is not supported"
@@ -270,6 +274,8 @@ extensions = [
   "less"
   "lua"
   "ls"
+  "ml"
+  "mli"
   "mochi"
   "monkey"
   "mustache"

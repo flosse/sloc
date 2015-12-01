@@ -723,4 +723,27 @@ module.exports =
       mixed: 1
       empty: 2
     }
+    {
+      names: ["ml", "mli"]
+      code:
+        """
+          (* a *)
+          let double x = 2x in (* comment *)
+          (* a *) double 5 = 10
+
+          (*
+            comment
+          *)
+          (**
+            another block comment
+           *)
+        """
+      comment: 9
+      source: 2
+      block: 9
+      single: 0
+      total: 10
+      mixed: 2
+      empty: 1
+    }
   ]
