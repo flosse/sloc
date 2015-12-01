@@ -246,6 +246,7 @@ type for all files in the project.
 - Monkey
 - Mustache
 - Nim
+- OCaml
 - Perl 5
 - Python
 - PHP
