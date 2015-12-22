@@ -19,7 +19,7 @@ Create stats of your source code:
 
 ## Supported outputs
 
-In addition to the default termpinal output (see examples below), sloc provides an alternative set of output formatters:
+In addition to the default terminal output (see examples below), sloc provides an alternative set of output formatters:
 
 - CSV
 - JSON
