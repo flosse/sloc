@@ -1,15 +1,14 @@
 # sloc
 
-
 Create stats of your source code:
 
-- lines of code
+- physical lines
+- lines of code (source)
 - lines with comments
-- lines with block comments
 - lines with single-line comments
+- lines with block comments
 - lines mixed up with source and comments
 - empty lines
-- physical lines
 
 [![Build Status](https://secure.travis-ci.org/flosse/sloc.svg?branch=master)](http://travis-ci.org/flosse/sloc)
 [![Dependency Status](https://gemnasium.com/flosse/sloc.svg)](https://gemnasium.com/flosse/sloc)
@@ -20,7 +19,7 @@ Create stats of your source code:
 
 ## Supported outputs
 
-sloc provides a set of output formatters:
+In addition to the default termpinal output (see examples below), sloc provides an alternative set of output formatters:
 
 - CSV
 - JSON
