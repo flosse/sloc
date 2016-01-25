@@ -55,7 +55,7 @@ getCommentExpressions = (lang) ->
           ///
         r._matchGroup_ = 1 # dirty fix
         r
-      when "rkt", "clj", "cljs", "hy"
+      when "rkt", "clj", "cljs", "hy", "asm"
         /;/
       else null
 
@@ -242,6 +242,7 @@ slocModule = (code, lang, opt={}) ->
   { total, source, comment, single, block, mixed, empty }
 
 extensions = [
+  "asm"
   "c"
   "cc"
   "clj"
