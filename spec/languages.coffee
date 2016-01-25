@@ -746,4 +746,26 @@ module.exports =
       mixed: 2
       empty: 1
     }
+    {
+      names: ["asm"]
+      code:
+        """
+          global start
+
+          start:; entry point
+            push rbp
+            mov rsp, rbp
+            ;at&t syntax: ; weird
+            mov %rsp, %rax
+            pop rax
+            ret
+        """
+      total: 9
+      source: 7
+      comment: 2
+      single: 2
+      block: 0
+      mixed: 1
+      empty: 1
+    }
   ]
