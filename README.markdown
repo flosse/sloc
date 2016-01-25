@@ -219,6 +219,7 @@ type for all files in the project.
 
 ## Supported languages
 
+- Assembly
 - CoffeeScript
 - C / C++
 - C#
