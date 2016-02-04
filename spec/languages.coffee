@@ -7,16 +7,17 @@ module.exports =
           # a
           code()
           source.code() # comment
+          source.code "\#{interpolation}"
 
           ### block
           comment # commented comment
           ###
         """
       comment: 5
-      source: 2
+      source: 3
       single: 2
       block: 3
-      total: 7
+      total: 8
       mixed: 1
       empty: 1
     }

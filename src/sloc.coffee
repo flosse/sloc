@@ -24,8 +24,9 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "iced", "cr", "py", "ls", "mochi", "nix", "r", "rb", \
-           "jl", "pl", "yaml", "hr"
+      when "coffee", "iced"
+        /\#[^\{]/ # hashtag not followed by opening curly brace
+      when "cr", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", "yaml", "hr"
         /\#/
       when "js", "jsx", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", \
            "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", "scss", \
