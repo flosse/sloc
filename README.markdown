@@ -234,6 +234,7 @@ type for all files in the project.
 - Haxe
 - Hilbert
 - hy
+- IcedCoffeeScript
 - Java
 - JavaScript
 - JSX

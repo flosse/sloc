@@ -24,8 +24,8 @@ getCommentExpressions = (lang) ->
   single =
     switch lang
 
-      when "coffee", "cr", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", \
-           "yaml", "hr"
+      when "coffee", "iced", "cr", "py", "ls", "mochi", "nix", "r", "rb", \
+           "jl", "pl", "yaml", "hr"
         /\#/
       when "js", "jsx", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", \
            "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", "scss", \
@@ -62,7 +62,7 @@ getCommentExpressions = (lang) ->
   ## block comments
   switch lang
 
-    when "coffee"
+    when "coffee", "iced"
       start = stop = /\#{3}/
 
     when "js", "jsx", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", \
@@ -265,6 +265,7 @@ extensions = [
   "hx"
   "hxx"
   "hy"
+  "iced"
   "ino"
   "jade"
   "java"
