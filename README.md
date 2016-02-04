@@ -236,6 +236,7 @@ type for all files in the project.
 - Hilbert
 - hy
 - IcedCoffeeScript
+- Jade
 - Java
 - JavaScript
 - JSX
