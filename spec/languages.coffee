@@ -1,7 +1,7 @@
 module.exports =
   [
     {
-      names: ["coffee"]
+      names: ["coffee", "iced"]
       code:
         """
           # a
