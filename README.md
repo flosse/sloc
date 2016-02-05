@@ -219,6 +219,7 @@ type for all files in the project.
 
 ## Supported languages
 
+- Assembly
 - CoffeeScript / IcedCoffeeScript
 - C / C++
 - C#
@@ -234,6 +235,7 @@ type for all files in the project.
 - Haxe
 - Hilbert
 - hy
+- Jade
 - Java
 - JavaScript
 - JSX

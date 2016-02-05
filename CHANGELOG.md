@@ -1,15 +1,22 @@
 # Changelog
 
-## next
+## v0.1.10
 
 - new supported languages
+  - Assembly
+  - Crystal
+  - IcedCoffeeScript
+  - Jade
   - Mochi
+  - Nim
   - Objective-C
   - Objective-C++
+  - Ocaml
   - SASS
-  - Crystal
-  - Nim
 - fixed problem with coffee-script v1.9.x
+- fixed #48
+- `cli-table` formatter: group by extension
+- add some more extensions like `hxx`, `jsx` etc.
 
 ## v0.1.9
 
