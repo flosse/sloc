@@ -5,23 +5,20 @@ module.exports =
       code:
         """
           # a
+          code()
           source.code() # comment
+          source.code "\#{interpolation}"
 
           ### block
           comment # commented comment
           ###
-          source() ### one line block ###
-          ### one line block ### code()
-          ### block ### code() ###
-          ### souce() # comment ### no block ###
-          ###### code() ###### code()
         """
-      comment: 10
-      source: 6
-      single: 3
-      block: 8
-      total: 11
-      mixed: 6
+      comment: 5
+      source: 3
+      single: 2
+      block: 3
+      total: 8
+      mixed: 1
       empty: 1
     }
     {

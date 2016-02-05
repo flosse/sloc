@@ -34,19 +34,19 @@ describe "The sloc module", ->
           res = sloc l.code, n
           (n in sloc.extensions).should.equal true
           if l.total
-            res.total   .should.equal l.total
+            res.total   .should.equal l.total,   "Total"
           if l.source
-            res.source  .should.equal l.source
+            res.source  .should.equal l.source,  "Source"
           if l.comment
-            res.comment .should.equal l.comment
+            res.comment .should.equal l.comment, "Comment"
           if l.single
-            res.single  .should.equal l.single
+            res.single  .should.equal l.single,  "Single"
           if l.block
-            res.block   .should.equal l.block
+            res.block   .should.equal l.block,   "Block"
           if l.empty
-            res.empty   .should.equal l.empty
+            res.empty   .should.equal l.empty,   "Empty"
           if l.mixed
-            res.mixed   .should.equal l.mixed
+            res.mixed   .should.equal l.mixed,   "Mixed"
 
   it "should throw an error", ->
     (-> sloc "foo", "foobar").should.throw()

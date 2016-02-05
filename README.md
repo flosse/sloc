@@ -220,7 +220,7 @@ type for all files in the project.
 ## Supported languages
 
 - Assembly
-- CoffeeScript
+- CoffeeScript / IcedCoffeeScript
 - C / C++
 - C#
 - Clojure / ClojureScript
@@ -235,7 +235,6 @@ type for all files in the project.
 - Haxe
 - Hilbert
 - hy
-- IcedCoffeeScript
 - Jade
 - Java
 - JavaScript
