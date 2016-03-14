@@ -256,6 +256,7 @@ type for all files in the project.
 - Ruby
 - Rust
 - Scala
+- Squirrel
 - SVG
 - Swift
 - Objective-C / Objective-C++
