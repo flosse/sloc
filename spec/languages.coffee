@@ -765,4 +765,27 @@ module.exports =
       mixed: 1
       empty: 1
     }
+    {
+      names: ["nut"]
+      code:
+        """
+          foo <- "bar";
+          // comment
+          function something( a )
+          {
+            local b = a * 2;
+            return b + 4;
+          }
+          /*
+            block comment
+          */
+        """
+      total: 10
+      source: 6
+      comment: 4
+      single: 1
+      block: 3
+      mixed: 0
+      empty: 0
+    }
   ]
