@@ -240,6 +240,7 @@ type for all files in the project.
 - JavaScript
 - JSX
 - Julia
+- Kotlin
 - Lua
 - LiveScript
 - Nix
