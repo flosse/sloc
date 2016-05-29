@@ -142,6 +142,31 @@ module.exports =
       mixed: 2
     }
     {
+      names: ["kt", "kts"]
+      code:
+        """
+          /** foo
+          block comment
+          */
+          /* a */
+          fun source(): Unit { /* comment */
+            code()
+          }
+          // comment
+          /* b */ more.code()
+          /*
+          another block comment
+          // */
+        """
+      comment: 10
+      source: 4
+      block: 9
+      total: 12
+      empty: 0
+      single: 1
+      mixed: 2
+    }
+    {
       names: ["php", "php5"]
       code:
         """
