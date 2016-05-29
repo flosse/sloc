@@ -37,7 +37,7 @@ getCommentExpressions = (lang) ->
         /--/
       when "erl"
         /\%/
-      when "monkey", "vb"
+      when "brs", "monkey", "vb"
         /'/
       when "nim"
         r =
@@ -245,6 +245,7 @@ slocModule = (code, lang, opt={}) ->
 
 extensions = [
   "asm"
+  "brs"
   "c"
   "cc"
   "clj"
