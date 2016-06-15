@@ -220,6 +220,7 @@ type for all files in the project.
 ## Supported languages
 
 - Assembly
+- Brightscript
 - CoffeeScript / IcedCoffeeScript
 - C / C++
 - C#

@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.1.11
+
+- new supported languages
+  - Brightscript
+  - Kotlin
+  - Squirrel
+- fixed #55
+- fixed #70
+
 ## v0.1.10
 
 - new supported languages
