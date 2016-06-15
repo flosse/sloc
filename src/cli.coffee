@@ -39,18 +39,13 @@ parseFile = (f, cb=->) ->
     res.stats = sloc code, options.alias[ext] or ext
     cb null, res
 
-print = (err, result, opts, fmtOpts) ->
-  return console.error "Error: #{err}" if err
+print = (result, opts, fmtOpts) ->
   f = programm.format or 'simple'
   unless (fmt = fmts[f])?
     return console.error "Error: format #{f} is not supported"
   out = fmt result, opts, fmtOpts
   out = out.replace colorRegex, '' if programm.stripColors
   console.log out if typeof out is "string"
-
-addResult = (res, all) ->
-  if res.badFile then all.brokenFiles++
-  all.files.push res
 
 filterFiles = (files) ->
   res =
@@ -60,7 +55,7 @@ filterFiles = (files) ->
     else
       files
 
-  (path.join p, r.path for r in res)
+  (r.path for r in res)
 
 options = {}
 fmtOpts = []
@@ -101,8 +96,6 @@ for k of options.alias
 
 return programm.help() if programm.args.length < 1
 
-result = files: []
-
 groupByExt = (data) ->
   map = {}
   for f in data.files
@@ -114,28 +107,34 @@ groupByExt = (data) ->
     d.summary = helpers.summarize d.files.map (x) -> x.stats
   map
 
-readSingleFile = (f) -> parseFile p, (err, res) ->
-  addResult res, result
-  result.summary = res.stats
-  print err, result, options, fmtOpts
+readSingleFile = (f, done) -> parseFile f, (err, res) ->
+  done err, [res]
 
-readDir = (dir) ->
-
-  finish = (err, x) ->
-    result.summary = helpers.summarize result.files.map (x) -> x.stats
-    result.byExt = groupByExt result
-    print err, result, options, fmtOpts
-
-  processFile = (f, next) -> parseFile f, (err, r) ->
-    addResult r, result
-    next()
+readDir = (dir, done) ->
+  processFile = (f, next) -> parseFile (path.join dir, f), next
 
   readdirp { root: dir, fileFilter: exts }, (err, res) ->
-    async.forEach (filterFiles res.files), processFile, finish
+    return done(err) if err
+    async.map (filterFiles res.files), processFile, done
 
-p = programm.args[0]
+readSource = (p, done) ->
+  fs.lstat p, (err, stats) ->
+    if err
+      console.error "Error: invalid path argument #{p}"
+      return done(err)
+    if stats.isDirectory() then return readDir p, done
+    else if stats.isFile() then return readSingleFile p, done
 
-fs.lstat p, (err, stats) ->
-  return console.error "Error: invalid path argument" if err
-  if stats.isDirectory() then readDir p
-  else if stats.isFile() then readSingleFile p
+async.map programm.args, readSource, (err, parsed) ->
+  return console.error "Error: #{err}" if err
+
+  result = files: []
+
+  parsed.forEach (files) ->
+    files.forEach (f) ->
+      if f.badFile then result.brokenFiles++
+      result.files.push f
+
+  result.summary = helpers.summarize result.files.map (x) -> x.stats
+  result.byExt = groupByExt result
+  print result, options, fmtOpts
