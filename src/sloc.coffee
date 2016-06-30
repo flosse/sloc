@@ -31,7 +31,7 @@ getCommentExpressions = (lang) ->
       when "js", "jsx", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", \
            "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", "scss", \
            "less", "rs", "sass", "styl", "scala", "swift", "ts", "jade", "gs", \
-           "nut", "kt", "kts"
+           "nut", "kt", "kts", "tsx"
         /\/{2}/
       when "lua", "hs"
         /--/
@@ -70,7 +70,7 @@ getCommentExpressions = (lang) ->
     when "js", "jsx", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", \
          "hx", "hxx", "ino", "java", "ls", "nix", "php", "php5", "go", \
          "css", "sass", "scss", "less", "rs", "styl", "scala", "ts", "gs", \
-         "groovy", "nut", "kt", "kts"
+         "groovy", "nut", "kt", "kts", "tsx"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -303,6 +303,7 @@ extensions = [
   "svg"
   "swift"
   "ts"
+  "tsx"
   "vb"
   "xml"
   "yaml"
