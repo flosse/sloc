@@ -171,51 +171,32 @@ var stats = window.sloc(sourceCode,"javascript");
 
 4. open a pull request
 
-### Grunt
+### sloc adapters
 
-If you'd like to use sloc within your grunt process you can use
-[grunt-sloc](https://github.com/rhiokim/grunt-sloc).
+- Grunt
+    - [grunt-sloc](https://github.com/rhiokim/grunt-sloc).
+    - [grunt-sloccount](https://github.com/asciidisco/grunt-sloccount)
+    - [grunt-maxlines](https://github.com/zerok/grunt-maxlines)
+    - [grunt-file-sloc](https://github.com/bubkoo/grunt-file-sloc)
 
-Install it:
+- Gulp
+    - [gulp-sloc](https://github.com/oddjobsman/gulp-sloc):
+    - [gulp-sloc2](https://github.com/pnarielwala/gulp-sloc2)
 
-    npm install grunt-sloc --save-dev
+- [Atom](https://atom.io/)
 
-and use it:
+    - [atom-sloc](https://github.com/sgade/atom-sloc)
+    - [line-count](https://github.com/mark-hahn/line-count)
 
-    grunt.loadNpmTasks('grunt-sloc');
+- Jenkins
+    - [sloc-for-jenkins](https://www.npmjs.com/package/sloc-for-jenkins)
+    - [sloccount](https://github.com/asciidisco/sloccount)
 
-For more details navigate to the
-[project site](https://github.com/rhiokim/grunt-sloc).
+- Istanbbul
+    - [istanbul-reporter-clover-limits](https://github.com/Cellarise/istanbul-reporter-clover-limits/)
 
-### Gulp
-
-sloc is also available for gulp.
-
-Install [gulp-sloc](https://github.com/oddjobsman/gulp-sloc):
-
-    npm install --save-dev gulp-sloc
-
-and use it:
-
-```javascript
-var sloc = require('gulp-sloc');
-
-gulp.task('sloc', function(){
-  gulp.src(['scripts/*.js']).pipe(sloc());
-});
-```
-
-### [Atom](https://atom.io/)
-
-![screenshot](https://raw.githubusercontent.com/sgade/atom-sloc/master/assets/screen.png)
-
-You can use [atom-sloc](https://github.com/sgade/atom-sloc) to display stats
-of the current file in the statusbar.
-
-And there is another great atom package called
-[line-count](https://github.com/mark-hahn/line-count) that gives you a more
-detailed report showing line counts broken down by file, directory, and file
-type for all files in the project.
+- Codemetrics
+    - [codemetrics-process-sloc](https://github.com/maxdow/codemetrics-process-sloc)
 
 ## Supported languages
 
