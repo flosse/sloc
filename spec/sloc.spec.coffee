@@ -22,6 +22,7 @@ describe "The sloc module", ->
       mixed:    0
       single:   0
       source:   3
+      todo:     0
       total:    3
 
   it "should handle CR line endings", ->
@@ -47,6 +48,8 @@ describe "The sloc module", ->
             res.empty   .should.equal l.empty,   "Empty"
           if l.mixed
             res.mixed   .should.equal l.mixed,   "Mixed"
+          if l.todo
+            res.todo    .should.equal l.todo,    "To Do"
 
   it "should throw an error", ->
     (-> sloc "foo", "foobar").should.throw()
@@ -66,7 +69,8 @@ describe "The sloc module", ->
       'single'
       'block'
       'mixed'
-      'empty'  ]
+      'empty'
+      'todo']
     sloc.keys.should.be.an 'array'
     for k in sloc.keys
       (k in keys).should.be.true
@@ -88,6 +92,7 @@ describe "The sloc module", ->
       res.comment.should.equal 165
       res.empty.should.equal 26
       res.source.should.equal 8
+      res.todo.should.equal 4
 
       fs.readFile "./spec/testfiles/test2.js", "utf-8", (err, code) ->
         res = sloc code, "js"
@@ -95,6 +100,7 @@ describe "The sloc module", ->
         res.empty.should.equal 5
         res.block.should.equal 13
         res.total.should.equal 13
+        res.todo.should.equal 0
         done()
 
   it "evaluates an emty file correctly", (done) ->
@@ -103,6 +109,7 @@ describe "The sloc module", ->
       res.empty.should.equal 1
       res.source.should.equal 0
       res.total.should.equal 1
+      res.todo.should.equal 0
       done()
 
   it "ignores the last newline char", ->

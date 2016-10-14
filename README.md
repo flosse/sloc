@@ -9,6 +9,7 @@ Create stats of your source code:
 - lines with block comments
 - lines mixed up with source and comments
 - empty lines
+- lines with TODO's
 
 [![Build Status](https://secure.travis-ci.org/flosse/sloc.svg?branch=master)](http://travis-ci.org/flosse/sloc)
 [![Dependency Status](https://gemnasium.com/flosse/sloc.svg)](https://gemnasium.com/flosse/sloc)

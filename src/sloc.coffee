@@ -11,12 +11,14 @@ keys = [
   'block'     # lines with block comments
   'mixed'     # lines mixed up with source and comments
   'empty'     # empty lines
+  'todo'
   ]
 
 nonEmpty    = /[^\s]/
 endOfLine   = /$/m
 newLines    = /\n/g
 emptyLines  = /^\s*$/mg
+todoLines   = /^.*TODO.*$/mg
 
 getCommentExpressions = (lang) ->
 
@@ -148,6 +150,8 @@ emptyLns = (c) -> c.match(emptyLines)?.length or 0
 
 newLns   = (c) -> c.match(newLines)?.length or 0
 
+todoLns  = (c) -> c.match(todoLines)?.length or 0
+
 indexOfGroup = (match, n) ->
   ix = match.index
   ix+= match[i].length for i in [1..n]
@@ -232,6 +236,7 @@ slocModule = (code, lang, opt={}) ->
   block   = lineSum res.block
   mixed   = lineSum res.mixed
   comment = block + single
+  todo    = todoLns code
   bIdx    = (b.stop for b in res.block)
   comment-- for s in res.single when s.start in bIdx
   blockEmpty = 0
@@ -241,7 +246,7 @@ slocModule = (code, lang, opt={}) ->
   console.log res if opt.debug
 
   # result
-  { total, source, comment, single, block, mixed, empty }
+  { total, source, comment, single, block, mixed, empty, todo }
 
 extensions = [
   "asm"
