@@ -23,18 +23,18 @@
   "license": "MIT",
   "engine": "node",
   "dependencies": {
-    "async": "~1.5.2",
+    "async": "~2.1.2",
     "cli-table": "^0.3.1",
     "commander": "~2.9.0",
-    "readdirp": "^2.0.0"
+    "readdirp": "^2.1.0"
   },
   "devDependencies": {
     "chai": "~3.5.0",
-    "coffee-script": "~1.10.0",
-    "coffeelint": "^1.15.7",
-    "coveralls": "^2.11.9",
-    "istanbul": "^0.4.3",
-    "mocha": "~2.5.3"
+    "coffee-script": "~1.11.1",
+    "coffeelint": "^1.16.0",
+    "coveralls": "^2.11.14",
+    "istanbul": "^0.4.5",
+    "mocha": "~3.1.2"
   },
   "repository": {
     "type": "git",
