@@ -7,6 +7,7 @@ module.exports =
     block   : "Block comment"
     mixed   : "Mixed"
     empty   : "Empty"
+    todo    : "To Do"
 
     Result    : "Result"
     Path      : "Path"
