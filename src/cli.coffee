@@ -115,7 +115,7 @@ readDir = (dir, done) ->
 
   readdirp { root: dir, fileFilter: exts }, (err, res) ->
     return done(err) if err
-    async.map (filterFiles res.files), processFile, done
+    async.mapLimit (filterFiles res.files), 1000, processFile, done
 
 readSource = (p, done) ->
   fs.lstat p, (err, stats) ->
