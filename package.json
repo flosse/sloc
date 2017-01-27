@@ -1,6 +1,6 @@
 {
   "name": "sloc",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "main": "lib/sloc",
   "bin": "bin/sloc",
   "description": "sloc is a simple tool to count SLOC (source lines of code)",
@@ -23,18 +23,18 @@
   "license": "MIT",
   "engine": "node",
   "dependencies": {
-    "async": "~2.1.2",
+    "async": "~2.1.4",
     "cli-table": "^0.3.1",
     "commander": "~2.9.0",
     "readdirp": "^2.1.0"
   },
   "devDependencies": {
     "chai": "~3.5.0",
-    "coffee-script": "~1.11.1",
+    "coffee-script": "~1.12.3",
     "coffeelint": "^1.16.0",
-    "coveralls": "^2.11.14",
+    "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
-    "mocha": "~3.1.2"
+    "mocha": "~3.2.0"
   },
   "repository": {
     "type": "git",

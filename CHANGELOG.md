@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.0
+
+- count lines with `TODO`s
+  (it's reflected in the summary object with the new property `todo`)
+- support `tsx`
+- fixed #83
+
 ## v0.1.11
 
 - new supported languages
