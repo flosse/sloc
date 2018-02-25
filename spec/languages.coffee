@@ -813,4 +813,27 @@ module.exports =
       mixed: 0
       empty: 0
     }
+    {
+      names: ["fs", "fsi", "fsx"]
+      code:
+        """
+          (* block comment *)
+          let square x = x * x // line comment
+          (* a *) square 3
+
+          (*
+            comment
+          *)
+          (**
+            another block comment
+           *)
+        """
+      comment: 9
+      source: 2
+      block: 8
+      single: 1
+      total: 10
+      mixed: 2
+      empty: 1
+    }
   ]

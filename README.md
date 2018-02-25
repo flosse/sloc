@@ -210,6 +210,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - CSS / SCSS / SASS / LESS / Stylus
 - Crystal
 - Erlang
+- F#
 - Go
 - Groovy
 - HTML
