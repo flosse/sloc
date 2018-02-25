@@ -572,7 +572,7 @@ module.exports =
       empty: 1
     }
     {
-      names: ["hs"]
+      names: ["hs", "elm", "purs"]
       code:
         """
         -- a
