@@ -16,14 +16,15 @@ describe "The sloc module", ->
 
   it "should handle CRLF line endings", ->
     sloc("a\r\nb\r\nc", "js").should.eql
-      block:    0
-      comment:  0
-      empty:    0
-      mixed:    0
-      single:   0
-      source:   3
-      todo:     0
-      total:    3
+      block:      0
+      blockEmpty: 0
+      comment:    0
+      empty:      0
+      mixed:      0
+      single:     0
+      source:     3
+      todo:       0
+      total:      3
 
   it "should handle CR line endings", ->
     sloc("a\rb\rc", "js").total.should.equal 3

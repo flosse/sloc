@@ -4,13 +4,14 @@ Copyright 2012 - 2017 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 keys = [
-  'total'     # physical lines of code
-  'source'    # lines of source
-  'comment'   # lines with comments
-  'single'    # lines with single-line comments
-  'block'     # lines with block comments
-  'mixed'     # lines mixed up with source and comments
-  'empty'     # empty lines
+  'total'      # physical lines of code
+  'source'     # lines of source
+  'comment'    # lines with comments
+  'single'     # lines with single-line comments
+  'block'      # lines with block comments
+  'mixed'      # lines mixed up with source and comments
+  'blockEmpty' # empty lines with a block comment
+  'empty'      # empty lines
   'todo'
   ]
 
@@ -246,7 +247,7 @@ slocModule = (code, lang, opt={}) ->
   console.log res if opt.debug
 
   # result
-  { total, source, comment, single, block, mixed, empty, todo }
+  { total, source, comment, single, block, mixed, empty, todo, blockEmpty }
 
 extensions = [
   "asm"

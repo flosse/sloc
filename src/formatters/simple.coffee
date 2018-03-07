@@ -44,4 +44,4 @@ module.exports = (data, options={}, fmtOpts) ->
 
     result += d.join ''
 
-  result += "\n\n------------------------------\n"
+  result += "\n\n----------------------------\n"

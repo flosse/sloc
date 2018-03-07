@@ -1,13 +1,14 @@
 module.exports =
   en:
-    total   : "Physical"
-    source  : "Source"
-    comment : "Comment"
-    single  : "Single-line comment"
-    block   : "Block comment"
-    mixed   : "Mixed"
-    empty   : "Empty"
-    todo    : "To Do"
+    total      : "Physical"
+    source     : "Source"
+    comment    : "Comment"
+    single     : "Single-line comment"
+    block      : "Block comment"
+    blockEmpty : "Empty block comment"
+    mixed      : "Mixed"
+    empty      : "Empty"
+    todo       : "To Do"
 
     Result    : "Result"
     Path      : "Path"
