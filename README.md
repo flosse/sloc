@@ -8,6 +8,7 @@ Create stats of your source code:
 - lines with single-line comments
 - lines with block comments
 - lines mixed up with source and comments
+- empty lines within block comments
 - empty lines
 - lines with TODO's
 
