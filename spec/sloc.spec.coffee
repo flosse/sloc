@@ -70,6 +70,7 @@ describe "The sloc module", ->
       'single'
       'block'
       'mixed'
+      'blockEmpty'
       'empty'
       'todo']
     sloc.keys.should.be.an 'array'
