@@ -34,7 +34,7 @@ getCommentExpressions = (lang) ->
       when "js", "jsx", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", "hpp", \
            "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", "scss", \
            "less", "rs", "sass", "styl", "scala", "swift", "ts", "jade", "gs", \
-           "nut", "kt", "kts", "tsx", "fs", "fsi", "fsx"
+           "nut", "kt", "kts", "tsx", "fs", "fsi", "fsx", "bsl"
         /\/{2}/
       when "lua", "hs", "sql"
         /--/
@@ -317,6 +317,7 @@ extensions = [
   "yaml"
   "m"
   "mm"
+  "bsl"
 ]
 
 slocModule.extensions = extensions
