@@ -36,6 +36,9 @@ getCommentExpressions = (lang) ->
            "less", "rs", "sass", "styl", "scala", "swift", "ts", "jade", "gs", \
            "nut", "kt", "kts", "tsx", "fs", "fsi", "fsx", "bsl"
         /\/{2}/
+
+      when "latex", "tex", "sty", "cls"
+        start = /\%{2}/
       when "lua", "hs", "sql"
         /--/
       when "erl"
@@ -256,6 +259,7 @@ extensions = [
   "cc"
   "clj"
   "cljs"
+  "cls"
   "coffee"
   "cpp"
   "cr"
@@ -285,6 +289,7 @@ extensions = [
   "jsx"
   "kt"
   "kts"
+  "latex"
   "less"
   "lua"
   "ls"
@@ -306,10 +311,12 @@ extensions = [
   "sass"
   "scala"
   "scss"
+  "sty"
   "styl"
   "svg"
   "sql"
   "swift"
+  "tex"
   "ts"
   "tsx"
   "vb"
