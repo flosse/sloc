@@ -321,6 +321,7 @@ extensions = [
   "ts"
   "tsx"
   "vb"
+  "vue"
   "xml"
   "yaml"
   "m"
