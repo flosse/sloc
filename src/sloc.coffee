@@ -91,7 +91,7 @@ getCommentExpressions = (lang) ->
       start = /\{-/
       stop  = /-\}/
 
-    when "html", "htm", "svg", "xml"
+    when "html", "htm", "svg", "xml", "vue"
       start = /<\!--/
       stop  = /-->/
 
