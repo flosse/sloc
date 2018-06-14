@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "chai": "~3.5.0",
-    "coffee-script": "~1.12.3",
+    "coffeescript": "~2.3.1",
     "coffeelint": "^1.16.0",
     "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
