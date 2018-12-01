@@ -204,22 +204,22 @@ var stats = window.sloc(sourceCode,"javascript");
 
 - Assembly
 - Brightscript
-- CoffeeScript / IcedCoffeeScript
 - C / C++
 - C#
 - Clojure / ClojureScript
-- CSS / SCSS / SASS / LESS / Stylus
+- CoffeeScript / IcedCoffeeScript
 - Crystal
+- CSS / SCSS / SASS / LESS / Stylus
 - Erlang
 - F#
 - Fortran
 - Go
 - Groovy
-- HTML
 - Handlebars
 - Haskell
 - Haxe
 - Hilbert
+- HTML
 - hy
 - Jade
 - Java
@@ -227,18 +227,19 @@ var stats = window.sloc(sourceCode,"javascript");
 - JSX
 - Julia
 - Kotlin
-- Lua
 - LilyPond
 - LiveScript
-- Nix
+- Lua
 - Mochi
 - Monkey
 - Mustache
 - Nim
+- Nix
+- Objective-C / Objective-C++
 - OCaml
 - Perl 5
-- Python
 - PHP
+- Python
 - R
 - Racket
 - Ruby
@@ -247,11 +248,10 @@ var stats = window.sloc(sourceCode,"javascript");
 - Squirrel
 - SVG
 - Swift
-- Objective-C / Objective-C++
 - Typescript
 - Visual Basic
-- Yaml
 - XML
+- Yaml
 
 ## Run tests
 
