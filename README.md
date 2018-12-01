@@ -227,6 +227,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - Julia
 - Kotlin
 - Lua
+- LilyPond
 - LiveScript
 - Nix
 - Mochi
