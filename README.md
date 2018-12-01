@@ -227,9 +227,11 @@ var stats = window.sloc(sourceCode,"javascript");
 - JSX
 - Julia
 - Kotlin
+- LaTeX
 - LilyPond
 - LiveScript
 - Lua
+- MJS
 - Mochi
 - Monkey
 - Mustache
