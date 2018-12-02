@@ -212,6 +212,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - Crystal
 - Erlang
 - F#
+- Fortran
 - Go
 - Groovy
 - HTML

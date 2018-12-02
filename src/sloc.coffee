@@ -67,6 +67,8 @@ getCommentExpressions = (lang) ->
         /;/
       when "ly", "ily"
         start = /%/
+      when "f90", "f95", "f03", "f08", "f18"
+        /\!/
       else null
 
   ## block comments
@@ -273,6 +275,11 @@ extensions = [
   "css"
   "cxx"
   "erl"
+  "f90"
+  "f95"
+  "f03"
+  "f08"
+  "f18"
   "fs", "fsi", "fsx"
   "go"
   "groovy"
