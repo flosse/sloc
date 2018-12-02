@@ -65,6 +65,8 @@ getCommentExpressions = (lang) ->
         r
       when "rkt", "clj", "cljs", "hy", "asm"
         /;/
+      when "ly", "ily"
+        start = /%/
       else null
 
   ## block comments
@@ -123,6 +125,10 @@ getCommentExpressions = (lang) ->
     when "ml", "mli", "fs", "fsi", "fsx"
       start = /\(\*/
       stop  = /\*\)/
+
+    when "ly", "ily"
+      start = /%\{/
+      stop  = /%\}/
 
     else
       if lang in extensions then start = stop = null
@@ -281,6 +287,7 @@ extensions = [
   "hxx"
   "hy"
   "iced"
+  "ily"
   "ino"
   "jade"
   "java"
@@ -292,6 +299,7 @@ extensions = [
   "kts"
   "latex"
   "less"
+  "ly"
   "lua"
   "ls"
   "ml"
