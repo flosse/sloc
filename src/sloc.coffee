@@ -38,7 +38,7 @@ getCommentExpressions = (lang) ->
         /\/{2}/
 
       when "latex", "tex", "sty", "cls"
-        start = /\%{2}/
+        start = /\%/
       when "lua", "hs", "sql"
         /--/
       when "erl"
