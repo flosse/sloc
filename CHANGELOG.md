@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.2.1
+
+- new supported languages/file extensions
+  - vue
+  - latex
+  - Fortran 2008/2018
+  - LilyPond
+  - MJS
+  - bsl
+  - F#
+  - SQL
+
 ## v0.2.0
 
 - count lines with `TODO`s
