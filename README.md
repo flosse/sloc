@@ -210,6 +210,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - CoffeeScript / IcedCoffeeScript
 - Crystal
 - CSS / SCSS / SASS / LESS / Stylus
+- Dart
 - Erlang
 - F#
 - Fortran
