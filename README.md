@@ -79,6 +79,7 @@ Options:
 -h, --help                  output usage information
 -V, --version               output the version number
 -e, --exclude <regex>       regular expression to exclude files and folders
+-i, --include <regex>       regular expression to include files and folders
 -f, --format <format>       format output: json, csv, cli-table
     --format-option [value] add formatter option
 -k, --keys <keys>           report only numbers of the given keys

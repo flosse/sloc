@@ -55,7 +55,14 @@ filterFiles = (files) ->
     else
       files
 
-  (r.path for r in res)
+  res2 =
+    if programm.include
+      include = new RegExp programm.include
+      res.filter (x) -> include.test x.path
+    else
+      res
+
+  (r.path for r in res2)
 
 options = {}
 fmtOpts = []
@@ -67,6 +74,9 @@ programm
 
   .option '-e, --exclude <regex>',
     'regular expression to exclude files and folders'
+
+  .option '-i, --include <regex>',
+  'regular expression to include files and folders'
 
   .option '-f, --format <format>',
     'format output:' + (" #{k}" for k of fmts).join ','
