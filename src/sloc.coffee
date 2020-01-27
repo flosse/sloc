@@ -35,7 +35,7 @@ getCommentExpressions = (lang) ->
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
            "scss", "less", "rs", "sass", "styl", "scala", "swift", "ts", \
            "jade", "gs", "nut", "kt", "kts", "tsx", "fs", "fsi", "fsx", "bsl", \
-           "dart"
+           "dart", "agda"
         /\/{2}/
 
       when "latex", "tex", "sty", "cls"
@@ -81,7 +81,7 @@ getCommentExpressions = (lang) ->
     when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
          "hpp", "hx", "hxx", "ino", "java", "ls", "nix", "php", "php5", \
          "go", "css", "sass", "scss", "less", "rs", "styl", "scala", "ts", \
-         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart"
+         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart", "agda"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -262,6 +262,7 @@ slocModule = (code, lang, opt={}) ->
   { total, source, comment, single, block, mixed, empty, todo, blockEmpty }
 
 extensions = [
+  "agda"
   "asm"
   "brs"
   "c"

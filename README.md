@@ -203,6 +203,7 @@ var stats = window.sloc(sourceCode,"javascript");
 ## Supported languages
 
 - Assembly
+- Agda
 - Brightscript
 - C / C++
 - C#
