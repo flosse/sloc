@@ -44,14 +44,14 @@ module.exports =
       empty: 0
     }
     {
-      names: ["py", "rpy"]
+      names: ["py"]
       code:
         """
           \"""
           block comment
           \"""
           # a
-          source.code(); #comment
+          source.code() #comment
 
           # comment
           '''
@@ -64,6 +64,30 @@ module.exports =
       total: 10
       single: 3
       mixed: 1
+      empty: 1
+    }
+    {
+      names: ["rpy"]
+      code:
+        """
+          \"""
+          block comment
+          \"""
+          # a
+          $ source.code() #comment
+          show code #comment
+
+          # comment
+          '''
+          another block comment
+          '''
+        """
+      comment: 10
+      source: 1
+      block: 6
+      total: 11
+      single: 3
+      mixed: 2
       empty: 1
     }
     {
