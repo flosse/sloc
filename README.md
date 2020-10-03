@@ -247,6 +247,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - Python
 - R
 - Racket
+- Ren'Py
 - Ruby
 - Rust
 - Scala

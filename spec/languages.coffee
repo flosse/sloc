@@ -44,7 +44,7 @@ module.exports =
       empty: 0
     }
     {
-      names: ["py"]
+      names: ["py", "rpy"]
       code:
         """
           \"""
