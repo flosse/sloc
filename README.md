@@ -16,6 +16,7 @@ Create stats of your source code:
 [![Dependency Status](https://gemnasium.com/flosse/sloc.svg)](https://gemnasium.com/flosse/sloc)
 [![NPM version](https://badge.fury.io/js/sloc.svg)](http://badge.fury.io/js/sloc)
 [![Bower version](https://img.shields.io/bower/v/sloc.svg)](https://github.com/flosse/sloc)
+[![Mega-Linter](https://github.com/flosse/sloc/workflows/Mega-Linter/badge.svg?branch=master)](https://github.com/nvuillam/mega-linter#readme)
 [![License](https://img.shields.io/npm/l/sloc.svg)](https://github.com/flosse/sloc/blob/master/LICENCE.txt)
 [![Minified size](http://img.shields.io/badge/size-6,1K-blue.svg)](https://github.com/flosse/sloc)
 
