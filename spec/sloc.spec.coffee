@@ -105,7 +105,7 @@ describe "The sloc module", ->
         res.todo.should.equal 0
         done()
 
-  it "evaluates an emty file correctly", (done) ->
+  it "evaluates an empty file correctly", (done) ->
     fs.readFile "./spec/testfiles/empty.js", "utf-8", (err, code) ->
       res = sloc code, "js"
       res.empty.should.equal 1

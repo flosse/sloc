@@ -5,3 +5,5 @@ lib/
 *.bak
 *.tmp
 npm-debug.log
+*.log
+report/

@@ -480,7 +480,7 @@ module.exports =
         source() /* one line block */
         /* one line block */ code()
         /* block */ code() /*
-        */ souce() # comment /* no block */
+        */ source() # comment /* no block */
         """
       comment: 9
       source: 5
@@ -521,7 +521,7 @@ module.exports =
         source() =begin one line block=end
         =begin one line block =end code()
         =begin block =end code() =begin
-        =end souce() # comment =begin no block =end
+        =end source() # comment =begin no block =end
         """
       comment: 9
       source: 5
@@ -715,7 +715,7 @@ module.exports =
         """
         // comment
         body
-          font: 100% Helvecia, sans-serif /* multi
+          font: 100% Helvetica, sans-serif /* multi
           line comments */
         """
       comment: 3
