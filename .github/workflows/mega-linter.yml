@@ -35,7 +35,8 @@ jobs:
           # https://github.com/nvuillam/mega-linter#configuration
           VALIDATE_ALL_CODEBASE: true #  ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} # Validates all source when push on master, else just the git diff with master. Override with true if you always want to lint all sources
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DISABLE: COPYPASTE,SPELL
+          # DISABLE: COPYPASTE,SPELL
+          FILTER_REGEX_EXCLUDE: (/github/workspace/spec/testfiles/)
 
       # Upload Mega-Linter artifacts. They will be available on Github action page "Artifacts" section
       - name: Archive production artifacts
