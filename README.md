@@ -26,19 +26,19 @@ In addition to the default terminal output (see examples below), sloc provides a
 
 - CSV
 - JSON
-- Commandline table
+- Command line table
 
 ## Install
 
 To use sloc as an application install it globally:
 
-```
+```shell
 sudo npm install -g sloc
 ```
 
 If you're going to use it as a Node.js module within your project:
 
-```
+```shell
 npm install --save sloc
 ```
 
@@ -54,15 +54,15 @@ Link `sloc.js` in your HTML file:
 
 sloc is also available via [bower](http://twitter.github.com/bower/):
 
-```
+```shell
 bower install sloc
 ```
 
 **Note**:
 You need to compile the coffee-script files yourself.
-If you want to use a precompiled bower package, you can run
+If you want to use a pre-compiled bower package, you can run
 
-```
+```shell
 bower install sloc-bower
 ```
 
@@ -70,13 +70,13 @@ bower install sloc-bower
 
 ### CLI
 
-```
+```shell
 sloc [option] <file>|<directory>
 ```
 
 Options:
 
-```
+```shell
 -h, --help                  output usage information
 -V, --version               output the version number
 -e, --exclude <regex>       regular expression to exclude files and folders
@@ -84,13 +84,13 @@ Options:
 -f, --format <format>       format output: json, csv, cli-table
     --format-option [value] add formatter option
 -k, --keys <keys>           report only numbers of the given keys
--d, --details               report stats of each analzed file
+-d, --details               report stats of each analyzed file
 -a, --alias <custom ext>=<standard ext> alias custom ext to act like standard ext (eg. php5=php,less=css)
 ```
 
 e.g.:
 
-```
+```shell
 $ sloc src/
 
 ---------- Result ------------
@@ -110,7 +110,7 @@ Number of files read :  10
 
 or
 
-```
+```shell
 $ sloc --details \
        --format cli-table \
        --keys total,source,comment \
@@ -153,7 +153,7 @@ fs.readFile("mySourceFile.coffee", "utf8", function(err, code){
 });
 ```
 
-### Browser
+### Browser usage
 
 ```javascript
 var sourceCode = "foo();\n /* bar */\n baz();";
@@ -178,29 +178,29 @@ var stats = window.sloc(sourceCode,"javascript");
 ### sloc adapters
 
 - Grunt
-    - [grunt-sloc](https://github.com/rhiokim/grunt-sloc).
-    - [grunt-sloccount](https://github.com/asciidisco/grunt-sloccount)
-    - [grunt-maxlines](https://github.com/zerok/grunt-maxlines)
-    - [grunt-file-sloc](https://github.com/bubkoo/grunt-file-sloc)
+  - [grunt-sloc](https://github.com/rhiokim/grunt-sloc).
+  - [grunt-sloccount](https://github.com/asciidisco/grunt-sloccount)
+  - [grunt-maxlines](https://github.com/zerok/grunt-maxlines)
+  - [grunt-file-sloc](https://github.com/bubkoo/grunt-file-sloc)
 
 - Gulp
-    - [gulp-sloc](https://github.com/oddjobsman/gulp-sloc):
-    - [gulp-sloc2](https://github.com/pnarielwala/gulp-sloc2)
+  - [gulp-sloc](https://github.com/oddjobsman/gulp-sloc):
+  - [gulp-sloc2](https://github.com/pnarielwala/gulp-sloc2)
 
 - [Atom](https://atom.io/)
 
-    - [atom-sloc](https://github.com/sgade/atom-sloc)
-    - [line-count](https://github.com/mark-hahn/line-count)
+  - [atom-sloc](https://github.com/sgade/atom-sloc)
+  - [line-count](https://github.com/mark-hahn/line-count)
 
 - Jenkins
-    - [sloc-for-jenkins](https://www.npmjs.com/package/sloc-for-jenkins)
-    - [sloccount](https://github.com/asciidisco/sloccount)
+  - [sloc-for-jenkins](https://www.npmjs.com/package/sloc-for-jenkins)
+  - [sloccount](https://github.com/asciidisco/sloccount)
 
-- Istanbbul
-    - [istanbul-reporter-clover-limits](https://github.com/Cellarise/istanbul-reporter-clover-limits/)
+- Istanbul
+  - [istanbul-reporter-clover-limits](https://github.com/Cellarise/istanbul-reporter-clover-limits/)
 
 - Codemetrics
-    - [codemetrics-process-sloc](https://github.com/maxdow/codemetrics-process-sloc)
+  - [codemetrics-process-sloc](https://github.com/maxdow/codemetrics-process-sloc)
 
 ## Supported languages
 
@@ -262,11 +262,15 @@ var stats = window.sloc(sourceCode,"javascript");
 
 ## Run tests
 
-    npm test
+```shell
+npm test
+```
 
 ## Build
 
-    npm run prepublish
+```shell
+npm run prepublish
+```
 
 ## Changelog
 
