@@ -29,12 +29,12 @@
     "readdirp": "^2.1.0"
   },
   "devDependencies": {
-    "chai": "~3.5.0",
-    "coffee-script": "~1.12.3",
-    "coffeelint": "^1.16.0",
+    "chai": "^4.3.4",
+    "coffeelint": "^2.1.0",
+    "coffeescript": "^2.5.1",
     "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
-    "mocha": "~3.2.0"
+    "mocha": "^8.3.2"
   },
   "repository": {
     "type": "git",
@@ -55,6 +55,6 @@
     "lint": "coffeelint src/",
     "watch": "coffee -o lib -cw src/",
     "prepublish": "coffee -o lib/ -c src/",
-    "test": "npm run lint && mocha --reporter spec --compilers coffee:coffee-script/register --recursive spec/*.spec.coffee"
+    "test": "npm run lint && mocha --require coffeescript/register --recursive spec/*.spec.coffee"
   }
 }
