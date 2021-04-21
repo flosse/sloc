@@ -1,6 +1,6 @@
 ###
 This program is distributed under the terms of the MIT license.
-Copyright 2012 - 2018 (c) Markus Kohlhase <mail@markus-kohlhase.de>
+Copyright 2012 - 2021 (c) Markus Kohlhase <mail@markus-kohlhase.de>
 ###
 
 keys = [
@@ -29,7 +29,8 @@ getCommentExpressions = (lang) ->
 
       when "coffee", "iced"
         /\#[^\{]/ # hashtag not followed by opening curly brace
-      when "cr", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", "yaml", "hr", "rpy"
+      when "cr", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", "yaml", \
+           "hr", "rpy"
         /\#/
       when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
