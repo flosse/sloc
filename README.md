@@ -245,6 +245,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - OCaml
 - Perl 5
 - PHP
+- Pug
 - Python
 - R
 - Racket
