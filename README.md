@@ -52,7 +52,7 @@ Link `sloc.js` in your HTML file:
 <script src="lib/sloc.js"></script>
 ```
 
-sloc is also available via [bower](http://twitter.github.com/bower/):
+sloc is also available via [bower](https://github.com/bower/):
 
 ```shell
 bower install sloc
