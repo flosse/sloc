@@ -83,10 +83,10 @@ module.exports =
           '''
         """
       comment: 10
-      source: 1
+      source: 2
       block: 6
       total: 11
-      single: 3
+      single: 4
       mixed: 2
       empty: 1
     }

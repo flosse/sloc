@@ -29,18 +29,19 @@ getCommentExpressions = (lang) ->
 
       when "coffee", "iced"
         /\#[^\{]/ # hashtag not followed by opening curly brace
-      when "cr", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", "yaml", "hr", "rpy"
+      when "cr", "py", "ls", "mochi", "nix", "r", "rb", "jl", "pl", "yaml", \
+      "hr", "rpy"
         /\#/
       when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
            "scss", "less", "rs", "sass", "styl", "scala", "swift", "ts", \
            "jade", "gs", "nut", "kt", "kts", "tsx", "fs", "fsi", "fsx", "bsl", \
-           "dart", "agda"
+           "dart"
         /\/{2}/
 
       when "latex", "tex", "sty", "cls"
         start = /\%/
-      when "lua", "hs", "sql"
+      when "lua", "hs", "agda", "sql"
         /--/
       when "erl"
         /\%/
@@ -81,7 +82,7 @@ getCommentExpressions = (lang) ->
     when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
          "hpp", "hx", "hxx", "ino", "java", "ls", "nix", "php", "php5", \
          "go", "css", "sass", "scss", "less", "rs", "styl", "scala", "ts", \
-         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart", "agda"
+         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -92,7 +93,7 @@ getCommentExpressions = (lang) ->
       start = /\{\{\!/
       stop = /\}\}/
 
-    when "hs"
+    when "hs", "agda"
       start = /\{-/
       stop  = /-\}/
 
