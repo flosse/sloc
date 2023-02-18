@@ -7,3 +7,4 @@ lib/
 npm-debug.log
 *.log
 report/
+package-lock.json

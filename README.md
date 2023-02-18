@@ -252,6 +252,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - Ruby
 - Rust
 - Scala
+- Solidity
 - Squirrel
 - SVG
 - Swift
