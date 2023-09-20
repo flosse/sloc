@@ -12,7 +12,6 @@ Create stats of your source code:
 - empty lines
 - lines with TODO's
 
-[![Build Status](https://secure.travis-ci.org/flosse/sloc.svg?branch=master)](http://travis-ci.org/flosse/sloc)
 [![Dependency Status](https://gemnasium.com/flosse/sloc.svg)](https://gemnasium.com/flosse/sloc)
 [![NPM version](https://badge.fury.io/js/sloc.svg)](http://badge.fury.io/js/sloc)
 [![Bower version](https://img.shields.io/bower/v/sloc.svg)](https://github.com/flosse/sloc)

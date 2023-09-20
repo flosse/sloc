@@ -4,7 +4,6 @@ examples/
 Cakefile
 .gitignore
 .npmignore
-.travis.yml
 *.swp
 buster.js
 node_modules
