@@ -35,13 +35,13 @@ getCommentExpressions = (lang) ->
       when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
            "scss", "less", "rs", "sass", "styl", "scala", "swift", "ts", \
-           "jade", "pug", "gs", "nut", "kt", "kts", "tsx", "fs", "fsi", "fsx", "bsl", \
-           "dart", "agda"
+           "jade", "pug", "gs", "nut", "kt", "kts", "tsx", \
+           "fs", "fsi", "fsx", "bsl", "dart"
         /\/{2}/
 
       when "latex", "tex", "sty", "cls"
         start = /\%/
-      when "lua", "hs", "sql"
+      when "agda", "lua", "hs", "sql"
         /--/
       when "erl"
         /\%/
@@ -82,7 +82,7 @@ getCommentExpressions = (lang) ->
     when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
          "hpp", "hx", "hxx", "ino", "java", "ls", "nix", "php", "php5", \
          "go", "css", "sass", "scss", "less", "rs", "styl", "scala", "ts", \
-         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart", "agda"
+         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -93,7 +93,7 @@ getCommentExpressions = (lang) ->
       start = /\{\{\!/
       stop = /\}\}/
 
-    when "hs"
+    when "hs", "agda"
       start = /\{-/
       stop  = /-\}/
 
