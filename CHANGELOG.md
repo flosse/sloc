@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.3.0
+
+- updated dependencies
+- new supported languages/file extensions
+  - Agda
+  - Dart
+  - Pug
+  - Ren'Py
+
 ## v0.2.1
 
 - new supported languages/file extensions
