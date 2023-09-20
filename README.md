@@ -13,7 +13,6 @@ Create stats of your source code:
 - lines with TODO's
 
 [![NPM version](https://badge.fury.io/js/sloc.svg)](http://badge.fury.io/js/sloc)
-[![Bower version](https://img.shields.io/bower/v/sloc.svg)](https://github.com/flosse/sloc)
 [![License](https://img.shields.io/npm/l/sloc.svg)](https://github.com/flosse/sloc/blob/master/LICENCE.txt)
 [![Minified size](http://img.shields.io/badge/size-6,1K-blue.svg)](https://github.com/flosse/sloc)
 
@@ -47,20 +46,6 @@ Link `sloc.js` in your HTML file:
 
 ```html
 <script src="lib/sloc.js"></script>
-```
-
-sloc is also available via [bower](https://github.com/bower/):
-
-```shell
-bower install sloc
-```
-
-**Note**:
-You need to compile the coffee-script files yourself.
-If you want to use a pre-compiled bower package, you can run
-
-```shell
-bower install sloc-bower
 ```
 
 ## Usage
