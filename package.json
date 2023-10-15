@@ -26,7 +26,7 @@
     "async": "^3.2.4",
     "cli-table": "^0.3.11",
     "commander": "^11.0.0",
-    "readdirp": "^3.3.0"
+    "readdirp": "^2.2.1"
   },
   "devDependencies": {
     "@coffeelint/cli": "^5.2.11",
