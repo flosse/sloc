@@ -40,24 +40,24 @@ parseFile = (f, cb=->) ->
     cb null, res
 
 print = (result, opts, fmtOpts) ->
-  f = programm.format or 'simple'
+  f = programm.opts().format or 'simple'
   unless (fmt = fmts[f])?
     return console.error "Error: format #{f} is not supported"
   out = fmt result, opts, fmtOpts
-  out = out.replace colorRegex, '' if programm.stripColors
+  out = out.replace colorRegex, '' if programm.opts().stripColors
   console.log out if typeof out is "string"
 
 filterFiles = (files) ->
   res =
-    if programm.exclude
-      exclude = new RegExp programm.exclude
+    if programm.opts().exclude
+      exclude = new RegExp programm.opts().exclude
       files.filter (x) -> not exclude.test x.path
     else
       files
 
   res2 =
-    if programm.include
-      include = new RegExp programm.include
+    if programm.opts().include
+      include = new RegExp programm.opts().include
       res.filter (x) -> include.test x.path
     else
       res
@@ -98,9 +98,9 @@ programm
 
 programm.parse process.argv
 
-options.keys    = programm.keys
-options.details = programm.details
-options.alias   = programm.alias
+options.keys    = programm.opts().keys
+options.details = programm.opts().details
+options.alias   = programm.opts().alias
 for k of options.alias
   exts.push "*.#{k}"
 
@@ -122,10 +122,8 @@ readSingleFile = (f, done) -> parseFile f, (err, res) ->
 
 readDir = (dir, done) ->
   processFile = (f, next) -> parseFile (path.join dir, f), next
-
-  readdirp { root: dir, fileFilter: exts }, (err, res) ->
-    return done(err) if err
-    async.mapLimit (filterFiles res.files), 1000, processFile, done
+  files = await readdirp.promise dir, { fileFilter: exts }
+  return async.mapLimit (filterFiles files), 1000, processFile, done
 
 readSource = (p, done) ->
   fs.lstat p, (err, stats) ->
