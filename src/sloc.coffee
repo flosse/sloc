@@ -30,7 +30,7 @@ getCommentExpressions = (lang) ->
       when "coffee", "iced"
         /\#[^\{]/ # hashtag not followed by opening curly brace
       when "cr", "py", "ls", "mochi", "nix", "r", \
-           "rb", "jl", "pl", "yaml", "hr", "rpy"
+           "rb", "jl", "pl", "prql", "yaml", "hr", "rpy"
         /\#/
       when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
@@ -323,6 +323,7 @@ extensions = [
   "nut"
   "php", "php5"
   "pl"
+  "prql"
   "py"
   "r"
   "rb"
