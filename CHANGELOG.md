@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.1
+
+- fix regression (#137)
+- Remove bower support
+- new supported languages/file extensions
+  - PRQL
+
 ## v0.3.0
 
 - updated dependencies
