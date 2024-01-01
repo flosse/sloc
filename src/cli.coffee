@@ -123,9 +123,10 @@ readSingleFile = (f, done) -> parseFile f, (err, res) ->
 readDir = (dir, done) ->
   processFile = (f, next) -> parseFile (path.join dir, f), next
 
-  readdirp { root: dir, fileFilter: exts }, (err, res) ->
-    return done(err) if err
-    async.mapLimit (filterFiles res.files), 1000, processFile, done
+  readdirp.promise dir, { fileFilter: exts }
+  .then((files) ->  async.mapLimit (filterFiles files), 1000, processFile, done
+  ).catch((err) -> done err)
+
 
 readSource = (p, done) ->
   fs.lstat p, (err, stats) ->
