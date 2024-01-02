@@ -40,24 +40,24 @@ parseFile = (f, cb=->) ->
     cb null, res
 
 print = (result, opts, fmtOpts) ->
-  f = programm.format or 'simple'
+  f = programOptions.format or 'simple'
   unless (fmt = fmts[f])?
     return console.error "Error: format #{f} is not supported"
   out = fmt result, opts, fmtOpts
-  out = out.replace colorRegex, '' if programm.stripColors
+  out = out.replace colorRegex, '' if programOptions.stripColors
   console.log out if typeof out is "string"
 
 filterFiles = (files) ->
   res =
-    if programm.exclude
-      exclude = new RegExp programm.exclude
+    if programOptions.exclude
+      exclude = new RegExp programOptions.exclude
       files.filter (x) -> not exclude.test x.path
     else
       files
 
   res2 =
-    if programm.include
-      include = new RegExp programm.include
+    if programOptions.include
+      include = new RegExp programOptions.include
       res.filter (x) -> include.test x.path
     else
       res
@@ -67,7 +67,7 @@ filterFiles = (files) ->
 options = {}
 fmtOpts = []
 programm
-
+  
   .version pkg.version
 
   .usage '[option] <file> | <directory>'
@@ -97,9 +97,10 @@ programm
     'alias custom ext to act like standard ext', object
 
 programm.parse process.argv
+programOptions = programm.opts()
 
-options.keys    = programm.keys
-options.details = programm.details
+options.keys    = programOptions.keys
+options.details = programOptions.details
 options.alias   = programm.alias
 for k of options.alias
   exts.push "*.#{k}"
