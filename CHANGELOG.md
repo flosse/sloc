@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.2
+
+- fix CLI options (#144)
+
 ## v0.3.1
 
 - fix regression (#137)
