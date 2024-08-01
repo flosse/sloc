@@ -860,4 +860,42 @@ module.exports =
       mixed: 2
       empty: 1
     }
+    {
+      names: ["ex", "exs"]
+      code:
+        """
+          defmodule MyApp.Hello do
+            @moduledoc \"\"\"
+              This is the Hello module.
+            \"\"\"
+            @moduledoc since: "1.0.0"
+
+            @doc \"\"\"
+              Says hello to the given `name`.
+
+              Returns `:ok`.
+
+              ## Example
+              at-docs are written in markdown, 
+              the above is not a comment
+
+                iex> MyApp.Hello.world(:john)
+                :ok
+
+            \"\"\"
+            @doc since: "1.3.0"
+            def world(name) do
+              # Add two numbers together
+              IO.puts("hello")
+            end
+          end
+        """
+      comment: 19
+      source: 5
+      block: 16
+      single: 3
+      total: 25
+      mixed: 0
+      empty: 5
+    }
   ]

@@ -196,6 +196,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - Crystal
 - CSS / SCSS / SASS / LESS / Stylus
 - Dart
+- Elixir 
 - Erlang
 - F#
 - Fortran
@@ -243,6 +244,7 @@ var stats = window.sloc(sourceCode,"javascript");
 - Visual Basic
 - XML
 - Yaml
+- Zig
 
 ## Run tests
 

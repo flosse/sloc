@@ -32,6 +32,9 @@ getCommentExpressions = (lang) ->
       when "cr", "py", "ls", "mochi", "nix", "r", \
            "rb", "jl", "pl", "prql", "yaml", "hr", "rpy"
         /\#/
+      when "ex", "exs"
+        # Matches #, @doc and @moduledoc but not @doc """ or @moduledoc """
+        /(\#)|(\@(module)?doc(?!\s\"{3}))/
       when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
            "scss", "less", "rs", "sass", "styl", "scala", "swift", "ts", \
@@ -133,6 +136,10 @@ getCommentExpressions = (lang) ->
     when "ly", "ily"
       start = /%\{/
       stop  = /%\}/
+
+    when "ex", "exs"
+      start = /(\@(module)?doc\s\"{3})/ # Matches @doc """ or @moduledoc """
+      stop = /\"{3}/
 
     else
       if lang in extensions then start = stop = null
@@ -279,6 +286,7 @@ extensions = [
   "cxx"
   "dart"
   "erl"
+  "ex", "exs"
   "f90"
   "f95"
   "f03"
