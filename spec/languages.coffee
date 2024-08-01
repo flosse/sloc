@@ -898,4 +898,28 @@ module.exports =
       mixed: 0
       empty: 5
     }
+    {
+      names: ["zig"]
+      code:
+        """
+          //! this is a top level doc comment
+
+          const print = @import("std").debug.print;
+
+          /// this is a doc comment
+          pub fn main() void {
+
+            //print("Hello?", .{});
+
+            print("Hello, world!", .{}); // another comment
+          }
+        """
+      comment: 4
+      source: 4
+      block: 0
+      single: 4
+      total: 11
+      mixed: 1
+      empty: 4
+    }
   ]

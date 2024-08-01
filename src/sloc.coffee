@@ -39,7 +39,7 @@ getCommentExpressions = (lang) ->
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
            "scss", "less", "rs", "sass", "styl", "scala", "swift", "ts", \
            "jade", "pug", "gs", "nut", "kt", "kts", "tsx", \
-           "fs", "fsi", "fsx", "bsl", "dart"
+           "fs", "fsi", "fsx", "bsl", "dart", "zig"
         /\/{2}/
 
       when "latex", "tex", "sty", "cls"
@@ -272,6 +272,7 @@ slocModule = (code, lang, opt={}) ->
 extensions = [
   "agda"
   "asm"
+  "bsl"
   "brs"
   "c"
   "cc"
@@ -323,6 +324,8 @@ extensions = [
   "ls"
   "ml"
   "mli"
+  "m"
+  "mm"
   "mochi"
   "monkey"
   "mustache"
@@ -353,9 +356,7 @@ extensions = [
   "vue"
   "xml"
   "yaml"
-  "m"
-  "mm"
-  "bsl"
+  "zig"
 ]
 
 slocModule.extensions = extensions
