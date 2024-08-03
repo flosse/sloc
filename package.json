@@ -32,7 +32,6 @@
     "chai": "~3.5.0",
     "coffee-script": "~1.12.3",
     "coffeelint": "^1.16.0",
-    "coffeescript": "^2.7.0",
     "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
     "mocha": "~3.2.0"
