@@ -921,5 +921,56 @@ module.exports =
       total: 11
       mixed: 1
       empty: 4
+    },
+    {
+      names: ["v", "sv"]
+      code:
+        """
+        // This is a single-line comment
+
+        /*
+          This is a block comment
+          describing the module
+        */
+
+        module hello_world; // This is a comment
+          initial begin
+            $display("Hello, World!");
+          end
+        endmodule
+        """
+      comment: 6
+      source: 5
+      block: 4
+      single: 2
+      total: 12
+      mixed: 1
+      empty: 2
+    },
+    {
+      names: ["vhd", "vhdl"],
+      code:
+        """
+        -- This is a single-line comment
+
+        library ieee;
+        use ieee.std_logic_1164.all;
+
+        entity hello_world is
+          port (
+            clk : in std_logic; -- clock signal
+            --! doxygen comment
+            rst : in std_logic;
+            out : out std_logic
+          );
+        end entity hello_world;
+        """
+      comment: 3,
+      source: 9,
+      block: 0, # no block comments in VHDL
+      single: 3,
+      total: 13,
+      mixed: 1,
+      empty: 2
     }
   ]

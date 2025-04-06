@@ -245,6 +245,9 @@ var stats = window.sloc(sourceCode,"javascript");
 - XML
 - Yaml
 - Zig
+- VHDL
+- Verilog
+- SystemVerilog
 
 ## Run tests
 

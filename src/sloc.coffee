@@ -39,7 +39,7 @@ getCommentExpressions = (lang) ->
            "hpp", "hx", "hxx", "ino", "java", "php", "php5", "go", "groovy", \
            "scss", "less", "rs", "sass", "styl", "scala", "swift", "ts", \
            "jade", "pug", "gs", "nut", "kt", "kts", "tsx", \
-           "fs", "fsi", "fsx", "bsl", "dart", "zig"
+           "fs", "fsi", "fsx", "bsl", "dart", "zig", "v", "sv"
         /\/{2}/
 
       when "latex", "tex", "sty", "cls"
@@ -74,6 +74,8 @@ getCommentExpressions = (lang) ->
         start = /%/
       when "f90", "f95", "f03", "f08", "f18"
         /\!/
+      when "vhd", "vhdl"
+        start = /--/
       else null
 
   ## block comments
@@ -85,7 +87,7 @@ getCommentExpressions = (lang) ->
     when "js", "jsx", "mjs", "c", "cc", "cpp", "cs", "cxx", "h", "m", "mm", \
          "hpp", "hx", "hxx", "ino", "java", "ls", "nix", "php", "php5", \
          "go", "css", "sass", "scss", "less", "rs", "styl", "scala", "ts", \
-         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart"
+         "gs", "groovy", "nut", "kt", "kts", "tsx", "sql", "dart", "v", "sv"
       start = /\/\*+/
       stop  = /\*\/{1}/
 
@@ -346,13 +348,17 @@ extensions = [
   "scss"
   "sty"
   "styl"
+  "sv"
   "svg"
   "sql"
   "swift"
   "tex"
   "ts"
   "tsx"
+  "v"
   "vb"
+  "vhd"
+  "vhdl"
   "vue"
   "xml"
   "yaml"
