@@ -30,9 +30,9 @@
   },
   "devDependencies": {
     "@coffeelint/cli": "^5.2.11",
-    "chai": "^4.3.8",
+    "chai": "^5.2.0",
     "coffeescript": "^2.7.0",
-    "mocha": "^10.2.0"
+    "mocha": "^11.7.0"
   },
   "repository": {
     "type": "git",

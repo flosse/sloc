@@ -1,7 +1,6 @@
 Table = require 'cli-table'
 i18n  = require '../i18n'
 sloc  = require '../sloc'
-path  = require 'path'
 
 module.exports = (data, options, fmtOpts) ->
 
@@ -11,9 +10,11 @@ module.exports = (data, options, fmtOpts) ->
 
   head = if 'no-head' in fmtOpts then [] else (i18n.en[k] for k in heads)
 
-  table = new Table { head }
+  colAligns = Array(heads.length).fill('right')
 
-  statToArray = (d) -> d[k] for k in keys
+  table = new Table { head, colAligns }
+
+  statToArray = (d) -> d[k].toLocaleString() for k in keys
 
   if options.details
     table.push [f.path, statToArray(f.stats)...] for f in data.files
